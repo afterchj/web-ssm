@@ -105,13 +105,10 @@ public class UserController {
         String path = request.getServletContext().getRealPath("/") + "upload";
         System.out.println("path=" + path);
         String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
-        System.out.println(path);
         File targetFile = new File(path, fileName);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
-        int pre = (int) System.currentTimeMillis();
         try {
             file.transferTo(targetFile);
         } catch (Exception e) {
