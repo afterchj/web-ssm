@@ -1,4 +1,4 @@
-package com.heitian.ssm.realm;
+package com.tpadsz.ssm.realm;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

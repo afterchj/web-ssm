@@ -52,7 +52,7 @@
     </bean>
 
     <!-- 自定义Realm -->
-    <bean id="customRealm" class="com.heitian.ssm.realm.CustomRealm1">
+    <bean id="customRealm" class="com.tpadsz.ssm.realm.CustomRealm1">
         <!-- 将凭证匹配器设置到realm中，realm按照凭证匹配器的要求进行散列 -->
         <property name="credentialsMatcher" ref="credentialsMatcher" />
     </bean>

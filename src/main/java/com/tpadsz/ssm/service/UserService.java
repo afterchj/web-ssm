@@ -1,6 +1,6 @@
-package com.heitian.ssm.service;
+package com.tpadsz.ssm.service;
 
-import com.heitian.ssm.model.User;
+import com.tpadsz.ssm.model.User;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.heitian.ssm.controller;
+package com.tpadsz.ssm.controller;
 
-import com.heitian.ssm.model.FileInfo;
-import com.heitian.ssm.model.User;
-import com.heitian.ssm.service.UserService;
+import com.tpadsz.ssm.model.FileInfo;
+import com.tpadsz.ssm.model.User;
+import com.tpadsz.ssm.service.UserService;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -10,12 +10,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -23,7 +21,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -100,7 +97,7 @@ public class UserController {
 
     //    @ResponseBody
     @RequestMapping(value = "/upload.do")
-    public String upload(FileInfo info,@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
+    public String upload(FileInfo info, @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
         System.out.println(info.getFileName()+"     "+info.getDesc());
         String path = request.getServletContext().getRealPath("/") + "upload";
         System.out.println("path=" + path);

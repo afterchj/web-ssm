@@ -1,4 +1,4 @@
-package com.heitian.ssm.model;
+package com.tpadsz.ssm.model;
 
 /**
  * Created by hongjian.chen on 2017/12/22.
