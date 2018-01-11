@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tpadsz.ssm.dao.SPItemDao">
+
+    <resultMap type="SPItem" id="videoType">
+        <id property="id" column="id" javaType="int" jdbcType="INTEGER"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="value" column="value" javaType="String" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" javaType="String" jdbcType="VARCHAR"/>
+        <result property="description" column="description" javaType="String" jdbcType="VARCHAR"/>
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" javaType="int" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getParentTypes" resultMap="videoType">
+		select * from sp_category where dtype='parent'
+	</select>
+
+    <select id="getSubTypes" resultMap="videoType" parameterType="string">
+		select * from sp_category where dtype='children'
+	</select>
+
+    <select id="getSubTypesById" resultMap="videoType" parameterType="int">
+        select sc.*,sp.id from sp_category sp join sp_category sc on sp.id=sc.parent_id and sp.id=#{id}
+    </select>
+</mapper>
