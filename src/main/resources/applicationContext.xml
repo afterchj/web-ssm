@@ -29,6 +29,52 @@
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
+    <bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>
+    <bean id="exampleJob2Detail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 指定任务类 -->
+        <property name="targetObject" ref="exampleJob2"/>
+        <!-- 指定任务执行的方法 -->
+        <property name="targetMethod" value="execute"/>
+    </bean>
+    <bean id="exampleJob2Trigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="exampleJob2Detail"/>
+        <!-- 每10秒运行一次 -->
+        <property name="cronExpression" value="5/15 * * * * ?"/>
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!-- <ref bean="exampleJobTrigger" /> -->
+                <ref bean="exampleJob2Trigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="memcachedClient" destroy-method="shutdown"
+          class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
+        <property name="servers">
+            <value>192.168.51.80:11211</value>
+        </property>
+        <property name="sessionLocator">
+            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
+        </property>
+        <property name="transcoder">
+            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
+        </property>
+        <property name="bufferAllocator">
+            <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"/>
+        </property>
+    </bean>
+
+    <!-- XMemcached客户端 -->
+    <bean id="xMemcachedClient" class="com.tpadsz.ssm.utils.XMemcachedClient">
+        <property name="memcachedClient" ref="memcachedClient"/>
+        <property name="optTimeout" value="1000"/>
+    </bean>
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:/mapping/*Mapper.xml"/>

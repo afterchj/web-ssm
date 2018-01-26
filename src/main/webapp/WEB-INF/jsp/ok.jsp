@@ -21,7 +21,14 @@
 </style>
 </head>
 <body>
-Test is ok!<br>
+Test is ok!${path}<br>
+
+<video width="320" height="240" controls>
+    <source src="/web-ssm/upload/${path}" type="video/mp4">
+    <%--<source src="/web-ssm/upload/${path}" type="video/mp4">--%>
+    <%--<source src="movie.ogg" type="video/ogg">--%>
+    您的浏览器不支持Video标签。
+</video>
 <table border="1px">
     <tr>
         <td>name:</td>

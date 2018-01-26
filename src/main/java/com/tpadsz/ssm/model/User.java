@@ -1,11 +1,12 @@
 package com.tpadsz.ssm.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Zhangxq on 2016/7/15.
  */
-public class User {
+public class User implements Serializable {
 
     private Long id;
     private String userName;

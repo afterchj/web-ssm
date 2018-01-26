@@ -100,8 +100,9 @@ public class UserController {
     public String upload(FileInfo info, @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
         System.out.println(info.getFileName()+"     "+info.getDesc());
         String path = request.getServletContext().getRealPath("/") + "upload";
-        System.out.println("path=" + path);
         String fileName = file.getOriginalFilename();
+        System.out.println("fileName=" + fileName);
+
         File targetFile = new File(path, fileName);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
@@ -111,6 +112,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        request.setAttribute("path",fileName);
         return "ok";
     }
 
