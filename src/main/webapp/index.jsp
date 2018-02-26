@@ -4,6 +4,7 @@
 <h2>Hello World!</h2>
 <a href="user/showUser">userList</a>
 <a href="upload.jsp">文件上传测试</a>
+<a href="importExcel.jsp">导入excel</a>
 <a href="login.jsp">test</a>
 
 <form action="user/upload.do" method="post" name="file" enctype="multipart/form-data">

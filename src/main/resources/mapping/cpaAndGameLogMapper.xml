@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tpadsz.ssm.dao.CpaAndGameDao">
+
+    <resultMap type="com.tpadsz.ssm.model.CpaAndGameLog" id="logMap">
+        <result property="logDate" column="log_date" javaType="date" jdbcType="DATE"/>
+        <result property="taskType" column="task_type" javaType="string" jdbcType="VARCHAR"/>
+        <result property="newUser" column="new_user" javaType="int" jdbcType="INTEGER"/>
+        <result property="taskUser" column="task_user" javaType="int" jdbcType="INTEGER"/>
+        <result property="taskTotal" column="task_total" javaType="int" jdbcType="INTEGER"/>
+        <result property="expendSum" column="expend_sum" javaType="double" jdbcType="DOUBLE"/>
+        <result property="downloadUrl" column="download_url" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getLogInfo" resultType="CpaAndGameLog" parameterType="map">
+        SELECT
+        COUNT(*) taskTotal,
+        SUM(gain) expendSum
+        FROM
+         log_task
+        WHERE
+        task_name = #{type}
+        <if test="ext != null and ext != ''">
+            AND ext= #{ext}
+        </if>
+        AND result_code = '000'
+        GROUP BY
+        DATE_FORMAT(create_date, '%Y-%m-%d')
+        ORDER BY
+        create_date DESC
+    </select>
+
+    <select id="getNewUser" resultType="CpaAndGameLog" parameterType="map">
+        SELECT
+        COUNT(DISTINCT uid) newUser
+        FROM
+             log_task
+        WHERE
+            task_name = #{type}
+        <if test="ext != null and ext != ''">
+            AND ext= #{ext}
+        </if>
+        AND result_code = '000'
+        AND uid IN (
+        SELECT
+            uid
+        FROM
+            test.uid_log_date
+        WHERE
+            DATEDIFF(CURDATE(), log_date) &lt;=7
+            )
+        GROUP BY DATE_FORMAT(create_date,'%Y-%m-%d')
+        ORDER BY create_date DESC
+    </select>
+
+    <select id="getTotalUser" resultType="CpaAndGameLog" parameterType="map">
+        SELECT
+            DATE_FORMAT(create_date, '%Y-%m-%d') logDate,
+            COUNT(DISTINCT uid) taskUser
+        FROM
+             log_task
+        WHERE
+            task_name =#{type}
+        <if test="ext != null and ext != ''">
+            AND ext= #{ext}
+        </if>
+        AND result_code = '000'
+        GROUP BY DATE_FORMAT(create_date,'%Y-%m-%d')
+        ORDER BY create_date DESC
+    </select>
+
+    <select id="getLogData" resultType="CpaAndGameLog" parameterType="map">
+         SELECT
+            DATE_FORMAT(create_date, '%Y-%m-%d') logDate,
+            data_id dataId,
+            data_name dataName,
+            COUNT(*) total
+        FROM
+             log_task
+        WHERE
+            task_name = #{type}
+        <if test="ext != null and ext != ''">
+            AND ext= #{ext}
+        </if>
+        AND result_code = '000'
+        AND DATEDIFF(CURDATE(), create_date) =#{offSet}
+        GROUP BY
+            data_id
+        ORDER BY
+	        total DESC;
+    </select>
+
+    <select id="getDataInfo" resultMap="logMap" parameterType="map">
+        SELECT
+        *
+        FROM
+        cpa_game_log
+        WHERE
+        task_type = #{type}
+        <if test="beginTime != null and endTime != null and beginTime != '' and endTime != ''">
+            AND log_date
+            BETWEEN #{beginTime}
+            AND #{endTime}
+        </if>
+        ORDER BY
+        log_date DESC
+        LIMIT 7
+    </select>
+
+    <insert id="insertLog" parameterType="CpaAndGameLog">
+        insert into boss_locker_data.cpa_game_log(
+        task_type, log_date,
+        new_user,task_user,
+        task_total,expend_sum,
+        download_url
+        )values(
+        #{taskType}, #{logDate},
+        #{newUser},#{taskUser},
+        #{taskTotal},#{expendSum},
+        #{downloadUrl}
+        )
+    </insert>
+
+
+    <insert id="insertLogs" parameterType="java.util.List">
+        insert into boss_locker_data.cpa_game_log(
+        task_type, log_date,
+        new_user,task_user,
+        task_total,expend_sum,
+        download_url
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.taskType}, #{u.logDate},
+            #{u.newUser},#{u.taskUser},
+            #{u.taskTotal},#{u.expendSum},
+            #{u.downloadUrl}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="testInsert" parameterType="java.util.List">
+        <foreach close="" collection="list" index="index" item="u" open="" separator=";">
+            insert into boss_locker_data.cpa_game_log(
+            task_type, log_date,
+            new_user,task_user,
+            task_total,expend_sum,
+            download_url
+            )values
+            (
+            #{u.taskType}, #{u.logDate},
+            #{u.newUser},#{u.taskUser},
+            #{u.taskTotal},#{u.expendSum},
+            #{u.downloadUrl}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

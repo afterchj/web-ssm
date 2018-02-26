@@ -3,7 +3,6 @@ package com.tpadsz.ssm.test;
 import com.tpadsz.ssm.dao.SPItemDao;
 import com.tpadsz.ssm.model.SPItem;
 import com.tpadsz.ssm.model.User;
-import com.tpadsz.ssm.utils.XMemcachedClient;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 import org.apache.ibatis.session.SqlSession;
@@ -66,7 +65,6 @@ public class MyTest {
 
         try {
             memcachedClient.set("testList", 36000, list);
-
             List<User> get = memcachedClient.get("testList");
             for (User u : get) {
                 System.out.println(u.getId() + "\n" + u.getUserName() + "\n" + u.getUserPwd() + "\n" + u.getCreateTime() + "\n" + u.getUserEmail());

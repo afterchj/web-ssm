@@ -16,7 +16,11 @@ public class Job {
     private XMemcachedClient client;
 
 
-    public void execute() throws Exception {
+    public void execute() {
+        System.out.println("自动执行任务时间," + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+    }
+
+    public void testClient() throws Exception {
         User user = new User();
         user.setId(102l);
         user.setCreateTime(new Date());
@@ -34,8 +38,8 @@ public class Job {
         map.put("type", "2");
         map.put("imsi", "112121212");
         map.put("createDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
         System.out.println("自动执行任务时间," + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
         System.out.println("memcachedClient=" + client.getMemcachedClient());
         client.set("userList", 3000, list);
 
