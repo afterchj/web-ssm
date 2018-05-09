@@ -23,6 +23,10 @@
         SELECT * FROM  faq f WHERE f.keyword like CONCAT('%',#{keyword},'%')
     </select>
 
+    <select id="getAll" parameterType="string" resultType="FAQ">
+        SELECT * FROM  faq f
+    </select>
+
     <select id="getAllKey" resultType="string">
         SELECT f.keyword FROM  faq f
     </select>

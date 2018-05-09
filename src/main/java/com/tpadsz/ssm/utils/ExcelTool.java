@@ -7,13 +7,11 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-import jxl.write.WriteException;
+import jxl.write.*;
+import jxl.write.Number;
 import org.apache.ibatis.session.SqlSession;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 
@@ -24,6 +22,35 @@ public class ExcelTool {
 
     private static SqlSession session = MybatisUtil.getSession();
 
+    public static void importExcel() {
+
+        List<FAQ> list3 = session.getMapper(FAQDao.class).getAll();
+        System.out.println(list3.size());
+        WritableWorkbook book = null;
+        try {
+            book = Workbook.createWorkbook(new File("D:/" + "c.xls"));
+            WritableSheet sheet = book.createSheet("test", 0);
+            sheet.addCell(new Label(0, 0, "编号"));
+            sheet.addCell(new Label(1, 0, "问题"));
+            sheet.addCell(new Label(2, 0, "答案"));
+            for (int i = 0; i < list3.size(); i++) {
+                sheet.addCell(new Number(0, i + 1, list3.get(i).getId()));
+                sheet.addCell(new Label(1, i + 1, list3.get(i).getQuestion()));
+                sheet.addCell(new Label(2, i + 1, list3.get(i).getAnswer()));
+            }
+            book.write();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                book.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (WriteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static List<FAQ> exporpExcel() throws IOException, BiffException, WriteException {
         List<FAQ> list = new ArrayList();
@@ -80,9 +107,9 @@ public class ExcelTool {
     }
 
     public static void main(String[] args) throws Exception {
+        importExcel();
 //        System.out.println(selectByKey().size());
-        System.out.println(session.getMapper(FAQDao.class).getAllKey());
-        ;
+//        System.out.println(session.getMapper(FAQDao.class).getAllKey());
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
 //        importExcel(is);
 //        List<FAQ> list = exporpExcel();
