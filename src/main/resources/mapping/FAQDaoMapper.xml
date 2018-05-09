@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tpadsz.ssm.dao.FAQDao">
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert ignore into faq(
+        id, question,
+        answer,url,
+        keyword
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.id}, #{u.question},
+            #{u.answer},#{u.url},
+            #{u.keyword}
+            )
+        </foreach>
+    </insert>
+
+
+    <select id="selectByKey" parameterType="string" resultType="FAQ">
+        SELECT * FROM  faq f WHERE f.keyword like CONCAT('%',#{keyword},'%')
+    </select>
+
+    <select id="getAllKey" resultType="string">
+        SELECT f.keyword FROM  faq f
+    </select>
+</mapper>

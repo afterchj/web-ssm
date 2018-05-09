@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heitian.web</groupId>
     <artifactId>web-ssm</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>web-ssm Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -258,7 +258,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warName>${project.artifactId}</warName>
+                    <!--<warName>${project.artifactId}</warName>-->
                     <!-- 激活spring profile -->
                     <webResources>
                         <resource>
