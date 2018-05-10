@@ -11,17 +11,13 @@ public class MybatisUtil {
     private static ClassPathXmlApplicationContext atx;
 
     static {
-        atx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        atx = new ClassPathXmlApplicationContext("myapplicationContext.xml");
     }
 
 
     public static SqlSession getSession() {
         SqlSessionFactory factory = (SqlSessionFactory) atx.getBean("sqlSessionFactory");
         return factory.openSession();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getSession());
     }
 
 }

@@ -6,6 +6,7 @@
 <a href="upload.jsp">文件上传测试</a>
 <a href="importExcel.jsp">导入excel</a>
 <a href="login.jsp">test</a>
+<a href="pandaHelp/FAQ">FAQ</a>
 
 <form action="user/upload.do" method="post" name="file" enctype="multipart/form-data">
     <p>文件名:<input name="fileName"></p>
