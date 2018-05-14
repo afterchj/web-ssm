@@ -107,8 +107,8 @@ public class ExcelTool {
     }
 
     public static void main(String[] args) throws Exception {
-        importExcel();
-//        System.out.println(selectByKey().size());
+//        importExcel();
+        System.out.println(selectByKey().size());
 //        System.out.println(session.getMapper(FAQDao.class).getAllKey());
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
 //        importExcel(is);
