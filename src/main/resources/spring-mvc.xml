@@ -15,6 +15,7 @@
     <mvc:resources location="/img/" mapping="/img/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/file/" mapping="/file/**"/>
     <!-- 自动扫描  @Controller-->
     <context:component-scan base-package="com.tpadsz.ssm.controller"/>
 
