@@ -140,6 +140,12 @@
 
         <!-- 添加fastjson -->
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.13</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.3.2</version>
@@ -188,6 +194,7 @@
             <artifactId>shiro-all</artifactId>
             <version>1.2.3</version>
         </dependency>
+
 
         <!-- 添加junit4依赖 -->
         <dependency>
