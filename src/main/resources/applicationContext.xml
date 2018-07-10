@@ -56,7 +56,7 @@
     <bean name="memcachedClient" destroy-method="shutdown"
           class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
         <property name="servers">
-            <value>192.168.51.80:11211</value>
+            <value>192.168.51.75:11211</value>
         </property>
         <property name="sessionLocator">
             <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>

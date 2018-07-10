@@ -3,6 +3,7 @@ package com.tpadsz.ssm.utils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -19,6 +20,16 @@ public class MyUtil {
 
     private static RedisTemplate redisTemplate = (RedisTemplate) ctx.getBean("redisTemplate");
 
+
+    @Test
+    public void testPut() {
+        HashOperations opsForHash = redisTemplate.opsForHash();
+        opsForHash.put("he1", "key1", "a");
+        opsForHash.put("he1", "key2", "b");
+        opsForHash.put("he1", "key3", "c");
+        Map<String, Object> entries = opsForHash.entries("he1");
+        System.out.println(entries);//{key3=c, key1=a, key2=b}(无序)
+    }
 
     @Test
     public void testMap() {

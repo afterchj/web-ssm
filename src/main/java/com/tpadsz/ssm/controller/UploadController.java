@@ -1,8 +1,10 @@
 package com.tpadsz.ssm.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
@@ -21,8 +23,10 @@ import java.util.Iterator;
 @RequestMapping("/file")
 public class UploadController {
 
+//    @ResponseBody
     @RequestMapping("/upload1")
     public String addUser(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
+        System.out.println("request="+request.getParameter("comment"));
         String savePath = request.getServletContext().getRealPath("/upload/");
         File file = new File(savePath);
         if (!file.exists()) {
@@ -41,12 +45,14 @@ public class UploadController {
                 }
             }
         }
-        return "/success";
+        return "success";
     }
 
+    @ResponseBody
     @RequestMapping("/upload2")
     public String upload2(HttpServletRequest request) throws IllegalStateException, IOException {
-        String savePath = request.getServletContext().getRealPath("/upload/");
+        System.out.println("request="+request.getParameter("comment"));
+        String savePath = request.getServletContext().getRealPath("/img/");
         File file1 = new File(savePath);
         if (!file1.exists()) {
             file1.mkdir();
@@ -60,10 +66,8 @@ public class UploadController {
                 int pre = (int) System.currentTimeMillis();
                 MultipartFile file = multiRequest.getFile(iter.next());
                 if (file != null) {
-                    String myFileName = file.getOriginalFilename();
-                    if (myFileName.trim() != "") {
-                        System.out.println("fileName---------->=" + myFileName);
-                        String fileName = "demoUpload" + myFileName;
+                    String fileName = file.getOriginalFilename();
+                    if (fileName.trim() != "") {
                         File localFile = new File(savePath + fileName);
                         file.transferTo(localFile);
                     }
@@ -72,7 +76,7 @@ public class UploadController {
                 System.out.println("上传时间=" + (finalTime - pre));
             }
         }
-        return "/success";
+        return "000";
     }
 
     @RequestMapping("/upload")

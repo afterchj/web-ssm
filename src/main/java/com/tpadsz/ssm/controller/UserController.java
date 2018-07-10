@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -95,10 +96,11 @@ public class UserController {
         return "ok";
     }
 
-    //    @ResponseBody
+    @ResponseBody
     @RequestMapping(value = "/upload.do")
     public String upload(FileInfo info, @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
-        System.out.println(info.getFileName()+"     "+info.getDesc());
+        System.out.println("request=" + request.getParameter("comment"));
+//        System.out.println(info.getFileName() + "     " + info.getDesc());
         String path = request.getServletContext().getRealPath("/") + "upload";
         String fileName = file.getOriginalFilename();
         System.out.println("fileName=" + fileName);
@@ -112,7 +114,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        request.setAttribute("path",fileName);
+        request.setAttribute("path", fileName);
         return "ok";
     }
 
