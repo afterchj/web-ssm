@@ -1,8 +1,11 @@
 package com.tpadsz.ssm.utils;
 
+import com.tpadsz.ssm.dao.UserDao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Map;
 
 /**
  * Created by hongjian.chen on 2017/10/24.
@@ -18,6 +21,14 @@ public class MybatisUtil {
     public static SqlSession getSession() {
         SqlSessionFactory factory = (SqlSessionFactory) atx.getBean("sqlSessionFactory");
         return factory.openSession();
+    }
+
+
+    public static void main(String[] args) {
+        Map<String,Object> map=getSession().getMapper(UserDao.class).getUserById(3);
+        for (Map.Entry<String,Object> entry:map.entrySet()){
+            System.out.println("key="+entry.getKey()+",value="+entry.getValue());
+        }
     }
 
 }

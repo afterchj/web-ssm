@@ -19,6 +19,10 @@
         WHERE id = #{userId}
     </select>
 
+    <select id="getUserById" parameterType="int" resultType="map">
+        SELECT * FROM t_user
+        WHERE id = #{userId}
+    </select>
     <!--<select id="selectUserByPhoneOrEmail" resultMap="UserBaseMap">-->
         <!--SELECT * FROM t_user-->
         <!--WHERE user_email = #{emailOrPhone} OR user_phone = #{emailOrPhone}-->
