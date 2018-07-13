@@ -1,6 +1,7 @@
 package com.tpadsz.ssm.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +24,10 @@ import java.util.Iterator;
 @RequestMapping("/file")
 public class UploadController {
 
-//    @ResponseBody
+    //    @ResponseBody
     @RequestMapping("/upload1")
     public String addUser(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
-        System.out.println("request="+request.getParameter("comment"));
+        System.out.println("request=" + request.getParameter("comment"));
         String savePath = request.getServletContext().getRealPath("/upload/");
         File file = new File(savePath);
         if (!file.exists()) {
@@ -51,7 +52,7 @@ public class UploadController {
     @ResponseBody
     @RequestMapping("/upload2")
     public String upload2(HttpServletRequest request) throws IllegalStateException, IOException {
-        System.out.println("request="+request.getParameter("comment"));
+        System.out.println("request=" + request.getParameter("comment"));
         String savePath = request.getServletContext().getRealPath("/img/");
         File file1 = new File(savePath);
         if (!file1.exists()) {
@@ -109,7 +110,8 @@ public class UploadController {
     }
 
     @RequestMapping("/toUpload")
-    public String toUpload() {
+    public String toUpload(ModelMap modelMap) {
+        modelMap.put("result", "success");
         return "/upload";
     }
 }

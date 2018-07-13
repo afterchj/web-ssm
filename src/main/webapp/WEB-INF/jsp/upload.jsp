@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/web-ssm/js/jquery-1.7.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>多文件上传</title>
     <script type="text/javascript">
@@ -12,7 +12,6 @@
         j = 1;
 
         $(document).ready(function () {
-            <%--alert("reulst"+${reult})--%>
             var text1 = $("#newUpload1").html();
             var text2 = $("#newUpload2").html();
 //            alert(text1 + "   " + text2);
@@ -28,6 +27,8 @@
         });
 
         function del_1(o) {
+            var status= "${result}";
+            alert("result:"+ status);
             document.getElementById("newUpload1").removeChild(document.getElementById("div_" + o));
         }
 
@@ -39,7 +40,7 @@
 </head>
 <body>
 
-<h1>springMVC字节流输入上传文件</h1>
+<h1>springMVC字节流输入上传文件:<label style="color: red">${result}</label></h1>
 <form name="userForm1" action="file/upload1" enctype="multipart/form-data" method="post">
     <div id="newUpload1">
         <input type="file" name="files"><br>
