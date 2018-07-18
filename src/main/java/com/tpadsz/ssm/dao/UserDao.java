@@ -11,7 +11,6 @@ import java.util.Map;
  * Created by Zhangxq on 2016/7/15.
  */
 
-@Repository
 public interface UserDao {
 
     User selectUserById(@Param("userId") Long userId);
@@ -23,4 +22,7 @@ public interface UserDao {
     List<User> selectAllUser();
 
     User selectByName(User user);
+
+    void updateUser(Map map);
+
 }

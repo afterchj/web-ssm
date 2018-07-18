@@ -24,11 +24,11 @@ public class MybatisUtil {
     }
 
 
-    public static void main(String[] args) {
-        Map<String,Object> map=getSession().getMapper(UserDao.class).getUserById(3);
-        for (Map.Entry<String,Object> entry:map.entrySet()){
-            System.out.println("key="+entry.getKey()+",value="+entry.getValue());
-        }
-    }
+//    public static void main(String[] args) {
+//        Map<String,Object> map=getSession().getMapper(UserDao.class).getUserById(3);
+//        for (Map.Entry<String,Object> entry:map.entrySet()){
+//            System.out.println("key="+entry.getKey()+",value="+entry.getValue());
+//        }
+//    }
 
 }
