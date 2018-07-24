@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tpadsz.ssm.dao.SPFileDao">
+
+
+    <insert id="insertFiles" parameterType="java.util.List">
+        INSERT INTO sp_file(name,description) VALUES
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.name}, #{u.description}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertDownloads" parameterType="java.util.List">
+        <foreach close="" collection="list" index="index" item="u" open="" separator=";">
+            INSERT INTO sp_file_download( file_id, total_download ) VALUES
+            (
+            #{u.file_id}, #{u.total_download}
+            )
+        </foreach>
+    </insert>
+
+</mapper>
