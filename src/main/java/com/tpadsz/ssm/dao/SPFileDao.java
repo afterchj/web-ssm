@@ -11,4 +11,6 @@ public interface SPFileDao {
     void insertFiles(List list);
 
     void insertDownloads(List list) throws Exception;
+
+    void insertSubSelect(Map map);
 }

@@ -23,4 +23,11 @@
         </foreach>
     </insert>
 
+    <insert id="insertSubSelect" parameterType="map">
+        INSERT INTO sp_file_download( file_id, total_download ) VALUES(
+        ( SELECT id FROM sp_file WHERE id=#{id} ),
+         #{total_download}
+         );
+    </insert>
+
 </mapper>

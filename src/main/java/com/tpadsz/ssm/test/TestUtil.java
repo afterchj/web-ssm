@@ -54,7 +54,7 @@ public class TestUtil {
     @Test
     public void testInsertFile() {
         SqlSession session = MybatisUtil.getSession();
-        Long current=System.currentTimeMillis();
+        Long current = System.currentTimeMillis();
         List<Map> list = new ArrayList<>();
         for (int i = 0; i < 2000; i++) {
             Map map = new HashMap();
@@ -64,18 +64,18 @@ public class TestUtil {
         }
 
         session.getMapper(SPFileDao.class).insertFiles(list);
-        System.out.println("插入时间："+(System.currentTimeMillis()-current/1000));
+        System.out.println("插入时间：" + (System.currentTimeMillis() - current / 1000));
     }
 
     @Test
     public void testInsertDownload() {
 
         SqlSession session = MybatisUtil.getSession();
-        Long current=System.currentTimeMillis();
+        Long current = System.currentTimeMillis();
         List<Map> list = new ArrayList<>();
         for (int i = 0; i < 2000; i++) {
             Map map = new HashMap();
-            map.put("file_id", i+5);
+            map.put("file_id", i + 5);
             map.put("total_download", i);
             list.add(map);
         }
@@ -85,6 +85,15 @@ public class TestUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("插入时间："+(System.currentTimeMillis()-current));
+        System.out.println("插入时间：" + (System.currentTimeMillis() - current));
+    }
+
+    @Test
+    public void testInsertSubSelect() {
+        SqlSession session = MybatisUtil.getSession();
+        Map map = new HashMap();
+        map.put("id", 2005);
+        map.put("total_download", 2018);
+        session.getMapper(SPFileDao.class).insertSubSelect(map);
     }
 }
