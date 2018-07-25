@@ -17,11 +17,15 @@ import java.util.*;
 public class TestUtil {
     @Test
     public void test1() {
-        List<Map<String, Object>> listItems = createList();
-        for (int i = 0; i < listItems.size(); i++) {
-            String jsonStr = JSONUtils.toJSONString(listItems.get(i));
-            System.out.println(jsonStr);
+        Random random=new Random();
+        for (int i=0;i<100;i++){
+            System.out.println(random.nextInt(2000)+1);
         }
+//        List<Map<String, Object>> listItems = createList();
+//        for (int i = 0; i < listItems.size(); i++) {
+//            String jsonStr = JSONUtils.toJSONString(listItems.get(i));
+//            System.out.println(jsonStr);
+//        }
     }
 
     public static List<Map<String, Object>> createList() {
@@ -90,10 +94,13 @@ public class TestUtil {
 
     @Test
     public void testInsertSubSelect() {
+        Random random=new Random();
         SqlSession session = MybatisUtil.getSession();
-        Map map = new HashMap();
-        map.put("id", 2005);
-        map.put("total_download", 2018);
-        session.getMapper(SPFileDao.class).insertSubSelect(map);
+        for (int i=0;i<100;i++){
+            Map map = new HashMap();
+            map.put("id",random.nextInt(2000)+1);
+            map.put("total_download", i+1);
+            session.getMapper(SPFileDao.class).insertSubSelect(map);
+        }
     }
 }

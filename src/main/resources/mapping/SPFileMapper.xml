@@ -24,10 +24,11 @@
     </insert>
 
     <insert id="insertSubSelect" parameterType="map">
-        INSERT INTO sp_file_download( file_id, total_download ) VALUES(
+        INSERT INTO sp_file_download( file_id, total_download, log_time ) VALUES(
         ( SELECT id FROM sp_file WHERE id=#{id} ),
-         #{total_download}
-         );
+         #{total_download},
+        NOW()
+         )
     </insert>
 
 </mapper>
