@@ -3,12 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                         http://www.springframework.org/schema/context
                         http://www.springframework.org/schema/context/spring-context-4.0.xsd
                         http://www.springframework.org/schema/mvc
-                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <mvc:annotation-driven/>
     <!--<mvc:default-servlet-handler/>-->
@@ -52,5 +53,18 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="4096"/>
     </bean>
+
+    <websocket:handlers allowed-origins="*">
+        <!-- 就是ws://localhost:8080/TestSpring4/websocket.do映射到/websocket.do其中TestSpring4是项目名称 -->
+        <websocket:mapping path="/websocket" handler="demoWSHandler"/>
+        <!--&lt;!&ndash; 不自定义拦截器，我的Chrome测试也正常，所以这里注释起来了。-->
+         <websocket:handshake-interceptors>
+            <bean class="com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor"/>
+        </websocket:handshake-interceptors>
+         <!--&ndash;&gt;-->
+    </websocket:handlers>
+
+    <bean id="demoWSHandler" class="com.tpadsz.ssm.websocket.SpringWebSocketHandler"/>
+    <!--<bean id="wsClientManager" class="com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor"/>-->
 
 </beans>

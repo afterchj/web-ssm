@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * Created by hongjian.chen on 2018/1/25.
  */
-public class XMemcachedClient implements DisposableBean {
+public class  XMemcachedClient implements DisposableBean {
 
     private static Logger logger = LoggerFactory.getLogger(XMemcachedClient.class);
 
