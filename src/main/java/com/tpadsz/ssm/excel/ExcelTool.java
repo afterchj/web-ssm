@@ -105,11 +105,11 @@ public class ExcelTool {
         }
     }
 
-//    public static void main(String[] args) throws Exception {
-//        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
-//        importExcel(is);
-//        Map map = new HashMap();
-//        map.put("type", "新快速");
-//        exportExcel(map, "D:\\mnt\\info.xls");
-//    }
+    public static void main(String[] args) throws Exception {
+        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
+        importExcel(is);
+        Map map = new HashMap();
+        map.put("type", "新快速");
+        exportExcel(map, "D:\\mnt\\info.xls");
+    }
 }

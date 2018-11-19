@@ -3,6 +3,7 @@ package com.tpadsz.ssm.utils;
 
 import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.FAQ;
+import com.tpadsz.ssm.model.Shop;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -52,9 +53,9 @@ public class ExcelTool {
         }
     }
 
-    public static List<FAQ> exporpExcel() throws IOException, BiffException, WriteException {
-        List<FAQ> list = new ArrayList();
-        String filePath = "D:\\b.xls";
+    public static List<Shop> exporpExcel() throws IOException, BiffException, WriteException {
+        List<Shop> list = new ArrayList();
+        String filePath = "D:\\pid.xls";
         InputStream is = null;
         Workbook rwb = null;
 
@@ -78,14 +79,15 @@ public class ExcelTool {
         System.out.println("row=" + row);
 
         //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
-        for (int i = 1; i < row - 1; i++) {
-            FAQ faq = new FAQ();
+        for (int i = 0; i < row; i++) {
+//            FAQ faq = new FAQ();
+            Shop faq=new Shop();
             for (int j = 0; j < col; j++) {
-                faq.setId(Integer.parseInt(sht.getCell(0, i).getContents()));
-                faq.setQuestion(sht.getCell(1, i).getContents());
-                faq.setUrl(sht.getCell(2, i).getContents());
-                faq.setAnswer(sht.getCell(3, i).getContents());
-                faq.setKeyword(sht.getCell(4, i).getContents());
+                faq.setPid(Integer.parseInt(sht.getCell(0, i).getContents()));
+                faq.setMid(sht.getCell(1, i).getContents());
+//                faq.setUrl(sht.getCell(2, i).getContents());
+//                faq.setAnswer(sht.getCell(3, i).getContents());
+//                faq.setKeyword(sht.getCell(4, i).getContents());
             }
             list.add(faq);
         }
@@ -112,7 +114,7 @@ public class ExcelTool {
 //        System.out.println(session.getMapper(FAQDao.class).getAllKey());
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
 //        importExcel(is);
-//        List<FAQ> list = exporpExcel();
-//        session.getMapper(FAQDao.class).insertBatch(list);
+        List<Shop> list = exporpExcel();
+        session.getMapper(FAQDao.class).insertShop(list);
     }
 }

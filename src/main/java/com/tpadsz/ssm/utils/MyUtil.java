@@ -91,7 +91,11 @@ public class MyUtil {
     @Test
     public void test() {
 
-        ValueOperations<Serializable, Serializable> opsForValue = redisTemplate.opsForValue();
+        ValueOperations opsForValue = redisTemplate.opsForValue();
+        String key="uic_cache_alipay_times_8bd036f28c934b7ca9a428adf06e6f66";
+//        redisTemplate.opsForValue().set(key, "1");
+        String times = (String) redisTemplate.opsForValue().get(key);
+        System.out.println("times="+times);
         opsForValue.set("mapRecord", "121");
         System.out.println(opsForValue.get("mapRecord"));
 //        redisTemplate.opsForList().remove("framework", 3, "spring");

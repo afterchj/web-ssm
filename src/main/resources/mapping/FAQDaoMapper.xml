@@ -18,6 +18,17 @@
         </foreach>
     </insert>
 
+    <insert id="insertShop" parameterType="java.util.List">
+        insert ignore into shop(
+        pid, mid
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.pid}, #{u.mid}
+            )
+        </foreach>
+    </insert>
+
 
     <select id="selectByKey" parameterType="string" resultType="FAQ">
         SELECT * FROM  faq f WHERE f.keyword like CONCAT('%',#{keyword},'%')
