@@ -56,16 +56,13 @@
     <bean name="memcachedClient" destroy-method="shutdown"
           class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
         <property name="servers">
-            <value>192.168.51.75:11211</value>
+            <value>${memcached.url}</value>
         </property>
         <property name="sessionLocator">
             <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
         </property>
         <property name="transcoder">
             <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
-        </property>
-        <property name="bufferAllocator">
-            <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"/>
         </property>
     </bean>
 
