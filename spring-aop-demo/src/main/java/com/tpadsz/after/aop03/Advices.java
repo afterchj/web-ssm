@@ -22,9 +22,9 @@ public class Advices {
     @Around("execution(* com.tpadsz.after.aop03.MathService.s*(..))")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println(pjp.getSignature().getName());
-        System.out.println("----------do before----------");
+        System.out.println("----------around before----------");
         Object result = pjp.proceed();
-        System.out.println("----------do post----------");
+        System.out.println("----------around post----------");
         return result;
     }
 
