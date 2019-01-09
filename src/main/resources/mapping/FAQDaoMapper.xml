@@ -29,6 +29,31 @@
         </foreach>
     </insert>
 
+    <insert id="insertPayRecord" parameterType="java.util.List">
+        insert into alipay_record(
+        create_time,
+        modify_time,
+        trade_sources,
+        trade_description,
+        counterparty,
+        shop_name,
+        money,
+        trade_type,
+        trade_status,
+        notes,
+        money_change
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.create_time}, #{u.modify_time},
+            #{u.trade_sources}, #{u.trade_description},
+            #{u.counterparty}, #{u.shop_name},
+            #{u.money}, #{u.trade_type},
+            #{u.trade_status}, #{u.notes},
+            #{u.money_change}
+            )
+        </foreach>
+    </insert>
 
     <select id="selectByKey" parameterType="string" resultType="FAQ">
         SELECT * FROM  faq f WHERE f.keyword like CONCAT('%',#{keyword},'%')

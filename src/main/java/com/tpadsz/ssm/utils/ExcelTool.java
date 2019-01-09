@@ -23,13 +23,13 @@ public class ExcelTool {
 
     private static SqlSession session = MybatisUtil.getSession();
 
-    public static void importExcel() {
+    public static void exportExcel() {
 
         List<FAQ> list3 = session.getMapper(FAQDao.class).getAll();
         System.out.println(list3.size());
         WritableWorkbook book = null;
         try {
-            book = Workbook.createWorkbook(new File("D:/" + "c.xls"));
+            book = Workbook.createWorkbook(new File("D:/c.xls"));
             WritableSheet sheet = book.createSheet("test", 0);
             sheet.addCell(new Label(0, 0, "编号"));
             sheet.addCell(new Label(1, 0, "问题"));
@@ -53,7 +53,7 @@ public class ExcelTool {
         }
     }
 
-    public static List<Shop> exporpExcel() throws IOException, BiffException, WriteException {
+    public static List<Shop> importExcel() throws IOException, BiffException, WriteException {
         List<Shop> list = new ArrayList();
         String filePath = "D:\\pid.xls";
         InputStream is = null;
@@ -81,14 +81,12 @@ public class ExcelTool {
         //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
         for (int i = 0; i < row; i++) {
 //            FAQ faq = new FAQ();
-            Shop faq=new Shop();
-            for (int j = 0; j < col; j++) {
-                faq.setPid(Integer.parseInt(sht.getCell(0, i).getContents()));
-                faq.setMid(sht.getCell(1, i).getContents());
+            Shop faq = new Shop();
+            faq.setPid(Integer.parseInt(sht.getCell(0, i).getContents()));
+            faq.setMid(sht.getCell(1, i).getContents());
 //                faq.setUrl(sht.getCell(2, i).getContents());
 //                faq.setAnswer(sht.getCell(3, i).getContents());
 //                faq.setKeyword(sht.getCell(4, i).getContents());
-            }
             list.add(faq);
         }
         return list;
@@ -113,8 +111,8 @@ public class ExcelTool {
         System.out.println(selectByKey().size());
 //        System.out.println(session.getMapper(FAQDao.class).getAllKey());
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
-//        importExcel(is);
-        List<Shop> list = exporpExcel();
+//        exportExcel();
+        List<Shop> list = importExcel();
         session.getMapper(FAQDao.class).insertShop(list);
     }
 }

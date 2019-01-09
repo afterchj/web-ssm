@@ -1,6 +1,7 @@
 package com.tpadsz.ssm.dao;
 
 
+import com.tpadsz.ssm.model.AlipayRecord;
 import com.tpadsz.ssm.model.FAQ;
 import com.tpadsz.ssm.model.Shop;
 
@@ -13,6 +14,8 @@ public interface FAQDao {
     void insertBatch(List<FAQ> list);
 
     void insertShop(List<Shop> list);
+
+    void insertPayRecord(List<AlipayRecord> records);
 
     List<FAQ> selectByKey(String keyword) throws Exception;
 
