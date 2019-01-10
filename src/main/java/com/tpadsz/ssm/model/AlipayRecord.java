@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class AlipayRecord {
     private int id;
+    private String account;
     private Date create_time;
     private Date modify_time;
     private String trade_sources;
@@ -25,6 +26,14 @@ public class AlipayRecord {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public Date getCreate_time() {
