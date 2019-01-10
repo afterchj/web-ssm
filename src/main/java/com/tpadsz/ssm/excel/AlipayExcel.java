@@ -32,8 +32,6 @@ public class AlipayExcel {
         System.out.println(sht.getCell(0, 5).getContents() + "\t" + sht.getCell(15, 5).getContents());
         System.out.println("crate_time=" + sht.getCell(2, 5).getContents() + ",modify_time=" + sht.getCell(4, 5).getContents() + ",money=" + sht.getCell(9, 5).getContents());
         System.out.println("crate_time=" + format.parse(sht.getCell(2, 7).getContents()) + ",modify_time=" + format.parse(sht.getCell(4, 7).getContents()) + ",money=" + Double.parseDouble(sht.getCell(9, 5).getContents()));
-
-//        //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
         for (int i = 5; i < row-8; i++) {
             AlipayRecord record = new AlipayRecord();
             String createTime = sht.getCell(2, i).getContents();
@@ -58,10 +56,10 @@ public class AlipayExcel {
         session.getMapper(FAQDao.class).insertPayRecord(list);
     }
 
-
     public static void main(String[] args) throws Exception {
         InputStream is = new FileInputStream(new File("D:/mnt/alipay_record_2018.xls"));
         InputStream is2 = new FileInputStream(new File("D:/mnt/alipay_record_2017.xls"));
-        importExcel(is2);
+        InputStream is3 = new FileInputStream(new File("D:/mnt/alipay_record_2016.xls"));
+        importExcel(is3);
     }
 }

@@ -11,9 +11,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
        default-lazy-init="true">
 
-    <context:property-placeholder
-            ignore-resource-not-found="true"
-            location="classpath*:/setup.properties, classpath*:/setup.development.properties"/>
+    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>
 
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy/>
@@ -21,37 +19,33 @@
     <!-- 配置在java类中能够使用Annotation -->
     <context:annotation-config/>
 
-    <!-- 配置Annotaton 版本的bean -->
-    <context:component-scan base-package="com">
-        <context:exclude-filter type="aspectj" expression="com.tpadsz.ssm.controller.*"/>
-    </context:component-scan>
+    <!-- 自动扫描 -->
+    <context:component-scan base-package="com.tpadsz.ssm"/>
 
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-    <bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>
-    <bean id="exampleJob2Detail"
-          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <!-- 指定任务类 -->
-        <property name="targetObject" ref="exampleJob2"/>
-        <!-- 指定任务执行的方法 -->
-        <property name="targetMethod" value="execute"/>
-    </bean>
-    <bean id="exampleJob2Trigger"
-          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail" ref="exampleJob2Detail"/>
-        <!-- 每10秒运行一次 -->
-        <property name="cronExpression" value="5/15 * * * * ?"/>
-    </bean>
-
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-        <property name="triggers">
-            <list>
-                <!-- <ref bean="exampleJobTrigger" /> -->
-                <ref bean="exampleJob2Trigger"/>
-            </list>
-        </property>
-    </bean>
+    <!--<bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>-->
+    <!--<bean id="exampleJob2Detail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+        <!--&lt;!&ndash; 指定任务类 &ndash;&gt;-->
+        <!--<property name="targetObject" ref="exampleJob2"/>-->
+        <!--&lt;!&ndash; 指定任务执行的方法 &ndash;&gt;-->
+        <!--<property name="targetMethod" value="execute"/>-->
+    <!--</bean>-->
+    <!--<bean id="exampleJob2Trigger"-->
+          <!--class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+        <!--<property name="jobDetail" ref="exampleJob2Detail"/>-->
+        <!--&lt;!&ndash; 每10秒运行一次 &ndash;&gt;-->
+        <!--<property name="cronExpression" value="5/15 * * * * ?"/>-->
+    <!--</bean>-->
+    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                 <!--&lt;!&ndash;<ref bean="exampleJobTrigger" /> &ndash;&gt;-->
+                <!--<ref bean="exampleJob2Trigger"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <bean name="memcachedClient" destroy-method="shutdown"
           class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">

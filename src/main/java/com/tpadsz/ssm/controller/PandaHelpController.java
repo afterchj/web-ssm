@@ -24,8 +24,9 @@ public class PandaHelpController {
     @Autowired
     FAQService faqService;
 
-    @RequestMapping("FAQ")
+    @RequestMapping("/FAQ")
     public String searchByKey(String keyword, ModelMap modelMap) throws WriteException, IOException, BiffException {
+        System.out.println("search keying...");
         if (keyword == null || keyword.equals("")) {
 //            modelMap.addAttribute("flag", "0");
             return "panda_help";
@@ -36,7 +37,7 @@ public class PandaHelpController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        System.out.println("keyword=" + keyword + ",size=" + list.size());
+        System.out.println("keyword=" + keyword + ",size=" + list.size());
         modelMap.put("list", list);
         if (list.size() == 0) {
             modelMap.remove("list");

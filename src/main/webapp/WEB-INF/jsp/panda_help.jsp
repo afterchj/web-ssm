@@ -50,7 +50,7 @@
 <div class="wrap">
     <div class="search">
         <hr style="margin-left: -20px">
-        <form action="/web-ssm/pandaHelp/FAQ" method="post">
+        <form action="FAQ" method="post">
             <div class="part">
                 <div class="ptit ptit1">
                     <c:choose>
@@ -85,7 +85,7 @@
         <c:if test="${flag== '0'}">
             <span style="color: red">抱歉，没有找到相关问题，以下是所有问题</span>
         </c:if>
-       <iframe width="100%" height="80%" frameborder="0" src="/web-ssm/search.jsp"></iframe>
+       <iframe width="100%" height="80%" frameborder="0" src="../search.jsp"></iframe>
     </c:if>
 
     <!--  <div style="margin-top: 1px;">
