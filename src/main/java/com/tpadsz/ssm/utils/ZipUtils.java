@@ -16,16 +16,15 @@ public class ZipUtils {
 
 
     @SuppressWarnings("unchecked")
-    public static Map<String,Object> unZipFiles(String zipFilePath, String fileSavePath, boolean isDelete) throws Exception {
-        Map<String,Object> map=new HashMap<String, Object>();
+    public static File unZipFiles(File file, String fileSavePath, boolean isDelete) throws Exception {
+        String strPath, filePath, fileName = "";
         try {
-            File f = new File(zipFilePath);
-            if ((!f.exists()) && (f.length() <= 0)) {
+            if ((!file.exists()) && (file.length() <= 0)) {
                 throw new RuntimeException("要解压的文件不存在!");
             }
             //一定要加上编码，之前解压另外一个文件，没有加上编码导致不能解压
-            ZipFile zipFile = new ZipFile(f, "gbk");
-            String strPath, filePath, fileName;
+            ZipFile zipFile = new ZipFile(file, "gbk");
+
             strPath = fileSavePath;// 输出的绝对位置
             Enumeration<ZipEntry> e = zipFile.getEntries();
             while (e.hasMoreElements()) {
@@ -50,9 +49,9 @@ public class ZipUtils {
                             File subdir = new File(temp);
                             if (!subdir.exists())
                                 subdir.mkdir();
-                            System.out.println("filePath="+filePath+",fileName="+fileName);
                         }
                     }
+                    System.out.println("filePath=" + filePath + ",fileName=" + fileName);
                     FileOutputStream fos = new FileOutputStream(fileName);
                     BufferedOutputStream bos = new BufferedOutputStream(fos);
                     int len;
@@ -71,16 +70,19 @@ public class ZipUtils {
             throw e;
         }
         if (isDelete) {
-            boolean flag = new File(zipFilePath).delete();
+            boolean flag = file.delete();
             logger.debug("删除源文件结果: " + flag);
         }
         logger.debug("compress files success");
-        return map;
+        return new File(fileName);
     }
 
     public static void main(String[] args) throws Exception {
-        unZipFiles("D:/temp/test.zip", "D:/test/", false);
-//      unZipFiles("E:\\exda.zip", "E:\\", true);
+        String targetPath = "D:/temp/";
+        File file = new File("C:/mnt/alipay_record_20190109_1642.zip");
+        unZipFiles(file, targetPath, false);
+        File file1 = new File("C:\\temp\\img.zip");
+        unZipFiles(file1, targetPath, true);
 //      compressFiles("E:\\exda.zip", "E:\\");
     }
 }

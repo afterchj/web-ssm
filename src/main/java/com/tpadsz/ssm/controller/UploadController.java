@@ -1,11 +1,9 @@
 package com.tpadsz.ssm.controller;
 
+import com.tpadsz.ssm.utils.ZipUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
@@ -13,7 +11,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 
 
@@ -25,8 +22,8 @@ import java.util.Iterator;
 public class UploadController {
 
     //    @ResponseBody
-    @RequestMapping("/upload1")
-    public String addUser(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
+    @RequestMapping(value = "/upload1", method = RequestMethod.POST)
+    public String addUser(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) throws Exception {
         System.out.println("request=" + request.getParameter("comment"));
         String savePath = request.getServletContext().getRealPath("/upload/");
         File file = new File(savePath);
@@ -37,21 +34,17 @@ public class UploadController {
             System.out.println("fileName---------->" + files[i].getOriginalFilename());
             if (!files[i].isEmpty()) {
                 int pre = (int) System.currentTimeMillis();
-                try {
-                    files[i].transferTo(new File(savePath + files[i].getOriginalFilename()));
-                    int finalTime = (int) System.currentTimeMillis();
-                    System.out.println("上传时间=" + (finalTime - pre));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                saveFile(files[i], savePath);
+                int finalTime = (int) System.currentTimeMillis();
+                System.out.println("上传时间=" + (finalTime - pre));
             }
         }
         return "success";
     }
 
-    @ResponseBody
-    @RequestMapping("/upload2")
-    public String upload2(HttpServletRequest request) throws IllegalStateException, IOException {
+    //    @ResponseBody
+    @RequestMapping(value = "/upload2", method = RequestMethod.POST)
+    public String upload2(HttpServletRequest request) throws Exception {
         System.out.println("request=" + request.getParameter("comment"));
         String savePath = request.getServletContext().getRealPath("/img/");
         File file1 = new File(savePath);
@@ -67,21 +60,17 @@ public class UploadController {
                 int pre = (int) System.currentTimeMillis();
                 MultipartFile file = multiRequest.getFile(iter.next());
                 if (file != null) {
-                    String fileName = file.getOriginalFilename();
-                    if (fileName.trim() != "") {
-                        File localFile = new File(savePath + fileName);
-                        file.transferTo(localFile);
-                    }
+                    saveFile(file, savePath);
                 }
                 int finalTime = (int) System.currentTimeMillis();
                 System.out.println("上传时间=" + (finalTime - pre));
             }
         }
-        return "000";
+        return "success";
     }
 
-    @RequestMapping("/upload")
-    public String filesUpload(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String filesUpload(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) throws Exception {
         String savePath = request.getServletContext().getRealPath("/upload/");
         File filePath = new File(savePath);
         if (!filePath.exists()) {
@@ -96,11 +85,13 @@ public class UploadController {
         return "ok";
     }
 
-    private boolean saveFile(MultipartFile file, String savePath) {
+    private boolean saveFile(MultipartFile file, String savePath) throws Exception {
         System.out.println("file=" + savePath + file.getOriginalFilename());
+        File targetFile = new File(savePath + file.getOriginalFilename());
+        System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, savePath, true).getPath());
         if (!file.isEmpty()) {
             try {
-                file.transferTo(new File(savePath + file.getOriginalFilename()));
+                file.transferTo(targetFile);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

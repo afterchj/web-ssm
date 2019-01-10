@@ -25,6 +25,11 @@
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
+        <!-- 配置是否强制使用过滤器 -->
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>

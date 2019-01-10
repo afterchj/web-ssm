@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>多文件上传</title>
     <script type="text/javascript">
-        i = 1;
-        j = 1;
+        var i = 1;
+        var j = 1;
 
         $(document).ready(function () {
             var text1 = $("#newUpload1").html();
@@ -27,8 +27,8 @@
         });
 
         function del_1(o) {
-            var status= "${result}";
-            alert("result:"+ status);
+            var status = "${result}";
+            alert("result:" + status);
             document.getElementById("newUpload1").removeChild(document.getElementById("div_" + o));
         }
 
@@ -41,7 +41,7 @@
 <body>
 
 <h1>springMVC字节流输入上传文件:<label style="color: red">${result}</label></h1>
-<form name="userForm1" action="file/upload1" enctype="multipart/form-data" method="post">
+<form name="userForm1" action="file/upload" enctype="multipart/form-data" method="post">
     <div id="newUpload1">
         <input type="file" name="files"><br>
         <%--描述： <input name="desc" type="text">--%>
@@ -59,7 +59,6 @@
     </div>
     <input type="button" id="btn_add2" value="增加一行">
     <input type="submit" value="上传">
-
 </form>
 </body>
 </html>
