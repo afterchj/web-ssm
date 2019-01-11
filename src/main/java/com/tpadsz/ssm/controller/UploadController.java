@@ -90,7 +90,7 @@ public class UploadController {
     }
 
 
-    @RequestMapping(value = "/toUpload",method = RequestMethod.POST)
+    @RequestMapping(value = "/toUpload")
     public String toUpload(ModelMap modelMap) {
         modelMap.put("result", "success");
         return "/upload";

@@ -25,10 +25,10 @@ public class FileUtils {
         System.out.println("file=" + targetFile.getPath());
         try {
             if (!file.isEmpty()) {
+                System.out.println("文件解压位置=" + targetFile.getPath());
                 file.transferTo(targetFile);
                 if (flag && suffix.equals(".zip")) {
-                    List<File> files = unZipFiles(targetFile, savePath, flag);
-                    System.out.println("文件解压位置=" + files.get(0).getPath());
+                   unZipFiles(targetFile, savePath, flag);
                 }
                 return true;
             }
