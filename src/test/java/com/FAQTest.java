@@ -82,10 +82,10 @@ public class FAQTest {
     @Test
     public void testMonthExpend() {
         List<Map> list = getSession().selectList("record.monthExpend");
-        Map<String, Object> map = list.get(0);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            System.out.println("key = " + entry.getKey() + ", value = " + entry.getValue());
-        }
+//        Map<String, Object> map = list.get(0);
+//        for (Map.Entry<String, Object> entry : map.entrySet()) {
+//            System.out.println("key = " + entry.getKey() + ", value = " + entry.getValue());
+//        }
         System.out.println(JSON.toJSONString(list).replace(" ", ""));
     }
 }

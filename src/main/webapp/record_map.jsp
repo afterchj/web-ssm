@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>echarts.js案例一</title>
     <script type="text/javascript" src='js/echarts.js'></script>
+    <script type="text/javascript" src='js/jquery-1.7.min.js'></script>
 </head>
 <style type="text/css">
     .small {
@@ -12,13 +13,34 @@
         height: 400px;
         float: left;
     }
-    .big{
+
+    .big {
         clear: left;
         width: 1000px;
         height: 600px;
     }
 </style>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "charts/showYearExpend",
+//                data: {username:$("#username").val(), content:$("#content").val()},
+            dataType: "json",
+            success: function (data) {
+                console.log("data=" + JSON.stringify(data));
+                $('#resText').empty();   //清空resText里面的所有内容
+                var html = '';
+                $.each(data, function (commentIndex, comment) {
+                    html += '<div class="comment"><h6>' + comment['perYear'] + '：' + comment['total'] + '</div>';
+                });
+                $('#resText').html(html);
+            }
+        });
+    });
+</script>
 <body>
+<div id="resText"></div>
 <div id="main" class="small"></div>
 <div id="chart" class="small"></div>
 <div id="main1" class="big"></div>
@@ -26,16 +48,16 @@
 <script type="text/javascript">
     //解析json数组即对JSONArray的遍历
     var data = [{name: "a", age: 12}, {name: "b", age: 11}, {name: "c", age: 13}, {name: "d", age: 14}];
-    for (var o in data) {
-        console.log("o=" + o);
-        console.log("data[o]=" + data[o]);
-        console.log("key:" + data[o].name + " ,value:" + data[o].age);
-    }
+    //    for (var o in data) {
+    //        console.log("o=" + o);
+    //        console.log("data[o]=" + data[o]);
+    //        console.log("key:" + data[o].name + " ,value:" + data[o].age);
+    //    }
     //遍历json对象
-    var myJson = {"name": "after", "password": "1111"};
-    for (var p in myJson) {//遍历json对象的每个key/value对,p为key
-        console.log(p + " " + myJson[p]);
-    }
+    //    var myJson = {"name": "after", "password": "1111"};
+    //    for (var p in myJson) {//遍历json对象的每个key/value对,p为key
+    //        console.log(p + " " + myJson[p]);
+    //    }
     var json = [
         {"name": "key1", "value": "12"},
         {"name": "key2", "value": "32"},
