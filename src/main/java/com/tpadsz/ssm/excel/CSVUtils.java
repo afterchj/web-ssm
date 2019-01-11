@@ -86,6 +86,7 @@ public class CSVUtils {
             String line;
             String account = "";
             while ((line = br.readLine()) != null) {
+//                line = line.replace(" ", "");
                 String[] contents = line.split(",");
                 if (contents.length == 1 && line.contains("账号")) {
                     String str = contents[0];
