@@ -88,7 +88,7 @@ public class UploadController {
     private boolean saveFile(MultipartFile file, String savePath) throws Exception {
         System.out.println("file=" + savePath + file.getOriginalFilename());
         File targetFile = new File(savePath + file.getOriginalFilename());
-        System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, savePath, true).getPath());
+        System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, savePath, true).get(0).getPath());
         if (!file.isEmpty()) {
             try {
                 file.transferTo(targetFile);

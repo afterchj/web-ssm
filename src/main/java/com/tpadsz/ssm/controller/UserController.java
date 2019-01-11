@@ -112,7 +112,7 @@ public class UserController {
         }
         try {
             file.transferTo(targetFile);
-            System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, path, false).getPath());
+            System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, path, false).get(0).getPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
