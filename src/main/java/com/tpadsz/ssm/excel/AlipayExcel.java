@@ -3,13 +3,15 @@ package com.tpadsz.ssm.excel;
 import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.*;
 import com.tpadsz.ssm.utils.MybatisUtil;
+import com.tpadsz.ssm.utils.ZipUtils;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -17,11 +19,23 @@ import java.util.*;
  * Created by hongjian.chen on 2017/10/24.
  */
 public class AlipayExcel {
+
+    private static Logger logger = Logger.getLogger(AlipayExcel.class);
     private static SqlSession session = MybatisUtil.getSession();
 
-    public static List<AlipayRecord> importExcel(InputStream is) throws Exception {
+    public static List<AlipayRecord> importExcel(String fileName) {
         List<AlipayRecord> list = new ArrayList();
-        Workbook rwb = Workbook.getWorkbook(is);
+        Workbook rwb = null;
+        try {
+            InputStream in = new FileInputStream(fileName);
+            rwb = Workbook.getWorkbook(in);
+        } catch (FileNotFoundException e) {
+            logger.error(e.getMessage());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        } catch (BiffException e) {
+            logger.error(e.getMessage());
+        }
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy HH:mm");
         //获取Excel表的Sheet1区域的数据
         Sheet sht = rwb.getSheet(0);
@@ -37,11 +51,18 @@ public class AlipayExcel {
             String createTime = sht.getCell(2, i).getContents();
             String modifyTime = sht.getCell(4, i).getContents();
             if (!createTime.isEmpty()) {
-                record.setCreate_time(format.parse(createTime));
+                try {
+                    if (!createTime.isEmpty()) {
+                        record.setCreate_time(format.parse(createTime));
+                    }
+                    if (!modifyTime.isEmpty()) {
+                        record.setModify_time(format.parse(modifyTime));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
-            if (!modifyTime.isEmpty()) {
-                record.setModify_time(format.parse(modifyTime));
-            }
+
             record.setAccount("766256898@qq.com");
             record.setTrade_sources(sht.getCell(5, i).getContents());
             record.setTrade_description(sht.getCell(6, i).getContents());
@@ -54,19 +75,19 @@ public class AlipayExcel {
             record.setMoney_change(sht.getCell(15, i).getContents());
             list.add(record);
         }
-        session.getMapper(FAQDao.class).insertPayRecord(list);
+//        session.getMapper(FAQDao.class).insertPayRecord(list);
         return list;
     }
 
     public static void main(String[] args) throws Exception {
-        InputStream is = new FileInputStream(new File("D:/mnt/alipay_record_2018.xls"));
-        InputStream is2 = new FileInputStream(new File("D:/mnt/alipay_record_2017.xls"));
-        InputStream is3 = new FileInputStream(new File("D:/mnt/alipay_record_2016.xls"));
-        List<AlipayRecord> list = importExcel(is);
-        List<AlipayRecord> list2 = importExcel(is2);
-        List<AlipayRecord> list3 = importExcel(is3);
-        System.out.println("row1="+list.size());
-        System.out.println("row2="+list2.size());
-        System.out.println("row3="+list3.size());
+        String is = "D:/mnt/alipay_record_2018.xls";
+        String is2 = "D:/mnt/alipay_record_2017.xls";
+        String is3 = "D:/mnt/alipay_record_2016.xls";
+        List<AlipayRecord> list = importExcel("D:/temp\\alipay_record_2018.xls");
+//        List<AlipayRecord> list2 = importExcel(is2);
+//        List<AlipayRecord> list3 = importExcel(is3);
+        System.out.println("row1=" + list.size());
+//        System.out.println("row2=" + list2.size());
+//        System.out.println("row3=" + list3.size());
     }
 }

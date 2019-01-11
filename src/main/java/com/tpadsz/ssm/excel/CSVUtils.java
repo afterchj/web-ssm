@@ -75,7 +75,7 @@ public class CSVUtils {
      * @param file csv文件(路径+文件)
      * @return
      */
-    public static List<AlipayRecord> importCsv(File file) {
+    public static List<AlipayRecord> importCsv(String file) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<AlipayRecord> dataList = new ArrayList();
         BufferedReader br = null;
@@ -85,7 +85,6 @@ public class CSVUtils {
             br = new BufferedReader(new InputStreamReader(in, "GBK"));
             String line;
             String account = "";
-            System.out.println("---------------------------------分割线------------------------------------");
             while ((line = br.readLine()) != null) {
                 String[] contents = line.split(",");
                 if (contents.length == 1 && line.contains("账号")) {
@@ -118,7 +117,6 @@ public class CSVUtils {
                     System.out.println("length=" + contents.length + "，" + line);
                 }
             }
-            System.out.println("---------------------------------分割线------------------------------------");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -130,7 +128,7 @@ public class CSVUtils {
                 }
             }
         }
-        session.getMapper(FAQDao.class).insertPayRecord(dataList);
+//        session.getMapper(FAQDao.class).insertPayRecord(dataList);
         return dataList;
     }
 
@@ -145,7 +143,7 @@ public class CSVUtils {
         dataList.add("1,张三,男");
         dataList.add("2,李四,男");
         dataList.add("3,小红,女");
-        boolean isSuccess =exportCsv(new File("D:/temp/demo.csv"), dataList);
+        boolean isSuccess = exportCsv(new File("D:/temp/demo.csv"), dataList);
         System.out.println(isSuccess);
     }
 
@@ -157,9 +155,9 @@ public class CSVUtils {
 
     @Test
     public void importCsv() {
-        File file06 = new File("D:/mnt/alipay_record_20190109_1642_1.csv");
-        File file08 = new File("D:/mnt/alipay_record_20190109_1418_1.csv");
-        File file07 = new File("D:/mnt/alipay_record_20190109_1409_1.csv");
+        String file06 = "D:/mnt/alipay_record_20190109_1642_1.csv";
+        String file08 = "D:/mnt/alipay_record_20190109_1418_1.csv";
+        String file07 = "D:/mnt/alipay_record_20190109_1409_1.csv";
         List<AlipayRecord> dataList1 = importCsv(file06);
         List<AlipayRecord> dataList2 = importCsv(file07);
         List<AlipayRecord> dataList3 = importCsv(file08);

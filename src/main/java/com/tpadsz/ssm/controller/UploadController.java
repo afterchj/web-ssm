@@ -1,6 +1,6 @@
 package com.tpadsz.ssm.controller;
 
-import com.tpadsz.ssm.utils.ZipUtils;
+import com.tpadsz.ssm.utils.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,15 +26,17 @@ public class UploadController {
     public String addUser(HttpServletRequest request, @RequestParam("files") MultipartFile[] files) throws Exception {
         System.out.println("request=" + request.getParameter("comment"));
         String savePath = request.getServletContext().getRealPath("/upload/");
-        File file = new File(savePath);
-        if (!file.exists()) {
-            file.mkdir();
+        File temp = new File(savePath);
+        if (!temp.exists()) {
+            temp.mkdir();
         }
         for (int i = 0; i < files.length; i++) {
-            System.out.println("fileName---------->" + files[i].getOriginalFilename());
-            if (!files[i].isEmpty()) {
+            MultipartFile file = files[i];
+            String fileName = file.getOriginalFilename();
+            System.out.println("fileName---------->" + fileName);
+            if (!file.isEmpty()) {
                 int pre = (int) System.currentTimeMillis();
-                saveFile(files[i], savePath);
+                FileUtils.saveFile(file, savePath, fileName,true);
                 int finalTime = (int) System.currentTimeMillis();
                 System.out.println("上传时间=" + (finalTime - pre));
             }
@@ -59,8 +61,9 @@ public class UploadController {
             while (iter.hasNext()) {
                 int pre = (int) System.currentTimeMillis();
                 MultipartFile file = multiRequest.getFile(iter.next());
+                String fileName = file.getOriginalFilename();
                 if (file != null) {
-                    saveFile(file, savePath);
+                    FileUtils.saveFile(file, savePath, fileName,false);
                 }
                 int finalTime = (int) System.currentTimeMillis();
                 System.out.println("上传时间=" + (finalTime - pre));
@@ -79,28 +82,15 @@ public class UploadController {
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
                 MultipartFile file = files[i];
-                saveFile(file, savePath);
+                String fileName = file.getOriginalFilename();
+                FileUtils.saveFile(file, savePath, fileName,true);
             }
         }
         return "ok";
     }
 
-    private boolean saveFile(MultipartFile file, String savePath) throws Exception {
-        System.out.println("file=" + savePath + file.getOriginalFilename());
-        File targetFile = new File(savePath + file.getOriginalFilename());
-        System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, savePath, true).get(0).getPath());
-        if (!file.isEmpty()) {
-            try {
-                file.transferTo(targetFile);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
 
-    @RequestMapping("/toUpload")
+    @RequestMapping(value = "/toUpload",method = RequestMethod.POST)
     public String toUpload(ModelMap modelMap) {
         modelMap.put("result", "success");
         return "/upload";

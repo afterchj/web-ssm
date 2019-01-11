@@ -4,6 +4,7 @@ import com.tpadsz.ssm.model.FileInfo;
 import com.tpadsz.ssm.model.User;
 import com.tpadsz.ssm.service.UserService;
 
+import com.tpadsz.ssm.utils.FileUtils;
 import com.tpadsz.ssm.utils.ZipUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -102,7 +103,7 @@ public class UserController {
     public String upload(FileInfo info, @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
         System.out.println("request=" + request.getParameter("comment"));
 //        System.out.println(info.getFileName() + "     " + info.getDesc());
-        String path = request.getServletContext().getRealPath("/") + "upload";
+        String path = request.getServletContext().getRealPath("/upload/");
         String fileName = file.getOriginalFilename();
         System.out.println("fileName=" + fileName);
 
@@ -111,8 +112,7 @@ public class UserController {
             targetFile.mkdirs();
         }
         try {
-            file.transferTo(targetFile);
-            System.out.println("文件解压位置=" + ZipUtils.unZipFiles(targetFile, path, false).get(0).getPath());
+            FileUtils.saveFile(file, path, fileName,true);
         } catch (Exception e) {
             e.printStackTrace();
         }
