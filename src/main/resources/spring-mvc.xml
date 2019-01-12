@@ -20,27 +20,27 @@
     <context:component-scan base-package="com.tpadsz.ssm.controller"/>
 
     <!--  websocket消息接收与处理类 -->
-    <bean id="websocket" class="com.tpadsz.ssm.websocket.WebSocketEndPoint"/>
+    <!--<bean id="websocket" class="com.tpadsz.ssm.websocket.WebSocketEndPoint"/>-->
 
     <!-- 定义客户端与服务器握手的拦截器，可以做一些预处理 -->
     <!-- 该拦截器专门为SockJS客户端服务的 -->
-    <websocket:handlers>
-        <websocket:mapping path="/sockjs/websocket" handler="websocket"/>
-        <websocket:handshake-interceptors>
-            <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
-        </websocket:handshake-interceptors>
-        <!-- 开启sockjs支持 -->
-        <websocket:sockjs/>
-    </websocket:handlers>
+    <!--<websocket:handlers>-->
+        <!--<websocket:mapping path="/sockjs/websocket" handler="websocket"/>-->
+        <!--<websocket:handshake-interceptors>-->
+            <!--<bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>-->
+        <!--</websocket:handshake-interceptors>-->
+        <!--&lt;!&ndash; 开启sockjs支持 &ndash;&gt;-->
+        <!--<websocket:sockjs/>-->
+    <!--</websocket:handlers>-->
 
     <!-- 定义客户端与服务器握手的拦截器，可以做一些预处理 -->
     <!-- 该拦截器专门为WebSocket客户端服务的 -->
-    <websocket:handlers>
-        <websocket:mapping path="/websocket" handler="websocket"/>
-        <websocket:handshake-interceptors>
-            <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
-        </websocket:handshake-interceptors>
-    </websocket:handlers>
+    <!--<websocket:handlers>-->
+        <!--<websocket:mapping path="/websocket" handler="websocket"/>-->
+        <!--<websocket:handshake-interceptors>-->
+            <!--<bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>-->
+        <!--</websocket:handshake-interceptors>-->
+    <!--</websocket:handlers>-->
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter"

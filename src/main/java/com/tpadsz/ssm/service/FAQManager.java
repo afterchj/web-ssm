@@ -18,13 +18,23 @@ public class FAQManager {
     @Resource
     private SqlSessionTemplate sessionTemplate;
 
-    public List<Map> getYearIncome() {
-        List<Map> list = sessionTemplate.selectList("record.yearIncome");
+    public List<Map> getMonth(Map map) {
+        List<Map> list = sessionTemplate.selectList("record.perMonth", map);
         return list;
     }
 
-    public List<Map> getYearExpend() {
-        List<Map> list = sessionTemplate.selectList("record.yearExpend");
+    public List<Map> getYear(Map map) {
+        List<Map> list = sessionTemplate.selectList("record.perYear", map);
+        return list;
+    }
+
+    public List<Map<String, String>> getYearIncome() {
+        List<Map<String, String>> list = sessionTemplate.selectList("record.yearIncome");
+        return list;
+    }
+
+    public List<Map<String, String>> getYearExpend() {
+        List<Map<String, String>> list = sessionTemplate.selectList("record.yearExpend");
         return list;
     }
 

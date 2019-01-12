@@ -92,8 +92,7 @@ public class UserController {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-
+            log.error(e.getMessage());
         }
         return "ok";
     }
@@ -114,7 +113,7 @@ public class UserController {
         try {
             FileUtils.saveFile(file, path, fileName,true);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         request.setAttribute("path", fileName);
         return "ok";

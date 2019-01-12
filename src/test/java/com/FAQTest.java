@@ -61,11 +61,15 @@ public class FAQTest {
 
     @Test
     public void testYear() {
-        List<Map> list = getSession().selectList("record.perYear");
-        Map<String, Object> map = list.get(0);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-        }
+        List<Map<String,String>> list = getSession().selectList("record.perYear");
+//       for (int i=0;i<list.size();i++){
+//           Map<String, Object> map = list.get(i);
+//           for (Map.Entry<String, Object> entry : map.entrySet()) {
+//               if (entry.getKey().equals("total")){
+//                map.put("total", entry.getValue().toString());
+//               }
+//           }
+//       }
         System.out.println(JSON.toJSONString(list).replace(" ", ""));
     }
 

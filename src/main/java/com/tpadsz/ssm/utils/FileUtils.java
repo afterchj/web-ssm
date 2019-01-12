@@ -28,7 +28,7 @@ public class FileUtils {
                 System.out.println("文件解压位置=" + targetFile.getPath());
                 file.transferTo(targetFile);
                 if (flag && suffix.equals(".zip")) {
-                   unZipFiles(targetFile, savePath, flag);
+                    unZipFiles(targetFile, savePath, flag);
                 }
                 return true;
             }
@@ -71,12 +71,10 @@ public class FileUtils {
                     InputStream is = zipFile.getInputStream(zipEnt);
                     bis = new BufferedInputStream(is);
                     // 建目录
-//                    String subDir = filePath;
-                    String temp = "";
                     for (int i = 0; i < subDir.length(); i++) {
                         String str = subDir.substring(i, i + 1);
                         if (str.equalsIgnoreCase("/") || str.equalsIgnoreCase(sep)) {
-                            temp = fileSavePath + sep + subDir.substring(0, i);
+                            String temp = fileSavePath + sep + subDir.substring(0, i);
                             File subdir = new File(temp);
                             if (!subdir.exists()) {
                                 subdir.mkdir();

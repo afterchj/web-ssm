@@ -129,7 +129,7 @@ public class CSVUtils {
                 }
             }
         }
-//        session.getMapper(FAQDao.class).insertPayRecord(dataList);
+        session.getMapper(FAQDao.class).insertPayRecord(dataList);
         return dataList;
     }
 

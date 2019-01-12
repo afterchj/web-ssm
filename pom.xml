@@ -46,11 +46,11 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.tpadsz.after</groupId>
-            <artifactId>blt-light-api</artifactId>
-            <version>2.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.tpadsz.after</groupId>-->
+            <!--<artifactId>blt-light-api</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>javax.servlet</groupId>

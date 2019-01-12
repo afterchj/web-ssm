@@ -112,12 +112,24 @@
             type: 'bar',
             data: [json[0].value, json[1].value, json[2].value, json[3].value, json[4].value],
 //            data:['12','32','45','21','12'],
-            markPoint: {
-                data: [
-                    {type: 'max', name: '最大值'},
-                    {type: 'min', name: '最小值'}
-                ]
-            },
+//                itemStyle: {
+//                    normal: {
+//                        label: {
+//                            show: true,
+//                            position: 'top',
+//                            textStyle: {
+//                                color: '#000000'
+//                            },
+//                            formatter: function (params) {
+//                                if (params.value == 0) {
+//                                    return '';
+//                                } else {
+//                                    return params.value;
+//                                }
+//                            }
+//                        }
+//                    }
+//                },
             markLine: {
                 data: [
                     {
