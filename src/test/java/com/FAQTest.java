@@ -37,59 +37,76 @@ public class FAQTest {
 
     @Test
     public void testFaq() {
-        Map map=new HashMap();
-        map.put("startTime","2018-01-01");
-        map.put("endTime","2018-01-01");
         FAQManager faqManager = (FAQManager) ctx.getBean("faqManager");
-        List<Map> list= faqManager.getMonthIncome(map);
-        List<Map> list1 = faqManager.getMonthExpend(map);
-        System.out.println(JSON.toJSONString(list).replace(" ", ""));
-        System.out.println(JSON.toJSONString(list1).replace(" ", ""));
+        Map map = new HashMap();
+        map.put("startTime", "2018-01-01");
+        map.put("endTime", "2018-01-01");
+        List<Map> list = faqManager.getMonth(map);
+        map.put("startTime", "2015-01-01");
+        map.put("endTime", "2015-01-01");
+        List<Map> list1 = faqManager.getMonth(map);
+        System.out.println(list.size());
+        System.out.println(list1.size());
     }
 
     @Test
     public void testMonth() {
-        List<Map> list = getSession().selectList("record.perMonth");
-        System.out.println(JSON.toJSONString(list).replace(" ", ""));
-        Map map = list.get(0);
-        Iterator<Map.Entry> entries = map.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry entry = entries.next();
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-        }
+        Map map = new HashMap();
+        map.put("startTime", "2016-01-01");
+        map.put("endTime", "2016-01-01");
+        List<Map> list = getSession().selectList("record.perMonth", map);
+        System.out.println("perMonth;" + list.size());
+        each(list);
     }
 
     @Test
     public void testYear() {
-        List<Map<String,String>> list = getSession().selectList("record.perYear");
-//       for (int i=0;i<list.size();i++){
-//           Map<String, Object> map = list.get(i);
-//           for (Map.Entry<String, Object> entry : map.entrySet()) {
-//               if (entry.getKey().equals("total")){
-//                map.put("total", entry.getValue().toString());
-//               }
-//           }
-//       }
-        System.out.println(JSON.toJSONString(list).replace(" ", ""));
+        List<Map<String, Object>> list = getSession().selectList("record.perYear");
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, Object> map = list.get(i);
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getValue().toString().contains("支付")) {
+                    System.out.println("value=" + entry.getValue());
+                } else {
+                    System.out.println("key=" + entry.getKey());
+                }
+            }
+        }
+//        System.out.println(JSON.toJSONString(list).replace(" ", ""));
     }
 
     @Test
     public void testYearIncome() {
+        Map map=new HashMap();
+
         List<Map> list = getSession().selectList("record.yearIncome");
-        Map<String, Object> map = list.get(0);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            System.out.println("key = " + entry.getKey() + ", value = " + entry.getValue());
-        }
+
         System.out.println(JSON.toJSONString(list).replace(" ", ""));
     }
 
     @Test
     public void testMonthExpend() {
-        List<Map> list = getSession().selectList("record.monthExpend");
+        Map map = new HashMap();
+        map.put("startTime", "2015-01-01");
+        map.put("endTime", "2015-01-01");
+        List<Map> list = getSession().selectList("record.monthIncome",map);
 //        Map<String, Object> map = list.get(0);
 //        for (Map.Entry<String, Object> entry : map.entrySet()) {
 //            System.out.println("key = " + entry.getKey() + ", value = " + entry.getValue());
 //        }
         System.out.println(JSON.toJSONString(list).replace(" ", ""));
+    }
+
+    public void each(List<Map> list) {
+        for (int i = 0; i < list.size(); i++) {
+            Map map = list.get(i);
+            Iterator<Map.Entry> entries = map.entrySet().iterator();
+            while (entries.hasNext()) {
+                Map.Entry entry = entries.next();
+                if (entry.getKey().toString().contains("支付")) {
+                    System.out.println("key" + entry.getKey() + ",value=" + entry.getValue());
+                }
+            }
+        }
     }
 }

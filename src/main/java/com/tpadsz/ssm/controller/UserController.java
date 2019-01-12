@@ -99,24 +99,25 @@ public class UserController {
 
     //    @ResponseBody
     @RequestMapping(value = "/upload.do")
-    public String upload(FileInfo info, @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
-        System.out.println("request=" + request.getParameter("comment"));
+    public String upload(String account,MultipartFile file, HttpServletRequest request) {
+        System.out.println("request=" + request.getParameter("account"));
+        account = account.isEmpty() ? "766256898@qq.com" : account;
 //        System.out.println(info.getFileName() + "     " + info.getDesc());
         String path = request.getServletContext().getRealPath("/upload/");
         String fileName = file.getOriginalFilename();
         System.out.println("fileName=" + fileName);
-
         File targetFile = new File(path, fileName);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
         try {
-            FileUtils.saveFile(file, path, fileName,true);
+            FileUtils.saveFile(file, path, fileName, true);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
         request.setAttribute("path", fileName);
-        return "ok";
+        request.setAttribute("account", account);
+        return "record_map";
     }
 
     @RequestMapping(value = "/test")

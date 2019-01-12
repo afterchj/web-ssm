@@ -56,7 +56,7 @@
 <%--});--%>
 <%--</script>--%>
 <body>
-<div id="resText"></div>
+<div id="resText"><h6>当前账号：${account}</h6></div>
 <div id="main" class="small"></div>
 <div id="year" class="year"></div>
 <div class="search">
@@ -96,7 +96,7 @@
     pipChart1.showLoading();
     var account = $("#account").val();
     $.getJSON(
-        "charts/perYear",
+        "../charts/perYear",
         {date: '2019-01-01', account: account}
     ).done(function (data, status) {
         var yearExpend = [];
@@ -262,9 +262,9 @@
     mChart.showLoading();
     function initMonth() {
         var date = $("#date").val();
-        console.log("date=" + date);
+        console.log("account=" + account + ",date=" + date);
         $.get(
-            "charts/perMonth",
+            "../charts/perMonth",
             {date: date, account: account}
         ).done(function (data) {
             var monthExpend = [];

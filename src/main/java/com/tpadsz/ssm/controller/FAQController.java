@@ -25,21 +25,21 @@ public class FAQController {
 
 
     @RequestMapping("/perYear")
-    public List<Map> getYearRecord(String startTime, String endTime) {
-        System.out.println("start=" + startTime + ",end=" + endTime);
+    public List<Map> getYearRecord(String date, String account) {
         Map map = new HashMap();
-        map.put("startTime", startTime);
-        map.put("endTime", endTime);
+        map.put("account", account);
+        map.put("startTime", date);
+        map.put("endTime", date);
         List<Map> list = faqManager.getYear(map);
         return list;
     }
 
     @RequestMapping("/perMonth")
-    public List<Map> getMonthRecord(String startTime, String endTime) {
-        System.out.println("start=" + startTime + ",end=" + endTime);
+    public List<Map> getMonthRecord(String date, String account) {
         Map map = new HashMap();
-        map.put("startTime", startTime);
-        map.put("endTime", endTime);
+        map.put("account", account);
+        map.put("startTime", date);
+        map.put("endTime", date);
         List<Map> list = faqManager.getMonth(map);
         return list;
 
