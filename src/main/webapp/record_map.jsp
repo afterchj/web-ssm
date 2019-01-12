@@ -63,11 +63,12 @@
     <input id="account" value="${account}" type="hidden">
     选择日期：
     <select id="date" name="date" style="width: 100px;margin-right: 20px">
-        <option value="2019-01-01">2019</option>
-        <option value="2018-01-01" selected="selected">2018</option>
-        <option value="2017-01-01">2017</option>
-        <option value="2016-01-01">2016</option>
-        <option value="2015-01-01">2015</option>
+        <option value="2019-01-01" selected>2018</option>
+        <option value="2018-01-01">2017</option>
+        <option value="2017-01-01">2016</option>
+        <option value="2016-01-01">2015</option>
+        <option value="2015-01-01">2014</option>
+    </select>
     </select>
     <input id="search" type="button" value="查询" onclick="initMonth()">
 </div>
