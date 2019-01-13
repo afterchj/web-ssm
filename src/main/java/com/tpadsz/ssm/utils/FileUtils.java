@@ -11,6 +11,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 /**
  * Created by hongjian.chen on 2019/1/11.
@@ -19,34 +21,35 @@ public class FileUtils {
 
     private static Logger logger = Logger.getLogger(FileUtils.class);
 
-    public static boolean saveFile(MultipartFile file, String savePath, String fileName, boolean flag) {
+    public static void saveFile(MultipartFile file, String savePath, String fileName, boolean flag) {
         String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
         File targetFile = new File(savePath, fileName);
-        System.out.println("file=" + targetFile.getPath());
         try {
             if (!file.isEmpty()) {
                 System.out.println("文件解压位置=" + targetFile.getPath());
                 file.transferTo(targetFile);
+                if (suffix.equals(".xls")) {
+                    AlipayExcel.importExcel(targetFile.getPath());
+                }
+                if (suffix.equals(".csv")) {
+                    CSVUtils.importCsv(targetFile.getPath());
+                }
                 if (flag && suffix.equals(".zip")) {
                     uZipFiles(targetFile, savePath, flag);
                 }
-                return true;
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        return false;
     }
 
-    public static List<File> uZipFiles(File file, String fileSavePath, boolean isDelete) {
+    public static void uZipFiles(File file, String fileSavePath, boolean isDelete) {
         if ((!file.exists()) && (file.length() <= 0)) {
             logger.error("要解压的文件不存在!");
-            return null;
+            return;
         }
         List<File> files = new ArrayList<>();
         String sep = File.separator;
-//        String fileName;
-//        String subDir;
         ZipFile zipFile = null;
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
@@ -65,7 +68,6 @@ public class FileUtils {
                     if (!dir.exists()) {
                         dir.mkdirs();
                     }
-//                    continue;
                 } else {
                     // 读写文件
                     InputStream is = zipFile.getInputStream(zipEnt);
@@ -82,7 +84,7 @@ public class FileUtils {
 //                            System.out.println("suffix=" + subDir + ",\tdirectory=" + temp);
                         }
                     }
-                    System.out.println("fileName=" + fileName);
+//                    System.out.println("fileName=" + fileName);
                     fos = new FileOutputStream(fileName);
                     bos = new BufferedOutputStream(fos);
                     int len;
@@ -91,7 +93,8 @@ public class FileUtils {
                         bos.write(buff, 0, len);
                     }
                     if (isDelete) {
-                        new JobThread(fileName).start();
+                        importFile(fileName);
+//                        new JobThread(fileName).start();
                     }
                     files.add(newFile);
                 }
@@ -108,14 +111,12 @@ public class FileUtils {
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
-            uZip(files, fileSavePath, true);
             if (isDelete) {
-//                logger.info("删除源文件结果: " + file.delete());
-                logger.info("删除源文件结果: " + isDelete);
+                logger.info("删除源文件结果: " + file.delete());
+//                logger.info("删除源文件结果: " + isDelete);
             }
         }
         logger.debug("compress files success");
-        return files;
     }
 
     public static void uZip(List<File> files, String savePath, boolean flag) {
@@ -134,13 +135,11 @@ public class FileUtils {
 
     public static void importFile(String fileName) {
         String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
-        System.out.println("suffix=" + suffix);
         if (suffix.equals(".xls")) {
             AlipayExcel.importExcel(fileName);
-        } else if (suffix.equals(".csv")) {
+        }
+        if (suffix.equals(".csv")) {
             CSVUtils.importCsv(fileName);
-        } else {
-            return;
         }
     }
 
@@ -159,12 +158,10 @@ public class FileUtils {
             this.files = files;
         }
 
+
         @Override
         public void run() {
             importFile(fileName);
-//            for (File file : files) {
-//                importFile(file.getPath());
-//            }
         }
     }
 }

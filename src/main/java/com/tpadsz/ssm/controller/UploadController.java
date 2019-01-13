@@ -63,7 +63,7 @@ public class UploadController {
                 MultipartFile file = multiRequest.getFile(iter.next());
                 String fileName = file.getOriginalFilename();
                 if (file != null) {
-                    FileUtils.saveFile(file, savePath, fileName,false);
+                    FileUtils.saveFile(file, savePath, fileName,true);
                 }
                 int finalTime = (int) System.currentTimeMillis();
                 System.out.println("上传时间=" + (finalTime - pre));

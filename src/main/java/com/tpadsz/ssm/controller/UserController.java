@@ -4,6 +4,7 @@ import com.tpadsz.ssm.model.FileInfo;
 import com.tpadsz.ssm.model.User;
 import com.tpadsz.ssm.service.UserService;
 
+import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.FileUtils;
 import com.tpadsz.ssm.utils.ZipUtils;
 import org.apache.commons.fileupload.FileItem;
@@ -99,13 +100,13 @@ public class UserController {
 
     //    @ResponseBody
     @RequestMapping(value = "/upload.do")
-    public String upload(String account,MultipartFile file, HttpServletRequest request) {
-        System.out.println("request=" + request.getParameter("account"));
+    public String upload(String account, MultipartFile file) {
         account = account.isEmpty() ? "766256898@qq.com" : account;
 //        System.out.println(info.getFileName() + "     " + info.getDesc());
+        HttpServletRequest request = AppUtils.getRequest();
         String path = request.getServletContext().getRealPath("/upload/");
         String fileName = file.getOriginalFilename();
-        System.out.println("fileName=" + fileName);
+//        System.out.println("savePath=" + path + ",fileName=" + fileName);
         File targetFile = new File(path, fileName);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
@@ -115,8 +116,10 @@ public class UserController {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-        request.setAttribute("path", fileName);
+//        request.setAttribute("path", fileName);
         request.setAttribute("account", account);
+//        AppUtils.getSession().setAttribute("account", account);
+
         return "record_map";
     }
 
@@ -125,7 +128,7 @@ public class UserController {
         System.out.println(user.getUserName() + "     " + user.getUserPwd());
 //        System.out.println(file.getOriginalFilename());
         String path = request.getServletContext().getRealPath("/") + "upload";
-        System.out.println("path=" + path);
+//        System.out.println("path=" + path);
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
 //        String fileName = new Date().getTime()+".jpg";

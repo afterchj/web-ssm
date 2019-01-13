@@ -263,7 +263,7 @@
     mChart.showLoading();
     function initMonth() {
         var date = $("#date").val();
-        console.log("date=" + date);
+        console.log("date=" + date + ",account=" + account);
         $.get(
             "charts/perMonth",
             {date: date, account: account}

@@ -3,10 +3,15 @@ package com.tpadsz.ssm.excel;
 import com.alibaba.fastjson.JSON;
 import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.AlipayRecord;
+import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.MybatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,13 +85,12 @@ public class CSVUtils {
         List<AlipayRecord> dataList = new ArrayList();
         BufferedReader br = null;
         DataInputStream in;
+        String account = "";
         try {
             in = new DataInputStream(new FileInputStream(file));
             br = new BufferedReader(new InputStreamReader(in, "GBK"));
             String line;
-            String account = "";
             while ((line = br.readLine()) != null) {
-//                line = line.replace(" ", "");
                 String[] contents = line.split(",");
                 if (contents.length == 1 && line.contains("账号")) {
                     String str = contents[0];
@@ -129,7 +133,8 @@ public class CSVUtils {
                 }
             }
         }
-        session.getMapper(FAQDao.class).insertPayRecord(dataList);
+//        session.getMapper(FAQDao.class).insertPayRecord(dataList);
+        AppUtils.getSession().setAttribute("account", account);
         return dataList;
     }
 
@@ -159,20 +164,6 @@ public class CSVUtils {
         String file06 = "D:/mnt/alipay_record_20190109_1642_1.csv";
         String file08 = "D:/mnt/alipay_record_20190109_1418_1.csv";
         String file07 = "D:/mnt/alipay_record_20190109_1409_1.csv";
-        List<AlipayRecord> dataList1 = importCsv(file06);
-        List<AlipayRecord> dataList2 = importCsv(file07);
-        List<AlipayRecord> dataList3 = importCsv(file08);
-        System.out.println("row1=" + dataList1.size());
-        System.out.println("row2=" + dataList2.size());
-        System.out.println("row3=" + dataList3.size());
-//        if (dataList != null && !dataList.isEmpty()) {
-//            for (int i = 10; i < 15; i++) {
-//                System.out.println(JSON.toJSONString(dataList.get(i)));
-//            }
-//        }
-    }
-
-    public static void main(String[] args) {
-
+//       importCsv(file06);
     }
 }
