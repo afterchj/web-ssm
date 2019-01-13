@@ -19,7 +19,7 @@ public class AppUtils {
         HttpSession session = null;
         try {
             session = getRequest().getSession();
-            System.out.println("初始化session:" + session);
+//            logger.info("初始化session:" + session);
         } catch (Exception e) {
             logger.error("初始化session失败！" + session);
         }
