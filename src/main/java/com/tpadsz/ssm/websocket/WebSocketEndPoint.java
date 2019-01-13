@@ -14,7 +14,7 @@ public class WebSocketEndPoint extends TextWebSocketHandler {
     private static final ArrayList<WebSocketSession> users;
 
     static {
-        users = new ArrayList<WebSocketSession>();
+        users = new ArrayList();
     }
 
     @Override
@@ -38,28 +38,24 @@ public class WebSocketEndPoint extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
-        TextMessage returnMessage = new TextMessage(session.getAttributes().get("USERNAME")+" : "+message.getPayload());
+        TextMessage returnMessage = new TextMessage(session.getAttributes().get("USERNAME") + " : " + message.getPayload());
 //        session.sendMessage(returnMessage);
-        sendToAllClients(returnMessage, session);
+         sendToAllClients(returnMessage, session);
     }
 
     private void sendToAllClients(TextMessage msg, WebSocketSession curSession) {
-        try
-        {
-            for(WebSocketSession user : users)
-            {
-                if(user.isOpen()) {
-                    if (!user.getId().equals(curSession.getId())){
+        try {
+            for (WebSocketSession user : users) {
+
+                if (user.isOpen()) {
+                    if (!user.getId().equals(curSession.getId())) {
                         user.sendMessage(msg);
                     }
-                }
-                else
-                {
+                } else {
                     users.remove(user.getId());
                 }
             }
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
