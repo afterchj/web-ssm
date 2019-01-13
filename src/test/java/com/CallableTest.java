@@ -16,11 +16,11 @@ public class CallableTest {
     @Test
     public void testFutureTask() throws ExecutionException, InterruptedException {
 
-        List<FutureTask<Integer>> tasks = new ArrayList<>();
+        List<FutureTask<String>> tasks = new ArrayList<>();
         ExecutorService executorService = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i++) {
             TaskCallable taskCallable;
-            FutureTask<Integer> task;
+            FutureTask<String> task;
             if (i % 2 == 0) {
                 taskCallable = new TaskCallable(1000);
                 task = new FutureTask(taskCallable);
@@ -38,7 +38,7 @@ public class CallableTest {
                 tasks.add(task);
             }
         }
-        for (FutureTask<Integer> futureTask : tasks) {
+        for (FutureTask<String> futureTask : tasks) {
             System.out.println(futureTask.get());
         }
         Thread.sleep(1000);
