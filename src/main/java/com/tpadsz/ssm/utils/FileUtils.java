@@ -28,7 +28,7 @@ public class FileUtils {
                 System.out.println("文件解压位置=" + targetFile.getPath());
                 file.transferTo(targetFile);
                 if (flag && suffix.equals(".zip")) {
-                    unZipFiles(targetFile, savePath, flag);
+                    uZipFiles(targetFile, savePath, flag);
                 }
                 return true;
             }
@@ -38,15 +38,15 @@ public class FileUtils {
         return false;
     }
 
-    public static List<File> unZipFiles(File file, String fileSavePath, boolean isDelete) {
+    public static List<File> uZipFiles(File file, String fileSavePath, boolean isDelete) {
         if ((!file.exists()) && (file.length() <= 0)) {
             logger.error("要解压的文件不存在!");
             return null;
         }
         List<File> files = new ArrayList<>();
         String sep = File.separator;
-        String fileName;
-        String subDir;
+//        String fileName;
+//        String subDir;
         ZipFile zipFile = null;
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
@@ -57,8 +57,8 @@ public class FileUtils {
             Enumeration<ZipEntry> e = zipFile.getEntries();
             while (e.hasMoreElements()) {
                 ZipEntry zipEnt = e.nextElement();
-                subDir = zipEnt.getName();
-                fileName = fileSavePath + sep + subDir;
+                String subDir = zipEnt.getName();
+                String fileName = fileSavePath + sep + subDir;
                 File newFile = new File(fileName);
                 if (zipEnt.isDirectory()) { //目录
                     File dir = new File(fileName);
@@ -79,7 +79,7 @@ public class FileUtils {
                             if (!subdir.exists()) {
                                 subdir.mkdir();
                             }
-                            System.out.println("suffix=" + subDir + ",\tdirectory=" + temp);
+//                            System.out.println("suffix=" + subDir + ",\tdirectory=" + temp);
                         }
                     }
                     System.out.println("fileName=" + fileName);
@@ -108,12 +108,28 @@ public class FileUtils {
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
+            uZip(files, fileSavePath, true);
             if (isDelete) {
-                logger.info("删除源文件结果: " + file.delete());
+//                logger.info("删除源文件结果: " + file.delete());
+                logger.info("删除源文件结果: " + isDelete);
             }
         }
         logger.debug("compress files success");
         return files;
+    }
+
+    public static void uZip(List<File> files, String savePath, boolean flag) {
+        for (File file : files) {
+//            File targetFile = new File(fileName);
+            String str = file.getName();
+            if (str.lastIndexOf(".zip") != -1) {
+                System.out.println("targetFile=" + file.getPath());
+                uZipFiles(file, savePath, flag);
+                if (flag) {
+                    logger.info("删除源文件结果: " + file.delete());
+                }
+            }
+        }
     }
 
     public static void importFile(String fileName) {
