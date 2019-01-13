@@ -24,7 +24,7 @@ public class MathService {
     }
 
     //乘
-    public int mutiply(int n1, int n2) {
+    public int multiply(int n1, int n2) {
         int result = n1 * n2;
         System.out.println(n1 + "*" + n2 + "=" + result);
         return result;

@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class Advices {
-    @Before("execution(* com.tpadsz.after.aop02.MathService.*(..))")
 
+    @Before("execution(* com.tpadsz.after.aop02.MathService.*(..))")
     public void before(JoinPoint jp) {
         System.out.println("----------前置通知----------");
-//        System.out.println(jp.getSignature().getName());
+        System.out.println(jp.getSignature().getName());
     }
 
     //环绕通知

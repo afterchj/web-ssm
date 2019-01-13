@@ -32,7 +32,7 @@ public class MyTest {
         int n1 = 100, n2 = 4;
         mathService.add(n1, n2);
         mathService.subtract(n1, n2);
-        mathService.mutiply(n1, n2);
+        mathService.multiply(n1, n2);
         mathService.divide(n1, n2);
 
         StrUtil strUtil= (StrUtil) ctx.getBean("strUtil");
