@@ -1,5 +1,6 @@
 package com.tpadsz.ssm.websocket;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -8,9 +9,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.ArrayList;
 
 /**
- * Created by zhm on 2015/7/14.
+ * Created by after on 2018/7/14.
  */
-public class WebSocketEndPoint extends TextWebSocketHandler {
+public class WebSocketEndHandler extends TextWebSocketHandler {
+
+    private static Logger logger = Logger.getLogger(WebSocketEndHandler.class);
     private static final ArrayList<WebSocketSession> users;
 
     static {
@@ -40,19 +43,16 @@ public class WebSocketEndPoint extends TextWebSocketHandler {
         super.handleTextMessage(session, message);
         TextMessage returnMessage = new TextMessage(session.getAttributes().get("USERNAME") + " : " + message.getPayload());
 //        session.sendMessage(returnMessage);
-         sendToAllClients(returnMessage, session);
+        sendToAllClients(returnMessage, session);
     }
 
     private void sendToAllClients(TextMessage msg, WebSocketSession curSession) {
         try {
             for (WebSocketSession user : users) {
-
                 if (user.isOpen()) {
                     if (!user.getId().equals(curSession.getId())) {
                         user.sendMessage(msg);
                     }
-                } else {
-                    users.remove(user.getId());
                 }
             }
         } catch (Exception e) {

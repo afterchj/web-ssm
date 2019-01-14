@@ -1,7 +1,6 @@
 package com.tpadsz.ssm.controller;
 
 
-
 import com.tpadsz.ssm.websocket.SpringWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -28,10 +27,12 @@ public class WebsocketController {
 
     @RequestMapping("/websocket/login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String username = request.getParameter("username");
-        System.out.println(username+"登录");
+        String username = request.getParameter("userName");
+        username = username.isEmpty() ? "default-system" : username;
+        System.out.println("username=" + username);
         HttpSession session = request.getSession(false);
-        session.setAttribute("SESSION_USERNAME", username);
+        session.setAttribute("WEBSOCKET_USERNAME", username);
+//        USERNAME
         //response.sendRedirect("/quicksand/jsp/websocket.jsp");
         return new ModelAndView("websocket");
     }

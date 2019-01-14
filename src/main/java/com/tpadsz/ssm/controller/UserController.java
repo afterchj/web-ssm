@@ -1,15 +1,10 @@
 package com.tpadsz.ssm.controller;
 
-import com.tpadsz.ssm.model.FileInfo;
 import com.tpadsz.ssm.model.User;
 import com.tpadsz.ssm.service.UserService;
 
 import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.FileUtils;
-import com.tpadsz.ssm.utils.ZipUtils;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -45,57 +37,15 @@ public class UserController {
 
     @RequestMapping("/login")
     public String showUser(HttpServletRequest request, User user, Model model) {
-        User user1 = userService.selectByName(user);
-        System.out.println("name=" + user.getUserName() + ",pwd=" + user.getUserPwd());
-        if (user1 != null) {
-            model.addAttribute("user", user1);
-            //return "ok";
-        }
-        String savePath = request.getServletContext().getRealPath("/") + "upload";
-        System.out.println("savePath=" + savePath);
-        File file = new File(savePath);
-        if (!file.exists() && !file.isDirectory()) {
-            System.out.println(savePath + "目录不存在，需要创建");
-            file.mkdir();
-
-        }
-        try {
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setHeaderEncoding("UTF-8");
-            if (!ServletFileUpload.isMultipartContent(request)) {
-                return "";
-            }
-            List<FileItem> list = upload.parseRequest(request);
-            System.out.println("list=" + list.size());
-            for (FileItem item : list) {
-                if (item.isFormField()) {
-                    String name = item.getFieldName();
-                    String value = item.getString("UTF-8");
-                    System.out.println(name + "=" + value);
-                } else {
-                    String filename = item.getName();
-                    System.out.println("filename=" + filename);
-                    if (filename == null || filename.trim().equals("")) {
-                        continue;
-                    }
-                    filename = filename.substring(filename.lastIndexOf("\\") + 1);
-                    InputStream in = item.getInputStream();
-                    FileOutputStream out = new FileOutputStream(savePath + "\\" + filename);
-                    byte buffer[] = new byte[1024];
-                    int len;
-                    while ((len = in.read(buffer)) > 0) {
-                        out.write(buffer, 0, len);
-                    }
-                    in.close();
-                    out.close();
-                    item.delete();
-                }
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        return "ok";
+        String username = request.getParameter("userName");
+        username = username.isEmpty() ? "default-system" : username;
+        request.getSession().setAttribute("WEBSOCKET_USERNAME", username);
+//        User user1 = userService.selectByName(user);
+//        if (user1 != null) {
+//            model.addAttribute("user", user1);
+//            //return "ok";
+//        }
+        return "websocket";
     }
 
     //    @ResponseBody
@@ -127,7 +77,7 @@ public class UserController {
     public String test(HttpServletRequest request, User user, @RequestParam(value = "file") MultipartFile file) {
         System.out.println(user.getUserName() + "     " + user.getUserPwd());
 //        System.out.println(file.getOriginalFilename());
-        String path = request.getServletContext().getRealPath("/") + "upload";
+        String path = request.getServletContext().getRealPath("/") + "upload/";
 //        System.out.println("path=" + path);
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);

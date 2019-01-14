@@ -19,8 +19,8 @@ import java.util.Map;
 
 /**
  * WebSocket拦截器
- * @author WANG
  *
+ * @author WANG
  */
 
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
@@ -34,11 +34,12 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
             HttpSession session = servletRequest.getServletRequest().getSession(false);
             if (session != null) {
                 //使用userName区分WebSocketHandler，以便定向发送消息
-                String userName = (String) session.getAttribute("SESSION_USERNAME");
-                if (userName==null) {
-                    userName="default-system";
+                String userName = (String) session.getAttribute("WEBSOCKET_USERNAME");
+                System.out.println("WEBSOCKET_USERNAME=" + userName);
+                if (userName == null) {
+                    userName = "default-system";
                 }
-                attributes.put("WEBSOCKET_USERNAME",userName);
+                attributes.put("USERNAME", userName);
             }
         }
         return super.beforeHandshake(request, response, wsHandler, attributes);
