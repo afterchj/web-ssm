@@ -41,7 +41,8 @@
         trade_type,
         trade_status,
         notes,
-        money_change
+        money_change,
+        account
         )values
         <foreach collection="list" item="u" index="index" separator=",">
             (
@@ -50,7 +51,7 @@
             #{u.counterparty}, #{u.shop_name},
             #{u.money}, #{u.trade_type},
             #{u.trade_status}, #{u.notes},
-            #{u.money_change}
+            #{u.money_change},#{u.account}
             )
         </foreach>
     </insert>

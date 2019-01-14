@@ -12,12 +12,12 @@ public class FileDemo {
             System.out.println("f1="+f1);
             //File(String parent,String child)
             File f2 =new File("c:\\test","2.txt");
-            System.out.println("f2="+f2);
+            System.out.println("f2="+f2.getName());
             File f3 =new File("c:"+File.separator+"test");
-            System.out.println("f3="+f3);
+            System.out.println("f3="+f3.toString());
             //File(File parent,String child)
             File f4 =new File(f3,"3.txt");
-            System.out.println("f4="+f4);
+            System.out.println("f4="+f4.getPath());
         }
 
     }

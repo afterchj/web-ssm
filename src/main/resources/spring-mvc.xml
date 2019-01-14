@@ -20,17 +20,16 @@
     <context:component-scan base-package="com.tpadsz.ssm.controller"/>
 
     <!--  websocket消息接收与处理类 -->
-    <bean id="websocket" class="com.tpadsz.ssm.websocket.WebSocketEndPoint"/>
+    <bean id="websocket" class="com.tpadsz.ssm.websocket.SpringWebSocketHandler"/>
+    <bean id="sockjs" class="com.tpadsz.ssm.websocket.WebSocketEndHandler"/>
 
     <!-- 定义客户端与服务器握手的拦截器，可以做一些预处理 -->
     <!-- 该拦截器专门为SockJS客户端服务的 -->
     <websocket:handlers>
-        <websocket:mapping path="/sockjs/websocket" handler="websocket"/>
+        <websocket:mapping path="/sockjs/websocket" handler="sockjs"/>
         <websocket:handshake-interceptors>
             <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
         </websocket:handshake-interceptors>
-        <!-- 开启sockjs支持 -->
-        <websocket:sockjs/>
     </websocket:handlers>
 
     <!-- 定义客户端与服务器握手的拦截器，可以做一些预处理 -->
@@ -38,7 +37,7 @@
     <websocket:handlers>
         <websocket:mapping path="/websocket" handler="websocket"/>
         <websocket:handshake-interceptors>
-            <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
+            <bean class="com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor"/>
         </websocket:handshake-interceptors>
     </websocket:handlers>
 
@@ -52,7 +51,7 @@
         </property>
     </bean>
     <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter ">
         <property name="messageConverters">
             <list>
                 <ref bean="mappingJacksonHttpMessageConverter"/> <!-- JSON转换器 -->

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
- * Created by zhm on 2015/7/14.
+ * Created by after on 2018/7/14.
  */
 public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor {
     @Override
@@ -20,7 +20,7 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor {
             HttpSession session = servletRequest.getServletRequest().getSession(false);
             if (session != null) {
                 //使用userName区分WebSocketHandler，以便定向发送消息
-                String userName = (String) session.getAttribute("USERNAME");
+                String userName = (String) session.getAttribute("WEBSOCKET_USERNAME");
                 attributes.put("USERNAME",userName);
             }
         }

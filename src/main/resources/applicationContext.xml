@@ -11,47 +11,40 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
        default-lazy-init="true">
 
-    <context:property-placeholder
-            ignore-resource-not-found="true"
-            location="classpath*:/setup.properties, classpath*:/setup.development.properties"/>
+    <!--<context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>-->
 
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy/>
 
     <!-- 配置在java类中能够使用Annotation -->
-    <context:annotation-config/>
-
-    <!-- 配置Annotaton 版本的bean -->
-    <context:component-scan base-package="com">
-        <context:exclude-filter type="aspectj" expression="com.tpadsz.ssm.controller.*"/>
-    </context:component-scan>
+    <!--<context:annotation-config/>-->
+    <!-- 自动扫描 -->
+    <context:component-scan base-package="com.tpadsz.ssm"/>
 
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-    <bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>
-    <bean id="exampleJob2Detail"
-          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <!-- 指定任务类 -->
-        <property name="targetObject" ref="exampleJob2"/>
-        <!-- 指定任务执行的方法 -->
-        <property name="targetMethod" value="execute"/>
-    </bean>
-    <bean id="exampleJob2Trigger"
-          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail" ref="exampleJob2Detail"/>
-        <!-- 每10秒运行一次 -->
-        <property name="cronExpression" value="5/15 * * * * ?"/>
-    </bean>
-
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-        <property name="triggers">
-            <list>
-                <!-- <ref bean="exampleJobTrigger" /> -->
-                <ref bean="exampleJob2Trigger"/>
-            </list>
-        </property>
-    </bean>
+    <!--<bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>-->
+    <!--<bean id="exampleJob2Detail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+        <!--&lt;!&ndash; 指定任务类 &ndash;&gt;-->
+        <!--<property name="targetObject" ref="exampleJob2"/>-->
+        <!--&lt;!&ndash; 指定任务执行的方法 &ndash;&gt;-->
+        <!--<property name="targetMethod" value="execute"/>-->
+    <!--</bean>-->
+    <!--<bean id="exampleJob2Trigger"-->
+          <!--class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+        <!--<property name="jobDetail" ref="exampleJob2Detail"/>-->
+        <!--&lt;!&ndash; 每10秒运行一次 &ndash;&gt;-->
+        <!--<property name="cronExpression" value="5/15 * * * * ?"/>-->
+    <!--</bean>-->
+    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                 <!--&lt;!&ndash;<ref bean="exampleJobTrigger" /> &ndash;&gt;-->
+                <!--<ref bean="exampleJob2Trigger"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <bean name="memcachedClient" destroy-method="shutdown"
           class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
@@ -72,6 +65,24 @@
         <property name="optTimeout" value="1000"/>
     </bean>
 
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.minsize}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="maxActive" value="${jdbc.maxsize}"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="false"/>
+        <property name="filters" value="stat"/>
+    </bean>
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:/mapping/*Mapper.xml"/>
@@ -79,10 +90,11 @@
         <property name="configLocation" value="classpath:/mybatisConfig.xml"/>
     </bean>
 
+
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
           p:sqlSessionFactoryBeanName="sqlSessionFactory" p:basePackage="com.tpadsz.ssm.dao"/>
 
-    <bean class="org.mybatis.spring.SqlSessionTemplate">
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory"></constructor-arg>
     </bean>
 
@@ -140,25 +152,23 @@
           p:usePool="true">
     </bean>
 
+    <!-- 开发环境配置文件 -->
+    <beans profile="development">
+        <context:property-placeholder
+                location="classpath*:setup.development.properties" />
+    </beans>
 
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-          init-method="init" destroy-method="close">
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="initialSize" value="${jdbc.minsize}"/>
-        <property name="minIdle" value="${jdbc.minIdle}"/>
-        <property name="maxActive" value="${jdbc.maxsize}"/>
-        <property name="maxWait" value="60000"/>
-        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
-        <property name="minEvictableIdleTimeMillis" value="300000"/>
-        <property name="validationQuery" value="SELECT 'x'"/>
-        <property name="testWhileIdle" value="true"/>
-        <property name="testOnBorrow" value="false"/>
-        <property name="testOnReturn" value="false"/>
-        <property name="poolPreparedStatements" value="false"/>
-        <property name="filters" value="stat"/>
-    </bean>
+    <!-- 测试环境配置文件 -->
+    <beans profile="demo">
+        <context:property-placeholder
+                location="classpath*:setup.demo.properties" />
+    </beans>
+
+    <!-- 生产环境配置文件 -->
+    <beans profile="production">
+        <context:property-placeholder location="classpath*:setup.production.properties" />
+    </beans>
+
 
 </beans>
 

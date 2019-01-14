@@ -1,7 +1,7 @@
 package test.config;
 
 import com.tpadsz.after.aop03.ApplicationCfg;
-import com.tpadsz.after.aop03.MathService;
+import com.tpadsz.after.aop03.MathService03;
 import com.tpadsz.after.aop03.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,7 +14,7 @@ public class ConfigurationTest {
     public static void main(String[] args) {
         // 通过类初始化容器
         ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationCfg.class);
-        MathService math = ctx.getBean("mathService", MathService.class);
+        MathService03 math = ctx.getBean("mathService", MathService03.class);
         int n1 = 100, n2 = 0;
         math.add(n1, n2);
         math.subtract(n1, n2);

@@ -58,7 +58,6 @@
     </div>
     <input type="button" id="btn_add2" value="增加一行">
     <input type="submit" value="上传">
-
 </form>
 </body>
 </html>

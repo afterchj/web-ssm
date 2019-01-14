@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heitian.web</groupId>
     <artifactId>web-ssm</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>spring-aop-demo</module>
-    </modules>
+    <!--<modules>-->
+        <!--<module>spring-aop-demo</module>-->
+    <!--</modules>-->
     <name>web-ssm Maven Webapp</name>
     <!--<url>http://maven.apache.org</url>-->
     <properties>
@@ -46,11 +46,11 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.tpadsz.after</groupId>
-            <artifactId>blt-light-api</artifactId>
-            <version>2.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.tpadsz.after</groupId>-->
+            <!--<artifactId>blt-light-api</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -155,10 +155,15 @@
         </dependency>
 
         <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-api</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
+            <version>1.1</version>
         </dependency>
 
         <dependency>

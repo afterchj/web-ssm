@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +46,6 @@
     </style>
 
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-
     <script type="text/javascript">
         var ws = null;
         var url = null;
@@ -103,7 +104,7 @@
             }
             else {
                 if (window.location.protocol == 'http:') {
-                    url = 'ws://' + window.location.host +"/web-ssm"+ urlPath;
+                    url = 'ws://' + window.location.host + "/web-ssm" + urlPath;
                 } else {
                     url = 'wss://' + window.location.host + urlPath;
                 }
@@ -138,15 +139,20 @@
     </script>
 </head>
 <body>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websockets
-    rely on Javascript being enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
+<noscript>
+    <h2 style="color: #ff0000">
+        Seems your browser doesn't support Javascript! Websockets
+        rely on Javascript being enabled. Please enable
+        Javascript and reload this page!
+    </h2>
+</noscript>
 <div>
+    <h6>当前用户：${WEBSOCKET_USERNAME}</h6>
     <div id="connect-container">
-        <input id="radio1" type="radio" name="group1" onclick="updateUrl('/webSocketIMServer');">
+        <input id="radio1" type="radio" name="group1" onclick="updateUrl('/websocket');">
         <label for="radio1">W3C WebSocket</label>
         <br>
-        <input id="radio2" type="radio" name="group1" onclick="updateUrl('/sockjs/webSocketIMServer');">
+        <input id="radio2" type="radio" name="group1" onclick="updateUrl('/sockjs/websocket');">
         <label for="radio2">SockJS</label>
         <div id="sockJsTransportSelect" style="visibility:hidden;">
             <span>SockJS transport:</span>
@@ -169,7 +175,7 @@
             <button id="disconnect" disabled="disabled" onclick="disconnect();">断开连接</button>
         </div>
         <div>
-            <textarea id="message" style="width: 350px">测试消息!</textarea>
+            <textarea id="message" style="width: 350px">输入你要发送的内容!</textarea>
         </div>
         <div>
             <button id="echo" onclick="echo();" disabled="disabled">发送消息</button>
