@@ -11,14 +11,13 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
        default-lazy-init="true">
 
-    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>
+    <!--<context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>-->
 
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy/>
 
     <!-- 配置在java类中能够使用Annotation -->
-    <context:annotation-config/>
-
+    <!--<context:annotation-config/>-->
     <!-- 自动扫描 -->
     <context:component-scan base-package="com.tpadsz.ssm"/>
 
@@ -152,6 +151,24 @@
           p:poolConfig-ref="JedisPoolConfig" p:hostName="${redis.url}" p:port="6379"
           p:usePool="true">
     </bean>
+
+    <!-- 开发环境配置文件 -->
+    <beans profile="development">
+        <context:property-placeholder
+                location="classpath*:setup.development.properties" />
+    </beans>
+
+    <!-- 测试环境配置文件 -->
+    <beans profile="demo">
+        <context:property-placeholder
+                location="classpath*:setup.demo.properties" />
+    </beans>
+
+    <!-- 生产环境配置文件 -->
+    <beans profile="production">
+        <context:property-placeholder location="classpath*:setup.production.properties" />
+    </beans>
+
 
 </beans>
 

@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class Advices {
+public class Advices02 {
 
-    @Before("execution(* com.tpadsz.after.aop02.MathService.*(..))")
+    @Before("execution(* com.tpadsz.after.aop02.MathService02.*(..))")
     public void before(JoinPoint jp) {
         System.out.println("----------前置通知----------");
         System.out.println(jp.getSignature().getName());
     }
 
     //环绕通知
-    @Around("execution(* com.tpadsz.after.aop02.MathService.s*(..))")
+    @Around("execution(* com.tpadsz.after.aop02.MathService02.s*(..))")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println(pjp.getSignature().getName());
         System.out.println("----------环绕前置----------");
@@ -30,7 +30,7 @@ public class Advices {
 
 
     //返回结果通知
-    @AfterReturning(pointcut = "execution(* com.tpadsz.after.aop02.MathService.m*(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* com.tpadsz.after.aop02.MathService02.m*(..))", returning = "result")
     public void afterReturning(JoinPoint jp, Object result) {
         System.out.println(jp.getSignature().getName());
         System.out.println("结果是：" + result);
@@ -38,7 +38,7 @@ public class Advices {
     }
 
     //异常后通知
-    @AfterThrowing(pointcut = "execution(* com.tpadsz.after.aop02.MathService.d*(..))", throwing = "exp")
+    @AfterThrowing(pointcut = "execution(* com.tpadsz.after.aop02.MathService02.d*(..))", throwing = "exp")
     public void afterThrowing(JoinPoint jp, Exception exp) {
         System.out.println(jp.getSignature().getName());
         System.out.println("异常消息：" + exp.getMessage());

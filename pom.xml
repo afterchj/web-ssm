@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heitian.web</groupId>
     <artifactId>web-ssm</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>spring-aop-demo</module>
-    </modules>
+    <!--<modules>-->
+        <!--<module>spring-aop-demo</module>-->
+    <!--</modules>-->
     <name>web-ssm Maven Webapp</name>
     <!--<url>http://maven.apache.org</url>-->
     <properties>

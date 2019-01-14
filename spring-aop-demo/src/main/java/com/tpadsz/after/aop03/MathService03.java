@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
  * Created by hongjian.chen on 2019/1/2.
  */
 
-@Service("mathService")
-public class MathService {
+@Service
+public class MathService03 {
 
     //加
     public int add(int n1, int n2) {

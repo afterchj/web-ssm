@@ -2,7 +2,7 @@ package test;
 
 import com.tpadsz.after.aop02.StrUtil;
 import com.tpadsz.after.aop01.Calculate;
-import com.tpadsz.after.aop02.MathService;
+import com.tpadsz.after.aop02.MathService02;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,7 +27,7 @@ public class MyTest {
     @Test
     public void test2() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:aop02.xml");
-        MathService mathService = ctx.getBean("mathService", MathService.class);
+        MathService02 mathService = ctx.getBean("mathService", MathService02.class);
         System.out.println("mathService="+mathService);
         int n1 = 100, n2 = 4;
         mathService.add(n1, n2);
