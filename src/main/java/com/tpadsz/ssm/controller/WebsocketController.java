@@ -29,7 +29,6 @@ public class WebsocketController {
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("userName");
         username = username.isEmpty() ? "default-system" : username;
-        System.out.println("username=" + username);
         HttpSession session = request.getSession(false);
         session.setAttribute("WEBSOCKET_USERNAME", username);
 //        USERNAME

@@ -12,49 +12,50 @@
 
     .small {
         float: left;
-        width: 30%;
-        height: 45%;
+        width: 400px;
+        height: 400px;
+        margin: 0 10%;
     }
 
     .year {
         float: left;
-        width: 60%;
-        height: 45%;
+        width: 50%;
+        height: 400px;
     }
 
     .month {
         float: left;
-        width: 60%;
-        height: 45%;
+        width: 50%;
+        height: 400px;
     }
 
     .search {
         clear: both;
+        margin-right: 12%;
         text-align: right;
-        width: 90%;
-        float: left;
+        width: 800px;
+        float: right;
         /*margin-right: 5%;*/
     }
 </style>
-<%--<script type="text/javascript">--%>
-<%--$(function () {--%>
-<%--$.ajax({--%>
-<%--type: "GET",--%>
-<%--url: "charts/showYearExpend",--%>
-<%--//                data: {username:$("#username").val(), content:$("#content").val()},--%>
-<%--dataType: "json",--%>
-<%--success: function (data) {--%>
-<%--//                console.log("data=" + JSON.stringify(data));--%>
-<%--$('#resText').empty();   //清空resText里面的所有内容--%>
-<%--var html = '';--%>
-<%--$.each(data, function (commentIndex, comment) {--%>
-<%--html += '<div class="comment"><h6>' + comment['perYear'] + '：' + comment['total'] + '</div>';--%>
-<%--});--%>
-<%--$('#resText').html(html);--%>
-<%--}--%>
-<%--});--%>
-<%--});--%>
-<%--</script>--%>
+<script type="text/javascript">
+    $(function () {
+        $("#date").change(function () {
+            var date = $("#date").val();
+            var account = $("#account").val();
+            console.log("date=" + date + ",account=" + account);
+//            $.ajax({
+//                type: "GET",
+//                url: "../charts/showYearExpend",
+//                data: {username: date, content: account},
+//                dataType: "json",
+//                success: function (data) {
+//                    console.log("data=" + JSON.stringify(data));
+//                }
+//            });
+        });
+    });
+</script>
 <body>
 <div id="resText"><h6>当前账号：${account}</h6></div>
 <div id="main" class="small"></div>

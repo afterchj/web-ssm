@@ -58,7 +58,6 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 //            logger.error("消息发送失败！");
 //        }
         String msg = message.getPayload();
-        System.out.println("msg=" + msg);
         String user = session.getAttributes().get("USERNAME").toString();
         TextMessage textMessage = new TextMessage(user + "：" + msg);
         sendMessageToAll(user, textMessage);
