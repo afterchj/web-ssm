@@ -1,0 +1,29 @@
+#resText{
+    margin-top: 20px;
+}
+.small {
+    float: left;
+    width: 400px;
+    height: 400px;
+    margin: 0 10%;
+}
+
+.year {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+.month {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+.search {
+    clear: both;
+    margin-right: 13%;
+    text-align: right;
+    width: 800px;
+    float: right;
+}
