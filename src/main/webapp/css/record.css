@@ -5,25 +5,26 @@
     float: left;
     width: 400px;
     height: 400px;
-    margin: 0 10%;
+    margin-left: 20px;
 }
 
 .year {
     float: left;
-    width: 50%;
+    width: 900px;
     height: 400px;
 }
 
 .month {
     float: left;
-    width: 50%;
+    width: 900px;
     height: 400px;
 }
 
 .search {
     clear: both;
-    margin-right: 13%;
+    margin-right: 8%;
     text-align: right;
     width: 800px;
     float: right;
+    /*margin-right: 5%;*/
 }
