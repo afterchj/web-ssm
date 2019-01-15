@@ -89,7 +89,6 @@ public class ChatRoom extends AbstractWebSocketHandler {
 
     @Override
     public void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
-        logger.info(session.getAttributes().get("user") + "：在处理二进制文件...." + output);
         ByteBuffer buffer = message.getPayload();
         try {
             output.write(buffer.array());
