@@ -1,51 +1,49 @@
 var ws = null;
-//
-// if ('ws' in window) {
-//     ws = new WebSocket('ws://' + window.location.host + "/web-ssm/chat.do");
-// } else {
-//     ws = new SockJS('http://' + window.location.host + '/web-ssm/sockjs/chat.do');
-// }
 
 if ('ws' in window) {
     ws = new WebSocket('ws://' + window.location.host + "/web-ssm/websocket");
 } else {
     ws = new SockJS('http://' + window.location.host + '/web-ssm/sockjs/websocket');
 }
-
 ws.onopen = open;
 ws.onmessage = message;
 ws.onclose = close;
-
 function message(event) {
+    var result = event.data;
+    var user = document.getElementById("user").value;
     var plan = document.getElementById("console");
-    var p = document.createElement('p');
-    var img = document.createElement("img");
-    if (typeof event.data == 'string') {
-        if (event.data.indexOf("：") != -1) {
+    // var img = document.createElement("img");
+    if (typeof result == 'string') {
+        var p = document.createElement('p');
+        p.classList.add('p');
+        var self = result.split("：", 1);
+        var info = result.substr(result.indexOf("：") + 1, result.length);
+        if (self != user) {
             p.style.textAlign = 'left';
-            // img.style.textAlign = 'right';
+            // img.style.clean = 'both';
+            // img.style.float = 'left';
+            info = result;
         } else {
             p.style.textAlign = 'right';
-            img.style.textAlign = 'left';
+            // img.style.clean = 'both';
+            // img.style.float = 'right';
         }
-        p.style.lineHeight = '5px';
-        p.style.wordWrap = 'break-word';
-        p.appendChild(document.createTextNode(event.data));
+        p.appendChild(document.createTextNode(info));
         plan.appendChild(p);
     } else {
         var reader = new FileReader();
         reader.onload = function (eve) {
             if (eve.target.readyState == FileReader.DONE) {
+                var img = document.createElement("img");
                 img.src = this.result;
-                img.style.textAlign = 'right';
+                img.classList.add('img');
                 plan.appendChild(img);
                 // console.log("data=" + reader.result);验证this指的是reader对象
             }
         };
         reader.readAsDataURL(event.data);
+        plan.scrollTop = plan.scrollHeight;
     }
-    plan.scrollTop = console.scrollHeight;
-    // log(event, "");
 }
 
 function setConnected(connected) {
@@ -55,32 +53,28 @@ function setConnected(connected) {
 }
 
 function open() {
-    var plan = document.getElementById("console");
     setConnected(false);
-    var p = document.createElement("p");
-    p.appendChild(document.createTextNode("Info： 连接成功"));
-    plan.appendChild(p);
 }
+
 function close() {
-    var plan = document.getElementById("console");
+    ws.send('已退出！');
+    disconnect();
     setConnected(true);
-    var element = document.createElement("p");
-    element.appendChild(document.createTextNode("info：退出！"));
-    plan.appendChild(element);
+    // var plan = document.getElementById("console");
+    // var element = document.createElement("p");
+    // element.appendChild(document.createTextNode("info：退出！"));
+    // plan.appendChild(element);
 }
 function connect() {
-
     if ('ws' in window) {
         ws = new WebSocket('ws://' + window.location.host + "/web-ssm/websocket");
     } else {
         ws = new SockJS('http://' + window.location.host + '/web-ssm/sockjs/websocket');
     }
-
-    ws.onopen = open();
-    ws.onmessage = message();
-    ws.onclose = close();
-
-    setConnected(true);
+    ws.onopen = open;
+    ws.onmessage = message;
+    ws.onclose = close;
+    setConnected(false);
 }
 
 function disconnect() {
@@ -89,20 +83,12 @@ function disconnect() {
         ws.close();
         ws = null;
     }
-    var plan = document.getElementById("console");
-    var element = document.createElement("p");
-    element.appendChild(document.createTextNode("info：断开连接！"));
-    plan.appendChild(element);
 }
 
 function echo() {
     if (ws.readyState == 1) { //0-CONNECTING;1-OPEN;2-CLOSING;3-CLOSED
         var message = document.getElementById('message').value;
         if (message) {
-            var element = document.createElement("p");
-            element.style.textAlign = 'right';
-            element.appendChild(document.createTextNode(message));
-            document.getElementById('console').appendChild(element);
             ws.send(message);
         }
         sendFile(message);

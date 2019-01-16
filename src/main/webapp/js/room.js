@@ -44,7 +44,7 @@ function onMessage(event) {
 function onError() {
     console.log("未知错误！");
 }
-function onClose(event) {
+function onClose() {
     console.log("关闭连接！");
     document.getElementById("plane").innerHTML = document.getElementById("plane").innerHTML + "CLOSE<br/>";
 }

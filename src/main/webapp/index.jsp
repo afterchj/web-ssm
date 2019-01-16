@@ -5,7 +5,7 @@
 <a href="user/showUser">userList</a>
 <a href="upload.jsp">文件上传测试</a>
 <a href="room/login">聊天室</a>
-<a href="login.jsp">在线聊天</a>
+<a href="user/login">在线聊天</a>
 <a href="record_map.jsp">查看案列</a>
 <a href="pandaHelp/FAQ">FAQ</a>
 

@@ -18,20 +18,38 @@
             margin: 5px 5px;
         }
 
-        #console-container {
-            margin-left: 15px;
-            width: 40%;
+        .send {
+            width: 300px;
+            height: 25px;
         }
 
+        /*#console-container {*/
+        /*margin-left: 15px;*/
+        /*width: 35%;*/
+        /*}*/
+
         #console {
-            overflow-y: scroll;
+            white-space: nowrap;
+            /*overflow-y: scroll;*/
+            overflow: scroll;
             border: 1px solid #CCCCCC;
             border-right-color: #999999;
             border-bottom-color: #999999;
             height: 400px;
-            width: 100%;
+            width: 40%;
         }
 
+        .p {
+            word-break: break-all;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 5px;
+        }
+
+        .img {
+            margin: 5px 10px;
+            max-width: 200px;
+        }
     </style>
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
 </head>
@@ -44,18 +62,16 @@
     </h2>
 </noscript>
 <div>
-    <h6>当前用户：${WEBSOCKET_USERNAME}</h6>
+    <input type="hidden" id="user" value="${WEBSOCKET_USERNAME}">
 </div>
-<div id="console-container">
-    <div id="console"></div>
-</div>
+<div id="console"></div>
 <div>
     <input type="button" id="connect" value="连接服务器" onclick="connect();">
     <input type="button" id="disconnect" value="断开连接" disabled="disabled" onclick="disconnect();">
     <input type="file" id="file">
 </div>
 <div>
-    <textarea id="message" rows="2" cols="50">输入你要发送的内容!</textarea>
+    <textarea id="message" role="2" cols="50" >输入你要发送的内容!</textarea>
 </div>
 <div>
     <button id="echo" onclick="echo();">发送消息</button>

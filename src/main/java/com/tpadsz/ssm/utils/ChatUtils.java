@@ -6,6 +6,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Random;
 
 /**
  * Created by hongjian.chen on 2019/1/16.
@@ -27,5 +28,12 @@ public class ChatUtils {
             logger.error("文件发送失败！" + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    //这里没做控制，所以聊天室内的人物名称可能发生重复
+    public static String getRandomNickName() {
+        String[] nickNameArray = {"Captain America", "Tom", "Lucy", "Super hero", "Iron Man", "Spider Man", "Robot"};
+        Random random = new Random();
+        return nickNameArray[random.nextInt(nickNameArray.length)];
     }
 }

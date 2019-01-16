@@ -31,10 +31,11 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
      * 连接成功时候，会触发页面上onopen方法
      */
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-//        super.afterConnectionEstablished(session);
+        super.afterConnectionEstablished(session);
         // TODO Auto-generated method stub
+        String user = session.getAttributes().get("USERNAME").toString();
         users.put(session.getAttributes().get("USERNAME"), session);
-        session.sendMessage(new TextMessage("I'm " + (session.getAttributes().get("USERNAME"))));
+        session.sendMessage(new TextMessage(user + "：I'm " + user));
         logger.info("connect to the websocket success......当前数量:" + users.size());
     }
 
@@ -60,18 +61,18 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         String user = session.getAttributes().get("USERNAME").toString();
         String payload = message.getPayload();
         TextMessage textMessage = new TextMessage(user + "：" + payload);
+        String fileName = payload.split(":")[0];
         try {
             if (payload.endsWith(":fileStart")) {
-                output = new FileOutputStream(new File(PropertiesUtils.getValue("file") + payload.split(":")[0]));
+                File file = new File(PropertiesUtils.getValue("file") + fileName);
+                output = new FileOutputStream(file);
             } else if (payload.endsWith(":fileFinishSingle")) {
                 output.close();
-                String fileName = payload.split(":")[0];
                 for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
                     ChatUtils.sendPicture(entry.getValue(), fileName);
                 }
             } else if (payload.endsWith(":fileFinishWithText")) {
                 output.close();
-                String fileName = payload.split(":")[0];
                 for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
                     ChatUtils.sendPicture(entry.getValue(), fileName);
                 }
@@ -85,7 +86,7 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     public void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
-        logger.info("处理BinaryMessage..." + message.getPayload().toString());
+//        logger.info("处理BinaryMessage..." + message.getPayload().toString());
         ByteBuffer buffer = message.getPayload();
         try {
             output.write(buffer.array());
@@ -93,7 +94,7 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         }
     }
 
-    public void handleTransportError(WebSocketSession session, Throwable exception){
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
         try {
             super.handleTransportError(session, exception);
         } catch (Exception e) {
@@ -138,9 +139,10 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         try {
             for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
                 if (entry.getValue().isOpen()) {
-                    if (!entry.getKey().equals(user)) {
-                        entry.getValue().sendMessage(message);
-                    }
+                    entry.getValue().sendMessage(message);
+//                    if (!entry.getKey().equals(user)) {
+//                        entry.getValue().sendMessage(message);
+//                    }
                 }
             }
         } catch (IOException e) {

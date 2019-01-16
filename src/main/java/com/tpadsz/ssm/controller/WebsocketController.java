@@ -1,6 +1,7 @@
 package com.tpadsz.ssm.controller;
 
 
+import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.websocket.SpringWebSocketHandler;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,7 @@ public class WebsocketController {
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("userName");
-//        username = StringUtils.isEmpty(username) ? "default-system" : username;
+        username = StringUtils.isEmpty(username) ? ChatUtils.getRandomNickName() : username;
         HttpSession session = request.getSession(false);
         session.setAttribute("WEBSOCKET_USERNAME", username);
 //        USERNAME

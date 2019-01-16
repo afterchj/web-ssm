@@ -3,6 +3,7 @@ package com.tpadsz.ssm.websocket;
 import java.util.Map;
 import java.util.Random;
 
+import com.tpadsz.ssm.utils.ChatUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.http.server.ServerHttpRequest;
@@ -31,7 +32,7 @@ public class ChartHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
                 //使用userName区分WebSocketHandler，以便定向发送消息
                 String userName = (String) session.getAttribute("WEBSOCKET_USERNAME");
                 if (StringUtils.isEmpty(userName)) {
-                    userName = getRandomNickName();
+                    userName = ChatUtils.getRandomNickName();
                 }
                 attributes.put("user", userName);
             }
@@ -44,10 +45,4 @@ public class ChartHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
         super.afterHandshake(request, response, wsHandler, ex);
     }
 
-    //这里没做控制，所以聊天室内的人物名称可能发生重复
-    public String getRandomNickName() {
-        String[] nickNameArray = {"Captain America", "Tom", "Lucy", "Super hero", "Iron Man", "Spider Man", "Robot"};
-        Random random = new Random();
-        return nickNameArray[random.nextInt(nickNameArray.length)];
-    }
 }

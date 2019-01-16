@@ -4,6 +4,7 @@ import com.tpadsz.ssm.model.User;
 import com.tpadsz.ssm.service.UserService;
 
 import com.tpadsz.ssm.utils.AppUtils;
+import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.utils.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class UserController {
     @RequestMapping("/login")
     public String showUser(HttpServletRequest request, User user, Model model) {
         String username = request.getParameter("userName");
-        username = StringUtils.isEmpty(username) ? "default-system" : username;
+        username = StringUtils.isEmpty(username) ? ChatUtils.getRandomNickName() : username;
         request.getSession().setAttribute("WEBSOCKET_USERNAME", username);
 //        User user1 = userService.selectByName(user);
 //        if (user1 != null) {
