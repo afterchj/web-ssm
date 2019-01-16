@@ -1,17 +1,25 @@
 var url = window.location.host + "/web-ssm";
 var websocket = null;
+
 if ('websocket' in window) {
     websocket = new WebSocket("ws://" + url + "/chat.do");
 } else {
     websocket = new SockJS("http://" + url + "/sockjs/chat.do");
 }
+//
+// if ('websocket' in window) {
+//     websocket = new WebSocket('ws://' + window.location.host + "/web-ssm/websocket");
+// } else {
+//     websocket = new SockJS('http://' + window.location.host + '/web-ssm/sockjs/websocket');
+// }
+
 websocket.onopen = onOpen;
 websocket.onmessage = onMessage;
 websocket.onerror = onError;
 websocket.onclose = onClose;
 
-function onOpen(openEvent) {
-    console.log("opening..." + openEvent.data);
+function onOpen() {
+    console.log("opening...");
     document.getElementById("plane").innerHTML = document.getElementById("plane").innerHTML + "OPEN<br/>";
 }
 
@@ -33,11 +41,11 @@ function onMessage(event) {
         reader.readAsDataURL(event.data);
     }
 }
-function onError(event) {
-    console.log("未知错误！" + event.date);
+function onError() {
+    console.log("未知错误！");
 }
 function onClose(event) {
-    console.log(event.reason)
+    console.log("关闭连接！");
     document.getElementById("plane").innerHTML = document.getElementById("plane").innerHTML + "CLOSE<br/>";
 }
 
@@ -55,6 +63,7 @@ function doSend() {
 }
 
 function sendFile(isWithText) {
+    console.log("File send starting...");
     var inputElement = document.getElementById("file");
     var fileList = inputElement.files;
     var file = fileList[0];

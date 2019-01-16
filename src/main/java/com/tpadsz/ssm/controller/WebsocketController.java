@@ -2,6 +2,7 @@ package com.tpadsz.ssm.controller;
 
 
 import com.tpadsz.ssm.websocket.SpringWebSocketHandler;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by after on 2018/7/31.
  */
+@RequestMapping("/room")
 @Controller
 public class WebsocketController {
 
@@ -25,15 +27,15 @@ public class WebsocketController {
 //        return new SpringWebSocketHandler();
 //    }
 
-    @RequestMapping("/websocket/login")
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping("/login")
+    public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("userName");
-        username = username.isEmpty() ? "default-system" : username;
+//        username = StringUtils.isEmpty(username) ? "default-system" : username;
         HttpSession session = request.getSession(false);
         session.setAttribute("WEBSOCKET_USERNAME", username);
 //        USERNAME
-        //response.sendRedirect("/quicksand/jsp/websocket.jsp");
-        return new ModelAndView("websocket");
+        response.sendRedirect("../websocket.jsp");
+//        return new ModelAndView("websocket");
     }
 
 //    @ResponseBody

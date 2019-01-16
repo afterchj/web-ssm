@@ -43,7 +43,6 @@
             margin: 0;
         }
     </style>
-    <script src="js/room.js"></script>
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
 </head>
 <body>
@@ -71,4 +70,5 @@
     <div id="plane"></div>
 </div>
 </body>
+<script type="text/javascript" src="js/room.js"></script>
 </html>

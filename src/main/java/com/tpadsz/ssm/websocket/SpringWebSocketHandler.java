@@ -1,14 +1,16 @@
 package com.tpadsz.ssm.websocket;
 
 
-import com.tpadsz.ssm.utils.ZipUtils;
+import com.tpadsz.ssm.utils.ChatUtils;
+import com.tpadsz.ssm.utils.PropertiesUtils;
 import org.apache.log4j.Logger;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
+import org.springframework.web.socket.*;
+import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,11 +19,13 @@ import java.util.Map;
  * Created by after on 2018/7/31.
  */
 
-public class SpringWebSocketHandler extends TextWebSocketHandler {
+public class SpringWebSocketHandler extends AbstractWebSocketHandler {
 
-    private static Logger logger = Logger.getLogger(SpringWebSocketHandler.class);
+    private Logger logger = Logger.getLogger(SpringWebSocketHandler.class);
     //ArrayList会出现性能问题，最好用Map来存储，key用userid
-    private static final Map<Object, WebSocketSession> users = new HashMap<>();
+    public static final Map<Object, WebSocketSession> users = new HashMap<>();
+
+    public FileOutputStream output;
 
     /**
      * 连接成功时候，会触发页面上onopen方法
@@ -30,21 +34,22 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 //        super.afterConnectionEstablished(session);
         // TODO Auto-generated method stub
         users.put(session.getAttributes().get("USERNAME"), session);
-        //这块会实现自己业务，比如，当用户登录后，会把离线消息推送给用户
-//        TextMessage returnMessage = new TextMessage("你将收到的离线");
-//        session.sendMessage(returnMessage);
-        System.out.println("connect to the websocket success......当前数量:" + users.size());
+        session.sendMessage(new TextMessage("I'm " + (session.getAttributes().get("USERNAME"))));
+        logger.info("connect to the websocket success......当前数量:" + users.size());
     }
 
     /**
      * 关闭连接时触发
      */
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+//        super.afterConnectionClosed(session, closeStatus);
         logger.info("websocket connection closed......");
         Object username = session.getAttributes().get("USERNAME");
         users.remove(username);
-        System.out.println("剩余在线用户" + users.size());
-        super.afterConnectionClosed(session, closeStatus);
+        //这块会实现自己业务，比如，当用户登录后，会把离线消息推送给用户
+//        TextMessage returnMessage = new TextMessage(username.toString() + "退出聊天室！");
+//        session.sendMessage(returnMessage);
+        logger.info("剩余在线用户" + users.size());
     }
 
     /**
@@ -52,26 +57,54 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-//        try {
-//            super.handleTextMessage(session, message);
-//        } catch (Exception e) {
-//            logger.error("消息发送失败！");
-//        }
-        String msg = message.getPayload();
         String user = session.getAttributes().get("USERNAME").toString();
-        TextMessage textMessage = new TextMessage(user + "：" + msg);
-        sendMessageToAll(user, textMessage);
-
+        String payload = message.getPayload();
+        TextMessage textMessage = new TextMessage(user + "：" + payload);
+        try {
+            if (payload.endsWith(":fileStart")) {
+                output = new FileOutputStream(new File(PropertiesUtils.getValue("file") + payload.split(":")[0]));
+            } else if (payload.endsWith(":fileFinishSingle")) {
+                output.close();
+                String fileName = payload.split(":")[0];
+                for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
+                    ChatUtils.sendPicture(entry.getValue(), fileName);
+                }
+            } else if (payload.endsWith(":fileFinishWithText")) {
+                output.close();
+                String fileName = payload.split(":")[0];
+                for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
+                    ChatUtils.sendPicture(entry.getValue(), fileName);
+                }
+            } else {
+                sendMessageToAll(user, textMessage);
+            }
+        } catch (IOException e) {
+            logger.error("异常信息" + e.getMessage());
+        }
     }
 
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        super.handleTransportError(session, exception);
-        logger.debug("websocket connection closed......");
+    @Override
+    public void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
+        logger.info("处理BinaryMessage..." + message.getPayload().toString());
+        ByteBuffer buffer = message.getPayload();
+        try {
+            output.write(buffer.array());
+        } catch (IOException e) {
+        }
+    }
+
+    public void handleTransportError(WebSocketSession session, Throwable exception){
+        try {
+            super.handleTransportError(session, exception);
+        } catch (Exception e) {
+            logger.error("webSocket connection closed......ERROR");
+            e.printStackTrace();
+        }
         users.remove(session);
     }
 
     public boolean supportsPartialMessages() {
-        return false;
+        return true;
     }
 
 
@@ -102,7 +135,6 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      * @param message
      */
     public void sendMessageToAll(String user, TextMessage message) {
-        logger.info("给所有在线用户发送消息=" + message.getPayload());
         try {
             for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
                 if (entry.getValue().isOpen()) {

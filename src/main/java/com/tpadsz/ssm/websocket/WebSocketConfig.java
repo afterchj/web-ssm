@@ -24,6 +24,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
         //允许客户端使用SockJS
         //SockJS 是一个浏览器上运行的 JavaScript 库，如果浏览器不支持 WebSocket，该库可以模拟对 WebSocket 的支持。
         registry.addHandler(ChatRoom(), "/sockjs/chat.do").addInterceptors(handshakeInterceptor()).withSockJS();
+
+//        registry.addHandler(ChatRoom(), "/websocket").setAllowedOrigins("*").addInterceptors(springWebSocketHandlerInterceptor());
+//        //允许客户端使用SockJS
+//        //SockJS 是一个浏览器上运行的 JavaScript 库，如果浏览器不支持 WebSocket，该库可以模拟对 WebSocket 的支持。
+//        registry.addHandler(ChatRoom(), "/sockjs/websocket").addInterceptors(springWebSocketHandlerInterceptor()).withSockJS();
     }
 
 
@@ -36,4 +41,14 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public ChatRoom ChatRoom() {
         return new ChatRoom();
     }
+
+//    @Bean
+//    public SpringWebSocketHandler springWebSocketHandler() {
+//        return new SpringWebSocketHandler();
+//    }
+//
+//    @Bean
+//    public SpringWebSocketHandlerInterceptor springWebSocketHandlerInterceptor() {
+//        return new SpringWebSocketHandlerInterceptor();
+//    }
 }

@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.tpadsz.ssm.utils.ChatUtils;
+import com.tpadsz.ssm.utils.PropertiesUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
@@ -31,7 +33,7 @@ public class ChatRoom extends AbstractWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-        System.out.println("Connection established...ip=" + webSocketSession.getRemoteAddress());
+        logger.info("Connection established...ip=" + webSocketSession.getRemoteAddress());
         logger.info(webSocketSession.getAttributes().get("user") + " Login");
         webSocketSession.sendMessage(new TextMessage("I'm " + (webSocketSession.getAttributes().get("user"))));
         sessionList.add(webSocketSession);
@@ -51,7 +53,7 @@ public class ChatRoom extends AbstractWebSocketHandler {
         String textString;
         try {
             if (payload.endsWith(":fileStart")) {
-                output = new FileOutputStream(new File("D:\\images\\" + payload.split(":")[0]));
+                output = new FileOutputStream(new File(PropertiesUtils.getValue("file") + payload.split(":")[0]));
             } else if (payload.endsWith(":fileFinishSingle")) {
                 output.close();
                 String fileName = payload.split(":")[0];
@@ -63,13 +65,13 @@ public class ChatRoom extends AbstractWebSocketHandler {
                     }
                     TextMessage textMessage = new TextMessage(textString);
                     session.sendMessage(textMessage);
-                    sendPicture(session, fileName);
+                    ChatUtils.sendPicture(session, fileName);
                 }
             } else if (payload.endsWith(":fileFinishWithText")) {
                 output.close();
                 String fileName = payload.split(":")[0];
                 for (WebSocketSession session : sessionList) {
-                    sendPicture(session, fileName);
+                    ChatUtils.sendPicture(session, fileName);
                 }
             } else {
                 for (WebSocketSession session : sessionList) {
@@ -111,17 +113,5 @@ public class ChatRoom extends AbstractWebSocketHandler {
         return true;
     }
 
-    public void sendPicture(WebSocketSession session, String fileName) {
-        FileInputStream input = null;
-        try {
-            File file = new File("D:\\images\\" + fileName);
-            input = new FileInputStream(file);
-            byte bytes[] = new byte[(int) file.length()];
-            input.read(bytes);
-            BinaryMessage byteMessage = new BinaryMessage(bytes);
-            session.sendMessage(byteMessage);
-        } catch (Exception e) {
-            logger.error("文件发送失败！" + e.getMessage());
-        }
-    }
+
 }

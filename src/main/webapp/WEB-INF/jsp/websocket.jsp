@@ -12,14 +12,10 @@
 <html>
 <head>
     <title>Spring4 websocket实例</title>
-    <meta charset="utf-8">
     <style type="text/css">
-        #connect-container {
-            width: 20%
-        }
 
-        #connect-container div {
-            margin: 5px 0;
+        div {
+            margin: 5px 5px;
         }
 
         #console-container {
@@ -28,22 +24,16 @@
         }
 
         #console {
+            overflow-y: scroll;
             border: 1px solid #CCCCCC;
             border-right-color: #999999;
             border-bottom-color: #999999;
-            height: 300px;
-            overflow-y: scroll;
-            margin: 5px 0;
+            height: 400px;
             width: 100%;
         }
 
-        #console p {
-            margin: 0 0 5px 0;
-            /*margin: 0;*/
-        }
     </style>
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-    <script src="../js/chat.js"></script>
 </head>
 <body>
 <noscript>
@@ -59,17 +49,17 @@
 <div id="console-container">
     <div id="console"></div>
 </div>
-<div id="connect-container">
-    <div>
-        <button id="connect" onclick="connect();">连接服务器</button>
-        <button id="disconnect" disabled="disabled" onclick="disconnect();">断开连接</button>
-    </div>
-    <div>
-        <textarea id="message" rows="2" cols="40">输入你要发送的内容!</textarea>
-    </div>
-    <div>
-        <button id="echo" onclick="echo();" disabled="disabled">发送消息</button>
-    </div>
+<div>
+    <input type="button" id="connect" value="连接服务器" onclick="connect();">
+    <input type="button" id="disconnect" value="断开连接" disabled="disabled" onclick="disconnect();">
+    <input type="file" id="file">
+</div>
+<div>
+    <textarea id="message" rows="2" cols="50">输入你要发送的内容!</textarea>
+</div>
+<div>
+    <button id="echo" onclick="echo();">发送消息</button>
 </div>
 </body>
+<script type="text/javascript" src="../js/chat.js"></script>
 </html>
