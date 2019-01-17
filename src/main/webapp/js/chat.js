@@ -1,9 +1,10 @@
+var url = window.location.host + "/web-ssm";
 var ws = null;
 
 if ('ws' in window) {
-    ws = new WebSocket('ws://' + window.location.host + "/web-ssm/websocket");
+    ws = new WebSocket('ws://' + url + "/websocket");
 } else {
-    ws = new SockJS('http://' + window.location.host + '/web-ssm/sockjs/websocket');
+    ws = new SockJS('http://' + url + '/sockjs/websocket');
 }
 ws.onopen = open;
 ws.onmessage = message;
@@ -30,6 +31,7 @@ function message(event) {
         }
         p.appendChild(document.createTextNode(info));
         plan.appendChild(p);
+        document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
     } else {
         var reader = new FileReader();
         reader.onload = function (eve) {
@@ -41,11 +43,11 @@ function message(event) {
                 img.src = this.result;
                 plan.appendChild(img);
                 plan.appendChild(br);
+                document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
                 // console.log("data=" + reader.result);验证this指的是reader对象
             }
         };
         reader.readAsDataURL(event.data);
-        document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
     }
 }
 
@@ -70,9 +72,9 @@ function close() {
 }
 function connect() {
     if ('ws' in window) {
-        ws = new WebSocket('ws://' + window.location.host + "/web-ssm/websocket");
+        ws = new WebSocket('ws://' + url + "/websocket");
     } else {
-        ws = new SockJS('http://' + window.location.host + '/web-ssm/sockjs/websocket');
+        ws = new SockJS('http://' + url + '/sockjs/websocket');
     }
     ws.onopen = open;
     ws.onmessage = message;

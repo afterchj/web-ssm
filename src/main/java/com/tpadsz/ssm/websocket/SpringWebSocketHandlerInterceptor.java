@@ -1,6 +1,7 @@
 package com.tpadsz.ssm.websocket;
 
 
+import com.tpadsz.ssm.utils.AppUtils;
 import org.apache.log4j.Logger;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -32,7 +33,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         // TODO Auto-generated method stub
-        logger.info("Before Handshake");
+        logger.info("ip=" + AppUtils.getRequest().getHeader("x-forwarded-for"));
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             HttpSession session = servletRequest.getServletRequest().getSession(false);

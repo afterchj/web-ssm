@@ -36,8 +36,4 @@ public class AppUtils {
             return null;
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(getRequest());
-    }
 }

@@ -20,13 +20,13 @@
     <context:component-scan base-package="com.tpadsz.ssm.controller"/>
 
     <!--websocket消息接收与处理类-->
-    <bean id="websocket" class="com.tpadsz.ssm.websocket.SpringWebSocketHandler"/>
+    <bean id="socketjs" class="com.tpadsz.ssm.websocket.WebSocketEndHandler"/>
     <!--定义客户端与服务器握手的拦截器，可以做一些预处理-->
     <!--该拦截器专门为SockJS客户端服务的-->
     <websocket:handlers>
-        <websocket:mapping path="/sockjs/websocket" handler="websocket"/>
+        <websocket:mapping path="/demo/socket" handler="socketjs"/>
         <websocket:handshake-interceptors>
-            <bean class="com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor"/>
+            <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
         </websocket:handshake-interceptors>
         <!-- 开启sockjs支持 -->
         <websocket:sockjs/>
@@ -34,9 +34,9 @@
     <!-- 定义客户端与服务器握手的拦截器，可以做一些预处理 -->
     <!-- 该拦截器专门为WebSocket客户端服务的 -->
     <websocket:handlers>
-        <websocket:mapping path="/websocket" handler="websocket"/>
+        <websocket:mapping path="/socket" handler="socketjs"/>
         <websocket:handshake-interceptors>
-            <bean class="com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor"/>
+            <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
         </websocket:handshake-interceptors>
     </websocket:handlers>
 

@@ -29,13 +29,13 @@
         /*}*/
 
         #console {
-            white-space: nowrap;
-            /*overflow-y: scroll;*/
-            overflow: scroll;
+            /*white-space: nowrap;*/
+            overflow-y: scroll;
+            /*overflow: scroll;*/
             border: 1px solid #CCCCCC;
             border-right-color: #999999;
             border-bottom-color: #999999;
-            height: 400px;
+            height: 600px;
             width: 40%;
         }
 
@@ -43,7 +43,6 @@
             word-break: break-all;
             white-space: pre-wrap;
             word-wrap: break-word;
-            line-height: 5px;
         }
 
         .img {
