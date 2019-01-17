@@ -35,14 +35,17 @@ function message(event) {
         reader.onload = function (eve) {
             if (eve.target.readyState == FileReader.DONE) {
                 var img = document.createElement("img");
-                img.src = this.result;
+                var br = document.createElement("br");
+                img.style.clean = 'both';
                 img.classList.add('img');
+                img.src = this.result;
                 plan.appendChild(img);
+                plan.appendChild(br);
                 // console.log("data=" + reader.result);验证this指的是reader对象
             }
         };
         reader.readAsDataURL(event.data);
-        plan.scrollTop = plan.scrollHeight;
+        document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
     }
 }
 

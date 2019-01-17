@@ -48,7 +48,7 @@
 
         .img {
             margin: 5px 10px;
-            max-width: 200px;
+            max-width: 400px;
         }
     </style>
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>

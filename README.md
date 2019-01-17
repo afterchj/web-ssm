@@ -1,4 +1,5 @@
-# web-ssm
+# 打包命令
+### mvn package -Dmaven.test.skip=true
 springmvc学习笔记  
 1.<aop:pointcut>如果位于<aop:aspect>元素中，则命名切点只能被当前<aop:aspect>内定义的元素访问到，    
 为了能被整个<aop:config>元素中定义的所有增强访问，则必须在<aop:config>下定义切点。    

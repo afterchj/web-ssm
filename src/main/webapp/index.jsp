@@ -5,12 +5,12 @@
 <a href="user/showUser">userList</a>
 <a href="upload.jsp">文件上传测试</a>
 <a href="room/login">聊天室</a>
-<a href="user/login">在线聊天</a>
+<a href="login.jsp">在线聊天</a>
 <a href="record_map.jsp">查看案列</a>
 <a href="pandaHelp/FAQ">FAQ</a>
 
 <form action="user/upload.do" method="post" name="file" enctype="multipart/form-data">
-    <p>账号:<input name="account"></p>
+    <p>账号:<input name="account" value="766256898@qq.com"></p>
     <p>文件描述:<input name="desc"></p>
     <video width="320" height="240" controls>
         <source src=" http://www.uichange.com/ums3-client2/files/013ec16d5e0a461cab6b252c3fbd3ae4/ceshigeshigongchang3.mp4"
