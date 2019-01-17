@@ -23,7 +23,7 @@
     <bean id="socketjs" class="com.tpadsz.ssm.websocket.WebSocketEndHandler"/>
     <!--定义客户端与服务器握手的拦截器，可以做一些预处理-->
     <!--该拦截器专门为SockJS客户端服务的-->
-    <websocket:handlers>
+    <websocket:handlers allowed-origins="*">
         <websocket:mapping path="/demo/socket" handler="socketjs"/>
         <websocket:handshake-interceptors>
             <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>
@@ -33,7 +33,7 @@
     </websocket:handlers>
     <!-- 定义客户端与服务器握手的拦截器，可以做一些预处理 -->
     <!-- 该拦截器专门为WebSocket客户端服务的 -->
-    <websocket:handlers>
+    <websocket:handlers allowed-origins="*">
         <websocket:mapping path="/socket" handler="socketjs"/>
         <websocket:handshake-interceptors>
             <bean class="com.tpadsz.ssm.websocket.HandshakeInterceptor"/>

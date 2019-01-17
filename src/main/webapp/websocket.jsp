@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <title>Spring4 websocket实例</title>
     <style type="text/css">
         #connect-container {

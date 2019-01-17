@@ -63,7 +63,11 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         String payload = message.getPayload();
         TextMessage textMessage = new TextMessage(user + "：" + payload);
         String fileName = payload.split(":")[0];
+        int index = fileName.lastIndexOf("/");
         try {
+            if (index != -1) {
+                fileName = fileName.substring(index + 1, fileName.length());
+            }
             if (payload.endsWith(":fileStart")) {
                 File file = new File(PropertiesUtils.getValue("file") + fileName);
                 output = new FileOutputStream(file);

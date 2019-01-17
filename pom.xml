@@ -332,6 +332,8 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <!--mvn package -Dmaven.test.skip=true-->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <!-- war打包插件, 设定war包名称不带版本号 -->
