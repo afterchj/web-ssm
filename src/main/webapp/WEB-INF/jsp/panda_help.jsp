@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
     <title>熊猫赚常见问题</title>
     <link href="/web-ssm/css/panda.css" rel="stylesheet" type="text/css">
     <style type="text/css">
@@ -43,8 +43,6 @@
         });
     </script>
 </head>
-
-
 <body>
 
 <div class="wrap">
@@ -55,12 +53,10 @@
                 <div class="ptit ptit1">
                     <c:choose>
                         <c:when test="${empty keyword}">
-                            <input id="myButton" style="height:40px;color: gray;width: 240px;" type="text"
-                                   name="keyword" value="请输入关键字">
+                            <input id="myButton" style="height:30px;color: gray;width: 200px;" type="text" name="keyword" value="请输入关键字">
                         </c:when>
                         <c:otherwise>
-                            <input style="height:30px;color: gray;width: 200px;" type="text" name="keyword"
-                                   value=" ${keyword}">
+                            <input style="height:30px;color: gray;width: 200px;" type="text" name="keyword" value=" ${keyword}">
                         </c:otherwise>
                     </c:choose>
                     <input style="width:80px;font-size: larger" type="submit" value="搜索">
@@ -85,7 +81,7 @@
         <c:if test="${flag== '0'}">
             <span style="color: red">抱歉，没有找到相关问题，以下是所有问题</span>
         </c:if>
-       <iframe width="100%" height="80%" frameborder="0" src="../search.jsp"></iframe>
+        <iframe width="100%" height="80%" frameborder="0" src="../search.jsp"></iframe>
     </c:if>
 
     <!--  <div style="margin-top: 1px;">
