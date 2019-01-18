@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
     <title>时间选择</title>
     <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 

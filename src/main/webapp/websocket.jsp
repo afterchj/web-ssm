@@ -14,31 +14,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <title>Spring4 websocket实例</title>
     <style type="text/css">
-        #connect-container {
-            float: left;
-            width: 400px
-        }
-
-        #connect-container div {
-            padding: 5px;
-        }
-
-        #console-container {
-            float: left;
-            margin-left: 15px;
-            width: 400px;
-        }
-
-        #console {
-            border: 1px solid #CCCCCC;
-            border-right-color: #999999;
-            border-bottom-color: #999999;
-            height: 170px;
-            overflow-y: scroll;
-            padding: 5px;
-            width: 100%;
-        }
-
         #console p {
             padding: 0;
             margin: 0;

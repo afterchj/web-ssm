@@ -1,6 +1,8 @@
-#resText{
+
+#resText {
     margin-top: 20px;
 }
+
 .small {
     float: left;
     width: 400px;
@@ -26,4 +28,29 @@
     text-align: right;
     width: 800px;
     float: right;
+}
+
+@media screen and (max-width: 500px) {
+    .small {
+        clear: both;
+        width: 320px;
+        height: 280px;
+        margin: 0 10px;
+    }
+
+    .search {
+        width: 340px;
+        margin: 5px 0;
+    }
+
+    .year {
+        clear: both;
+        width: 344px;
+        height: 280px;
+    }
+    .month {
+        float: left;
+        width: 344px;
+        height: 280px;
+    }
 }

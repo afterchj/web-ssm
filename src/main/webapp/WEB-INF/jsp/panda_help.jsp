@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <title>熊猫赚常见问题</title>
     <link href="/web-ssm/css/panda.css" rel="stylesheet" type="text/css">
     <style type="text/css">

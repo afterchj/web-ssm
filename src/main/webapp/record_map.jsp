@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <title>echarts.js案例三</title>
     <link rel="stylesheet" href="css/record.css">
     <script type="text/javascript" src='/web-ssm/js/echarts.js'></script>

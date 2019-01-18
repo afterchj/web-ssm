@@ -9,16 +9,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<style type="text/css">
-    a {
-        margin: auto 20px;
-    }
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+    <style type="text/css">
+        a {
+            margin: auto 20px;
+        }
 
-    table {
-        width: 510px;
-        border-collapse: collapse;
-    }
-</style>
+        table {
+            width: 510px;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 <body>
 <table border="1px">

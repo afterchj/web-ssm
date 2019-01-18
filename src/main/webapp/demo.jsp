@@ -37,9 +37,9 @@
 
         /*通用样式*/
         /*手机*/
-        @media screen and (max-width: 1200px) {
+        @media screen and (max-width: 500px) {
             #header, #content, #footer {
-                width: 800px;
+                width: 340px;
             }
 
             .right, .center {
@@ -47,7 +47,7 @@
             }
 
             .left, .right {
-                width: 800px;
+                width: 340px;
                 height: 100px;
             }
 
@@ -59,7 +59,7 @@
         }
 
         /*平板*/
-        @media screen and (min-width: 1200px) and (max-width: 1600px) {
+        @media screen and (min-width: 500px) and (max-width: 1600px) {
             #header, #content, #footer {
                 width: 600px;
             }
@@ -80,7 +80,7 @@
         }
 
         /*PC*/
-        @media screen and (min-width: 1400px) {
+        @media screen and (min-width: 1200px) {
             #header, #content, #footer {
                 margin-top: 10px;
                 width: 100%;

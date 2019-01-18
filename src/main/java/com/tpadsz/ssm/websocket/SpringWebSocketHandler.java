@@ -26,7 +26,7 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
     //ArrayList会出现性能问题，最好用Map来存储，key用userid
     public static final Map<Object, WebSocketSession> users = new HashMap<>();
 
-    public FileOutputStream output;
+    public FileOutputStream output = null;
 
     /**
      * 连接成功时候，会触发页面上onopen方法
@@ -70,7 +70,9 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
             }
             if (payload.endsWith(":fileStart")) {
                 File file = new File(PropertiesUtils.getValue("file") + fileName);
-                output = new FileOutputStream(file);
+                if (!file.exists()) {
+                    output = new FileOutputStream(file);
+                }
             } else if (payload.endsWith(":fileFinishSingle")) {
                 output.close();
                 for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
@@ -94,8 +96,11 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
 //        logger.info("处理BinaryMessage..." + message.getPayload().toString());
         ByteBuffer buffer = message.getPayload();
         try {
-            output.write(buffer.array());
+            if (output != null) {
+                output.write(buffer.array());
+            }
         } catch (IOException e) {
+            logger.error("处理BinaryMessage异常：" + e.getMessage());
         }
     }
 

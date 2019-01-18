@@ -1,14 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
 </head>
 <body>
 <h2>Hello World!</h2>
 <a href="user/showUser">userList</a>
 <a href="upload.jsp">文件上传测试</a>
-<a href="room/login">聊天室</a>
-<a href="login.jsp">在线聊天</a>
+<a href="login.jsp">聊天室</a>
 <a href="record_map.jsp">查看案列</a>
 <a href="pandaHelp/FAQ">FAQ</a>
 

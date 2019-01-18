@@ -24,16 +24,39 @@ $.getJSON(
         var options = {
             //定义一个标题
             title: {
-                text: '年度总收入支出'
+                text: '年度总收入支出',
             },
             legend: {
-                data: ['收入金额', '支出金额']
+                data: ['收入金额', '支出金额'],
+                x: 'center',
+                // 'center' ¦ 'left' ¦ 'right'
+                // ¦ {number}（x坐标，单位px）
+                y: '10px',
             },
             //X轴设置
             xAxis: {
+                name: '时间(年)',
                 data: [2014, 2015, 2016, 2017, 2018]
             },
-            yAxis: {},
+            yAxis: {
+                type: 'value',
+                name: '金额(元)',
+                axisTick: {
+                    inside: true
+                },
+                scale: true,
+                axisLabel: {
+                    margin: 2,
+                    formatter: function (value) {
+                        if (value >= 1000 && value < 10000) {
+                            value = value / 1000 + "千";
+                        } else if (value >= 10000) {
+                            value = value / 10000 + "万";
+                        }
+                        return value;
+                    }
+                },
+            },
             tooltip: {
                 show: true,
                 formatter: '系列名:{a}<br />类目:{b}<br />数值:{c}'
@@ -191,16 +214,39 @@ function initMonth() {
         });
         var myOption = {
             title: {
-                text: '年度账单一月收入支出情况',
-                subtext: '支付宝账单'
+                text: '月度收入支出情况',
             },
             legend: {
-                data: ['收入金额', '支出金额']
+                data: ['收入金额', '支出金额'],
+                x: 'center',
+                // 'center' ¦ 'left' ¦ 'right'
+                // ¦ {number}（x坐标，单位px）
+                y: '10px',
             },
             xAxis: {
+                name: '时间(月)',
                 data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
             },
-            yAxis: {},
+            yAxis: {
+                type: 'value',
+                name: '金额(元)',
+                axisTick: {
+                    inside: true
+                },
+                scale: true,
+                axisLabel: {
+                    rotate: 45,
+                    margin: 5,
+                    formatter: function (value) {
+                        if (value >= 500 && value < 10000) {
+                            value = value / 1000 + "k";
+                        } else if (value >= 10000) {
+                            value = value / 10000 + "w";
+                        }
+                        return value;
+                    }
+                },
+            },
             tooltip: {
                 show: true,
                 formatter: '系列名:{a}<br />类目:{b}<br />数值:{c}'

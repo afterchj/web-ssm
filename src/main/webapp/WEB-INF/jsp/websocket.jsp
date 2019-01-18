@@ -21,11 +21,21 @@
             list-style: none;
         }
 
+        input {
+            margin: 5px 5px;
+        }
+
         div {
             margin: 0 5px;
         }
 
-        @media screen and (max-width: 1000px) {
+        .p {
+            word-break: break-all;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        @media screen and (max-width: 500px) {
             .ul {
                 margin-left: -30px;
                 width: 100%;
@@ -44,16 +54,8 @@
                 width: 350px;
             }
 
-            .context {
-                margin: 5px 5px;
-                width: 350px;
-            }
-
             .text {
-                width: 350px;
-            }
-
-            .send {
+                margin-top: 5px;
                 width: 350px;
             }
 
@@ -70,27 +72,25 @@
                 margin: 10px 0;;
             }
 
-            .context {
-                margin: 5px 5px;
-                height: 30px;
-                width: 400px;
+            .common {
+                float: left;
+                width: 450px;
             }
 
             #console {
+                float: left;
                 overflow-y: scroll;
                 border: 1px solid #CCCCCC;
                 border-right-color: #999999;
                 border-bottom-color: #999999;
-                height: 800px;
-                width: 45%;
+                height: 600px;
+                width: 40%;
             }
 
             .text {
+                margin-top: 5px;
+                height: 30px;
                 width: 400px;
-            }
-
-            .send {
-                margin: 5px 5px;
             }
 
             .img {
@@ -99,11 +99,6 @@
             }
         }
 
-        .p {
-            word-break: break-all;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
 
     </style>
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
@@ -130,15 +125,12 @@
 <input type="hidden" id="user" value="${WEBSOCKET_USERNAME}">
 <div class="common">
     <input type="button" id="connect" value="连接服务器" onclick="connect();">
-    <input type="button" id="disconnect" value="断开连接" disabled="disabled" onclick="disconnect();">
-</div>
-<div class="context">
-    <input id="message" type="text" class="text" value="输入你要发送的内容!"/><br>
-</div>
-<div class="send">
+    <input type="button" id="disconnect" value="断开连接" disabled="disabled" onclick="disconnect();"><br>
+    <textarea id="message" type="text" class="text">输入你要发送的内容</textarea>
     <input type="button" id="echo" onclick="echo();" value="发送消息"/>
     <input type="file" id="file">
 </div>
+<%--<div class="send"></div>--%>
 <div id="console"></div>
 </body>
 <script type="text/javascript" src="../js/chat.js"></script>
