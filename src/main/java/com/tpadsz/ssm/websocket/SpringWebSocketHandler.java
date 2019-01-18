@@ -9,6 +9,7 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -64,31 +65,32 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         TextMessage textMessage = new TextMessage(user + "：" + payload);
         String fileName = payload.split(":")[0];
         int index = fileName.lastIndexOf("/");
-        try {
-            if (index != -1) {
-                fileName = fileName.substring(index + 1, fileName.length());
-            }
-            if (payload.endsWith(":fileStart")) {
-                File file = new File(PropertiesUtils.getValue("file") + fileName);
-                if (!file.exists()) {
-                    output = new FileOutputStream(file);
-                }
-            } else if (payload.endsWith(":fileFinishSingle")) {
-                output.close();
-                for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
-                    ChatUtils.sendPicture(entry.getValue(), fileName);
-                }
-            } else if (payload.endsWith(":fileFinishWithText")) {
-                output.close();
-                for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
-                    ChatUtils.sendPicture(entry.getValue(), fileName);
-                }
-            } else {
-                sendMessageToAll(user, textMessage);
-            }
-        } catch (IOException e) {
-            logger.error("异常信息" + e.getMessage());
+        if (index != -1) {
+            fileName = fileName.substring(index + 1, fileName.length());
         }
+        if (payload.endsWith(":fileStart")) {
+            File file = new File(PropertiesUtils.getValue("file") + fileName);
+            if (!file.exists()) {
+                try {
+                    output = new FileOutputStream(file);
+                } catch (FileNotFoundException e) {
+                    logger.error(e.getMessage());
+                }
+            }
+        } else if (payload.endsWith(":fileFinishSingle")) {
+            outputClose(output);
+            for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
+                ChatUtils.sendPicture(entry.getValue(), fileName);
+            }
+        } else if (payload.endsWith(":fileFinishWithText")) {
+            outputClose(output);
+            for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
+                ChatUtils.sendPicture(entry.getValue(), fileName);
+            }
+        } else {
+            sendMessageToAll(user, textMessage);
+        }
+
     }
 
     @Override
@@ -160,4 +162,13 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         }
     }
 
+    public void outputClose(FileOutputStream output) {
+        if (output != null) {
+            try {
+                output.close();
+            } catch (IOException e) {
+                logger.info(e.getMessage());
+            }
+        }
+    }
 }

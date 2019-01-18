@@ -33,7 +33,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         // TODO Auto-generated method stub
-        logger.info("ip=" + AppUtils.getRequest().getHeader("x-forwarded-for"));
+        logger.info("ip=" + AppUtils.getRemoteIP(null));
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             HttpSession session = servletRequest.getServletRequest().getSession(false);

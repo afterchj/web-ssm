@@ -98,6 +98,7 @@ function echo() {
         }
         sendFile(message);
         document.getElementById('message').value = "";
+        document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
     } else {
         alert('没有建立连接，请连接服务！');
     }
@@ -128,27 +129,3 @@ function sendFile(isWithText) {
     }
     inputElement.outerHTML = inputElement.outerHTML; //清空<input type="file">的值
 }
-// function log(event, file) {
-//     var message = event.data;
-//     var console = document.getElementById('console');
-//     var p = document.createElement('p');
-//     var img = document.createElement("img");
-//     if (typeof message == 'string') {
-//         if (message.indexOf("：") != -1) {
-//             p.style.textAlign = 'left';
-//             img.style.textAlign = 'left';
-//         } else {
-//             p.style.textAlign = 'right';
-//             img.style.textAlign = 'right';
-//         }
-//         p.style.lineHeight = '5px';
-//         p.style.wordWrap = 'break-word';
-//         p.appendChild(document.createTextNode(message));
-//         console.appendChild(p);
-//     }
-//
-//     while (console.childNodes.length > 25) {
-//         console.removeChild(console.firstChild);
-//     }
-//     console.scrollTop = console.scrollHeight;
-// }

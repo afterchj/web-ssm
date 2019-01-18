@@ -13,7 +13,7 @@
 <head>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-    <title>Spring4 websocket实例</title>
+    <title>多人聊天室</title>
     <style type="text/css">
 
         li {
@@ -27,6 +27,12 @@
 
         div {
             margin: 0 5px;
+        }
+
+        .text {
+            margin-top: 5px;
+            height: 30px;
+            width: 350px;
         }
 
         .p {
@@ -55,8 +61,7 @@
             }
 
             .text {
-                margin-top: 5px;
-                width: 350px;
+                width: 340px;
             }
 
             .img {
@@ -88,8 +93,6 @@
             }
 
             .text {
-                margin-top: 5px;
-                height: 30px;
                 width: 400px;
             }
 
@@ -102,11 +105,15 @@
 
     </style>
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
     <script type="text/javascript">
         window.onload = function () {
             var ls = document.getElementsByTagName("li");
             ls[0].innerHTML += document.body.clientWidth;
             ls[1].innerHTML += document.body.clientHeight;
+            document.getElementById("message").onfocus = function () {
+                document.getElementById('message').value = "";
+            }
         }
     </script>
 </head>
