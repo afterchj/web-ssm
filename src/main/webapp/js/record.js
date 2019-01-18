@@ -28,7 +28,7 @@ $.getJSON(
             },
             legend: {
                 data: ['收入金额', '支出金额'],
-                x: 'center',
+                x: 'right',
                 // 'center' ¦ 'left' ¦ 'right'
                 // ¦ {number}（x坐标，单位px）
                 y: '10px',
@@ -218,7 +218,7 @@ function initMonth() {
             },
             legend: {
                 data: ['收入金额', '支出金额'],
-                x: 'center',
+                x: 'right',
                 // 'center' ¦ 'left' ¦ 'right'
                 // ¦ {number}（x坐标，单位px）
                 y: '10px',
