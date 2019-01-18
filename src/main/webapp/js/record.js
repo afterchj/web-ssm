@@ -28,10 +28,10 @@ $.getJSON(
             },
             legend: {
                 data: ['收入金额', '支出金额'],
-                x: 'right',
+                x: 'right'
                 // 'center' ¦ 'left' ¦ 'right'
                 // ¦ {number}（x坐标，单位px）
-                y: '10px',
+                // y: '10px',
             },
             //X轴设置
             xAxis: {
@@ -221,7 +221,7 @@ function initMonth() {
                 x: 'right',
                 // 'center' ¦ 'left' ¦ 'right'
                 // ¦ {number}（x坐标，单位px）
-                y: '10px',
+                // y: '10px',
             },
             xAxis: {
                 name: '时间(月)',
