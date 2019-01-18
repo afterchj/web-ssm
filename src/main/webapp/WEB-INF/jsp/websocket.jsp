@@ -53,11 +53,11 @@
                 /*border-right-color: #999999;*/
                 /*border-bottom-color: #999999;*/
                 height: 500px;
-                width: 350px;
+                width: 340px;
             }
 
             .common {
-                width: 350px;
+                width: 340px;
             }
 
             .text {
@@ -112,8 +112,10 @@
             ls[0].innerHTML += document.body.clientWidth;
             ls[1].innerHTML += document.body.clientHeight;
             document.getElementById("message").onfocus = function () {
+                document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
                 document.getElementById('message').value = "";
             }
+
         }
     </script>
 </head>
