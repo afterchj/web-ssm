@@ -26,7 +26,7 @@ public class WSClientUtil {
     public static void initClient() {
 
         try {
-            client = new WebSocketClient(new URI(Constants.WEB_SSM.value()), new Draft_17()) {
+            client = new WebSocketClient(new URI(Constants.BLT_LIGHT.value()), new Draft_17()) {
                 @Override
                 public void onOpen(ServerHandshake arg0) {
                     System.out.println("打开链接");
@@ -92,6 +92,6 @@ public class WSClientUtil {
         object.put("from", "after");
         object.put("to", "test");
         object.put("message", "hello test,ok that is fine.");
-        sendMsg(JSON.toJSONString(object));
+        sendMsg("hello test,ok that is fine.");
     }
 }

@@ -23,10 +23,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class WebsocketController {
 
-//    @Bean//这个注解会从Spring容器拿出Bean
-//    public SpringWebSocketHandler infoHandler() {
-//        return new SpringWebSocketHandler();
-//    }
+    @Bean//这个注解会从Spring容器拿出Bean
+    public SpringWebSocketHandler infoHandler() {
+        return new SpringWebSocketHandler();
+    }
 
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -39,11 +39,11 @@ public class WebsocketController {
 //        return new ModelAndView("websocket");
     }
 
-//    @ResponseBody
-//    @RequestMapping("/websocket/send")
-//    public String send(HttpServletRequest request) {
-//        String username = request.getParameter("username");
-//        infoHandler().sendMessageToUser(username, new TextMessage("你好，测试！！！！"));
-//        return null;
-//    }
+    @ResponseBody
+    @RequestMapping("/send")
+    public String send(HttpServletRequest request) {
+        String username = request.getParameter("userName");
+        infoHandler().sendMessageToAll(username, new TextMessage("你好，测试！！！"));
+        return username + " send message is success!";
+    }
 }

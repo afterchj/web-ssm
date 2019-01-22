@@ -1,7 +1,6 @@
 package com.tpadsz.ssm.websocket;
 
 
-import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.utils.PropertiesUtils;
 import org.apache.log4j.Logger;
@@ -9,7 +8,6 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -27,7 +25,7 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
     //ArrayList会出现性能问题，最好用Map来存储，key用userid
     public static final Map<Object, WebSocketSession> users = new HashMap<>();
 
-    public FileOutputStream output = null;
+    public FileOutputStream output;
 
     /**
      * 连接成功时候，会触发页面上onopen方法
@@ -35,9 +33,14 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
         // TODO Auto-generated method stub
-        String user = session.getAttributes().get("USERNAME").toString();
+        Object o = session.getAttributes().get("USERNAME");
+        String user = "after";
+        if (null != o) {
+            user = o.toString();
+        }
         users.put(session.getAttributes().get("USERNAME"), session);
         session.sendMessage(new TextMessage(user + "：I'm " + user));
+        logger.info("Connection established...ip=" + session.getRemoteAddress());
         logger.info("connect to the websocket success......当前数量:" + users.size());
     }
 
@@ -64,33 +67,26 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         String payload = message.getPayload();
         TextMessage textMessage = new TextMessage(user + "：" + payload);
         String fileName = payload.split(":")[0];
-        int index = fileName.lastIndexOf("/");
-        if (index != -1) {
-            fileName = fileName.substring(index + 1, fileName.length());
-        }
-        if (payload.endsWith(":fileStart")) {
-            File file = new File(PropertiesUtils.getValue("file") + fileName);
-            if (!file.exists()) {
-                try {
-                    output = new FileOutputStream(file);
-                } catch (FileNotFoundException e) {
-                    logger.error(e.getMessage());
+        try {
+            if (payload.endsWith(":fileStart")) {
+                File file = new File(PropertiesUtils.getValue("file") + fileName);
+                output = new FileOutputStream(file);
+            } else if (payload.endsWith(":fileFinishSingle")) {
+                output.close();
+                for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
+                    ChatUtils.sendPicture(entry.getValue(), fileName);
                 }
+            } else if (payload.endsWith(":fileFinishWithText")) {
+                output.close();
+                for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
+                    ChatUtils.sendPicture(entry.getValue(), fileName);
+                }
+            } else {
+                sendMessageToAll(user, textMessage);
             }
-        } else if (payload.endsWith(":fileFinishSingle")) {
-            outputClose(output);
-            for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
-                ChatUtils.sendPicture(entry.getValue(), fileName);
-            }
-        } else if (payload.endsWith(":fileFinishWithText")) {
-            outputClose(output);
-            for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
-                ChatUtils.sendPicture(entry.getValue(), fileName);
-            }
-        } else {
-            sendMessageToAll(user, textMessage);
+        } catch (IOException e) {
+            logger.error("异常信息" + e.getMessage());
         }
-
     }
 
     @Override
@@ -98,11 +94,8 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
 //        logger.info("处理BinaryMessage..." + message.getPayload().toString());
         ByteBuffer buffer = message.getPayload();
         try {
-            if (output != null) {
-                output.write(buffer.array());
-            }
+            output.write(buffer.array());
         } catch (IOException e) {
-            logger.error("处理BinaryMessage异常：" + e.getMessage());
         }
     }
 
@@ -162,13 +155,4 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         }
     }
 
-    public void outputClose(FileOutputStream output) {
-        if (output != null) {
-            try {
-                output.close();
-            } catch (IOException e) {
-                logger.info(e.getMessage());
-            }
-        }
-    }
 }
