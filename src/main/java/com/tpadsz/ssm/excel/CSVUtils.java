@@ -1,17 +1,11 @@
 package com.tpadsz.ssm.excel;
 
-import com.alibaba.fastjson.JSON;
-import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.AlipayRecord;
 import com.tpadsz.ssm.utils.AppUtils;
-import com.tpadsz.ssm.utils.MybatisUtil;
+import com.tpadsz.ssm.utils.SpringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +23,7 @@ public class CSVUtils {
      * @return
      */
 
-    private static SqlSession session = MybatisUtil.getSession();
+    private static SqlSession session = SpringUtils.getSession();
 
     public static boolean exportCsv(File file, List<String> dataList) {
         boolean isSuccess;

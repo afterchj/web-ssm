@@ -4,8 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="
-     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
@@ -26,24 +25,24 @@
 
     <!--<bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>-->
     <!--<bean id="exampleJob2Detail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
-        <!--&lt;!&ndash; 指定任务类 &ndash;&gt;-->
-        <!--<property name="targetObject" ref="exampleJob2"/>-->
-        <!--&lt;!&ndash; 指定任务执行的方法 &ndash;&gt;-->
-        <!--<property name="targetMethod" value="execute"/>-->
+    <!--&lt;!&ndash; 指定任务类 &ndash;&gt;-->
+    <!--<property name="targetObject" ref="exampleJob2"/>-->
+    <!--&lt;!&ndash; 指定任务执行的方法 &ndash;&gt;-->
+    <!--<property name="targetMethod" value="execute"/>-->
     <!--</bean>-->
     <!--<bean id="exampleJob2Trigger"-->
-          <!--class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-        <!--<property name="jobDetail" ref="exampleJob2Detail"/>-->
-        <!--&lt;!&ndash; 每10秒运行一次 &ndash;&gt;-->
-        <!--<property name="cronExpression" value="5/15 * * * * ?"/>-->
+    <!--class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+    <!--<property name="jobDetail" ref="exampleJob2Detail"/>-->
+    <!--&lt;!&ndash; 每10秒运行一次 &ndash;&gt;-->
+    <!--<property name="cronExpression" value="5/15 * * * * ?"/>-->
     <!--</bean>-->
     <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
-        <!--<property name="triggers">-->
-            <!--<list>-->
-                 <!--&lt;!&ndash;<ref bean="exampleJobTrigger" /> &ndash;&gt;-->
-                <!--<ref bean="exampleJob2Trigger"/>-->
-            <!--</list>-->
-        <!--</property>-->
+    <!--<property name="triggers">-->
+    <!--<list>-->
+    <!--&lt;!&ndash;<ref bean="exampleJobTrigger" /> &ndash;&gt;-->
+    <!--<ref bean="exampleJob2Trigger"/>-->
+    <!--</list>-->
+    <!--</property>-->
     <!--</bean>-->
 
     <bean name="memcachedClient" destroy-method="shutdown"
@@ -155,18 +154,18 @@
     <!-- 开发环境配置文件 -->
     <beans profile="development">
         <context:property-placeholder
-                location="classpath*:setup.development.properties" />
+                location="classpath*:setup.development.properties,classpath:common.properties"/>
     </beans>
 
     <!-- 测试环境配置文件 -->
     <beans profile="demo">
         <context:property-placeholder
-                location="classpath*:setup.demo.properties" />
+                location="classpath*:setup.demo.properties,classpath:common.properties"/>
     </beans>
 
     <!-- 生产环境配置文件 -->
     <beans profile="production">
-        <context:property-placeholder location="classpath*:setup.production.properties" />
+        <context:property-placeholder location="classpath*:setup.production.properties,classpath:common.properties"/>
     </beans>
 
 

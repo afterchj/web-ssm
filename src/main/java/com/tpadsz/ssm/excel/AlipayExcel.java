@@ -1,9 +1,8 @@
 package com.tpadsz.ssm.excel;
 
-import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.*;
 import com.tpadsz.ssm.utils.AppUtils;
-import com.tpadsz.ssm.utils.MybatisUtil;
+import com.tpadsz.ssm.utils.SpringUtils;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -21,7 +20,7 @@ import java.util.*;
 public class AlipayExcel {
 
     private static Logger logger = Logger.getLogger(AlipayExcel.class);
-    private static SqlSession session = MybatisUtil.getSession();
+    private static SqlSession session = SpringUtils.getSession();
 
     public static List<AlipayRecord> importExcel(String fileName) {
         List<AlipayRecord> list = new ArrayList();

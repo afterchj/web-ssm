@@ -4,7 +4,6 @@ package com.tpadsz.ssm.utils;
 import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.FAQ;
 import com.tpadsz.ssm.model.Shop;
-import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -21,7 +20,7 @@ import java.util.*;
  */
 public class ExcelTool {
 
-    private static SqlSession session = MybatisUtil.getSession();
+    private static SqlSession session = SpringUtils.getSession();
 
     public static void exportExcel() {
 

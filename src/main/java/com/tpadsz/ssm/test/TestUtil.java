@@ -1,11 +1,9 @@
 package com.tpadsz.ssm.test;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
-import com.google.gson.JsonArray;
 import com.tpadsz.ssm.dao.SPFileDao;
 import com.tpadsz.ssm.dao.UserDao;
-import com.tpadsz.ssm.utils.MybatisUtil;
+import com.tpadsz.ssm.utils.SpringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
@@ -43,7 +41,7 @@ public class TestUtil {
     @Test
     public void testUpdateByMap() {
 
-        SqlSession session = MybatisUtil.getSession();
+        SqlSession session = SpringUtils.getSession();
         String str = "{\"id\":1,\"user_name\":\"管理员\",\"create_time\":\"2018-07-18\",\"is_delete\":1}";
 
         Map<String, Object> map = JSON.parseObject(str, Map.class);
@@ -57,7 +55,7 @@ public class TestUtil {
 
     @Test
     public void testInsertFile() {
-        SqlSession session = MybatisUtil.getSession();
+        SqlSession session = SpringUtils.getSession();
         Long current = System.currentTimeMillis();
         List<Map> list = new ArrayList<>();
         for (int i = 0; i < 2000; i++) {
@@ -74,7 +72,7 @@ public class TestUtil {
     @Test
     public void testInsertDownload() {
 
-        SqlSession session = MybatisUtil.getSession();
+        SqlSession session = SpringUtils.getSession();
         Long current = System.currentTimeMillis();
         List<Map> list = new ArrayList<>();
         for (int i = 0; i < 2000; i++) {
@@ -95,7 +93,7 @@ public class TestUtil {
     @Test
     public void testInsertSubSelect() {
         Random random=new Random();
-        SqlSession session = MybatisUtil.getSession();
+        SqlSession session = SpringUtils.getSession();
         for (int i=0;i<100;i++){
             Map map = new HashMap();
             map.put("id",random.nextInt(2000)+1);
