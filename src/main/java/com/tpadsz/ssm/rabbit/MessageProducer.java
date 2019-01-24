@@ -20,12 +20,12 @@ public class MessageProducer {
 
     public void send() {
         String context = "hi, i am come from spring_exchange message all";
-        rabbitTemplate.convertAndSend("spring_exchange", "topic.test.message", context);
+        rabbitTemplate.convertAndSend("spring_exchange", "topic.test.message ", context);
     }
 
     public void send1(int i) {
         String context = "hi, i am message * ";
-        rabbitTemplate.convertAndSend("demoExchange", "topic.demo.message", context + i);
+        rabbitTemplate.convertAndSend("demoExchange", "topic.demo.message ", context + i);
     }
 
     public void send2(int i) {

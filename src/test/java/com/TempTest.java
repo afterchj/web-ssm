@@ -34,10 +34,9 @@ public class TempTest {
 
     @Test
     public void testRabbit() throws InterruptedException {
-//        Thread.sleep(3000);
+        Thread.sleep(5000);
         MessageProducer messageProducer = SpringUtils.getProducer();
-        System.out.println("amqpTemplate=" + messageProducer);
-        for (int i = 101; i < 201; i++) {
+        for (int i = 301; i < 401; i++) {
 //           amqpTemplate.convertAndSend("spring-tpad-blt-console-queue","blt_queue send message " + i);
             if (i % 2 == 0) {
                 messageProducer.send();

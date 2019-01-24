@@ -21,15 +21,16 @@ public class SprintUnit {
 //        ApplicationContext ctx = new AnnotationConfigApplicationContext(RabbitMqConfig.class);
 //        MessageConsumer consumer = ctx.getBean(MessageConsumer.class);
 //        System.out.println("beanName=" + consumer.getClass().getName());
-        for (int i = 1; i < 101; i++) {
-            if (i % 2 == 0) {
-                producer.send();
-            } else if (i % 3 == 0) {
-                producer.send1(i);
-            } else {
-                producer.send2(i);
-                producer.sendMsg("blt_queue send message" + i);
-            }
+        for (int i = 1; i < 201; i++) {
+            producer.sendMsg("blt_queue send message" + i);
+//            if (i % 2 == 0) {
+//                producer.send();
+//            } else if (i % 3 == 0) {
+//                producer.send1(i);
+//            } else {
+//                producer.send2(i);
+//                producer.sendMsg("blt_queue send message" + i);
+//            }
         }
         new Thread().sleep(5000);
     }

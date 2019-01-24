@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd"
+       default-lazy-init="true">
+
+    <!-- 连接配置 -->
+    <rabbit:connection-factory id="myConnectionFactory" host="${rabbitmq.host}" port="${rabbitmq.port}"/>
+    <rabbit:admin id="mqAdmin" connection-factory="myConnectionFactory"/>
+    <rabbit:template id="amqpTemplate" connection-factory="myConnectionFactory"/>
+    <!-- 交换机定义 -->
+    <!--
+        交换机：一个交换机可以绑定多个队列，一个队列也可以绑定到多个交换机上。
+        如果没有队列绑定到交换机上，则发送到该交换机上的信息则会丢失。
+        direct模式:消息与一个特定的路由器完全匹配，才会转发
+        topic模式:按模式匹配
+     -->
+    <rabbit:topic-exchange name="spring_exchange" durable="true" auto-delete="false" declared-by="mqAdmin">
+        <rabbit:bindings>
+            <!-- 设置消息Queue匹配的pattern (direct模式为key) -->
+            <rabbit:binding queue="message_queue" pattern="topic.#"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+    <!-- durable 是否持久化 exclusive 仅创建者可以使用的私有队列，断开后自动删除，auto-delete当所有消费端连接断开后，是否自动删除队列 -->
+    <rabbit:queue id="blt_queue" name="${rabbitmq.queue}" durable="true" auto-delete="false" exclusive="false"/>
+    <rabbit:queue id="message_queue" name="topic.test.message" durable="true" auto-delete="false" exclusive="false"/>
+    <bean name="rabbitmqService" class="com.tpadsz.ssm.rabbit.RabbitmqConsumer"></bean>
+    <!-- 配置监听 -->
+    <rabbit:listener-container connection-factory="myConnectionFactory" acknowledge="auto">
+        <rabbit:listener queues="blt_queue,message_queue" ref="rabbitmqService" method="getMessage"/>
+    </rabbit:listener-container>
+</beans>
