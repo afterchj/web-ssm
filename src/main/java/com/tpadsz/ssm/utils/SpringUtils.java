@@ -1,6 +1,5 @@
 package com.tpadsz.ssm.utils;
 
-import com.tpadsz.ssm.rabbit.MessageProducer;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,14 +30,5 @@ public class SpringUtils {
         return (AmqpTemplate) ctx.getBean("amqpTemplate");
     }
 
-    public static MessageProducer getProducer() {
-        return ctx.getBean(MessageProducer.class);
-    }
-//    public static void main(String[] args) {
-//        Map<String,Object> map=getSession().getMapper(UserDao.class).getUserById(3);
-//        for (Map.Entry<String,Object> entry:map.entrySet()){
-//            System.out.println("key="+entry.getKey()+",value="+entry.getValue());
-//        }
-//    }
 
 }
