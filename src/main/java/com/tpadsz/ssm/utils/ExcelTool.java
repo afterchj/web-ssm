@@ -3,16 +3,22 @@ package com.tpadsz.ssm.utils;
 
 import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.FAQ;
-import com.tpadsz.ssm.model.Shop;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 import jxl.write.Number;
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,6 +27,7 @@ import java.util.*;
 public class ExcelTool {
 
     private static SqlSession session = SpringUtils.getSession();
+    private static SqlSessionTemplate sqlSessionTemplate = SpringUtils.getSqlSession();
 
     public static void exportExcel() {
 
@@ -52,19 +59,13 @@ public class ExcelTool {
         }
     }
 
-    public static List<Shop> importExcel() throws IOException, BiffException, WriteException {
-        List<Shop> list = new ArrayList();
-        String filePath = "D:\\pid.xls";
+    public static List importExcel() throws IOException, BiffException, WriteException {
+//        List<Shop> list = new ArrayList();
+        String filePath = "D:\\保留账号0521.xls";
         InputStream is = null;
         Workbook rwb = null;
-
         try {
             is = new FileInputStream(filePath);//定义文本输入流
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
             rwb = Workbook.getWorkbook(is);//打开Workbook
         } catch (BiffException e) {
             e.printStackTrace();
@@ -76,17 +77,19 @@ public class ExcelTool {
         int col = sht.getColumns(); //获得Excel列
         int row = sht.getRows(); //获得Excel行
         System.out.println("row=" + row);
-
         //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
-        for (int i = 0; i < row; i++) {
+        List list = new ArrayList();
+        for (int i = 1; i < row; i++) {
+            Integer id = Integer.parseInt(sht.getCell(0, i).getContents());
+//            System.out.println("id=" + id);
 //            FAQ faq = new FAQ();
-            Shop faq = new Shop();
-            faq.setPid(Integer.parseInt(sht.getCell(0, i).getContents()));
-            faq.setMid(sht.getCell(1, i).getContents());
+//            Shop faq = new Shop();
+//            faq.setPid(id);
+//            faq.setMid(sht.getCell(1, i).getContents());
 //                faq.setUrl(sht.getCell(2, i).getContents());
 //                faq.setAnswer(sht.getCell(3, i).getContents());
 //                faq.setKeyword(sht.getCell(4, i).getContents());
-            list.add(faq);
+            list.add(id);
         }
         return list;
     }
@@ -107,11 +110,12 @@ public class ExcelTool {
 
     public static void main(String[] args) throws Exception {
 //        importExcel();
-        System.out.println(selectByKey().size());
+//        System.out.println(selectByKey().size());
 //        System.out.println(session.getMapper(FAQDao.class).getAllKey());
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
 //        exportExcel();
-        List<Shop> list = importExcel();
-        session.getMapper(FAQDao.class).insertShop(list);
+        List list = importExcel();
+//        sqlSessionTemplate.delete("com.tpadsz.ssm.dao.FAQDao.deleteBatch", list);
+//        session.getMapper(FAQDao.class).deleteBatch(list);
     }
 }

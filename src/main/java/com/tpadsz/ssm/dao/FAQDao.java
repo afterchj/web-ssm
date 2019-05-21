@@ -17,6 +17,8 @@ public interface FAQDao {
 
     void insertPayRecord(List<AlipayRecord> records);
 
+    void deleteBatch(List list);
+
     List<FAQ> selectByKey(String keyword) throws Exception;
 
     List<FAQ> getAll();
