@@ -4,7 +4,8 @@
 <mapper namespace="com.tpadsz.ssm.dao.FAQDao">
 
     <delete id="deleteBatch" parameterType="java.util.List">
-        DELETE FROM alink.f_user_account WHERE id NOT IN
+--         DELETE FROM alink.f_user_account WHERE id NOT IN
+        DELETE FROM alink.f_user_role WHERE user_id NOT IN
         <foreach collection="list"  item="item" open="(" separator="," close=")"  >
             #{item}
         </foreach>

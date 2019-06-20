@@ -115,7 +115,7 @@ public class ExcelTool {
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
 //        exportExcel();
         List list = importExcel();
-//        sqlSessionTemplate.delete("com.tpadsz.ssm.dao.FAQDao.deleteBatch", list);
+        sqlSessionTemplate.delete("com.tpadsz.ssm.dao.FAQDao.deleteBatch", list);
 //        session.getMapper(FAQDao.class).deleteBatch(list);
     }
 }
