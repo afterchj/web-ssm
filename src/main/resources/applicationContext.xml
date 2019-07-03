@@ -21,7 +21,7 @@
     <context:component-scan base-package="com.tpadsz.ssm"/>
 
     <!-- 使用annotation定义事务 -->
-    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
+    <tx:annotation-driven proxy-target-class="true"/>
 
     <!--<bean id="exampleJob2" class="com.tpadsz.ssm.test.Job"></bean>-->
     <!--<bean id="exampleJob2Detail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->

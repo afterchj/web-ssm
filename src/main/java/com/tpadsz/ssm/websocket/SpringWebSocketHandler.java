@@ -4,7 +4,10 @@ package com.tpadsz.ssm.websocket;
 import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.utils.PropertiesUtils;
 import org.apache.log4j.Logger;
-import org.springframework.web.socket.*;
+import org.springframework.web.socket.BinaryMessage;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.io.File;
@@ -63,11 +66,12 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
      */
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        String user = session.getAttributes().get("USERNAME").toString();
+        logger.error("收到消息：" + message.getPayload());
         String payload = message.getPayload();
-        TextMessage textMessage = new TextMessage(user + "：" + payload);
         String fileName = payload.split(":")[0];
         try {
+            String user = (String) session.getAttributes().get("USERNAME");
+            TextMessage textMessage = new TextMessage(user + "：" + payload);
             if (payload.endsWith(":fileStart")) {
                 File file = new File(PropertiesUtils.getValue("file") + fileName);
                 output = new FileOutputStream(file);
@@ -141,6 +145,7 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
      * @param message
      */
     public void sendMessageToAll(String user, TextMessage message) {
+        logger.error("给所有在线用户发送消息！");
         try {
             for (Map.Entry<Object, WebSocketSession> entry : users.entrySet()) {
                 if (entry.getValue().isOpen()) {
