@@ -2,24 +2,23 @@ package com.tpadsz.ssm.controller;
 
 import com.tpadsz.ssm.model.User;
 import com.tpadsz.ssm.service.UserService;
-
 import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.utils.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -53,6 +52,7 @@ public class UserController {
     //    @ResponseBody
     @RequestMapping(value = "/upload.do")
     public String upload(String account, MultipartFile file) {
+        System.out.println("count=" + account);
         account = account.isEmpty() ? "766256898@qq.com" : account;
 //        System.out.println(info.getFileName() + "     " + info.getDesc());
         HttpServletRequest request = AppUtils.getRequest();

@@ -22,7 +22,7 @@ public class FileUtils {
     private static Logger logger = Logger.getLogger(FileUtils.class);
 
     public static void saveFile(MultipartFile file, String savePath, String fileName, boolean flag) {
-        String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
         File targetFile = new File(savePath, fileName);
         try {
             if (!file.isEmpty()) {

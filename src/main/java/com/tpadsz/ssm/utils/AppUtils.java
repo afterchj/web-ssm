@@ -20,7 +20,7 @@ public class AppUtils {
         try {
             session = getRequest().getSession();
         } catch (Exception e) {
-            logger.error("初始化session失败！" + session);
+            logger.error("初始化session失败！" + e.getMessage());
         }
         return session;
     }
