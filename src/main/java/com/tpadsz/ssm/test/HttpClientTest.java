@@ -136,9 +136,10 @@ public class HttpClientTest {
     @Test
     public void post() {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost("http://localhost:8080/bossLocker-store/alipay/callbacks.do");
+//        HttpPost httppost = new HttpPost("http://localhost:8080/bossLocker-store/alipay/callbacks.do");
+        HttpPost httppost = new HttpPost("http://localhost:8080/blt_alink/pc/fileInfo");
         ArrayList formparams = new ArrayList();
-        formparams.add(new BasicNameValuePair("id", "12"));
+        formparams.add(new BasicNameValuePair("params", "{\"meshId\":\"TP_8200\"}"));
         try {
             UrlEncodedFormEntity uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
             httppost.setEntity(uefEntity);
@@ -174,8 +175,11 @@ public class HttpClientTest {
     @Test
     public void get() {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+//        fileInfo
         try {
-            HttpGet e = new HttpGet("http://localhost:8081/bossLocker-store/switch/getInfo");
+//            HttpGet e = new HttpGet("http://localhost:8081/bossLocker-store/switch/getInfo");
+//            HttpGet e = new HttpGet("http://localhost:8080/blt_alink/pc/fileInfo?params={\"meshId\":\"TP_8200\"}");
+            HttpGet e = new HttpGet("http://uichange.com/file/ota/37853561.txt");
             System.out.println("executing request " + e.getURI());
             CloseableHttpResponse response = httpclient.execute(e);
             try {
@@ -211,13 +215,15 @@ public class HttpClientTest {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
 //            HttpPost httppost = new HttpPost("http://localhost:8080/web-ssm/user/upload.do");
-            HttpPost httppost = new HttpPost("http://iotsztp.com/blt_alink/pc/upload");
+//            HttpPost httppost = new HttpPost("http://iotsztp.com/blt_alink/pc/upload");
+//            HttpPost httppost = new HttpPost("http://www.uichange.com/blt_alink/pc/upload.json");
+            HttpPost httppost = new HttpPost("http://localhost:8080/blt_alink/pc/upload.json");
             RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(200000).setSocketTimeout(200000).build();
             httppost.setConfig(requestConfig);
-            FileBody bin = new FileBody(new File("C:\\temp\\TP_8200_v1.3.3.ota.bin"));
+            FileBody bin = new FileBody(new File("C:/file/37853561.txt"));
 //            FileBody bin = new FileBody(new File("C:\\temp\\hero.png"));
             StringBody comment = new StringBody("{\"uid\":605,\"meshId\":\"92816305\",\"sceneId\":0}", ContentType.APPLICATION_JSON);
-            HttpEntity reqEntity = MultipartEntityBuilder.create().addPart("file", bin).addPart("params", comment).build();
+            HttpEntity reqEntity = MultipartEntityBuilder.create().addPart("file", bin).build();
             httppost.setEntity(reqEntity);
             System.out.println("executing request " + httppost.getRequestLine());
             CloseableHttpResponse response = httpclient.execute(httppost);
