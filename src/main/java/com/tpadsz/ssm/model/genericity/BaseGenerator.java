@@ -4,6 +4,10 @@ public class BaseGenerator<T> implements Generator<T> {
 
     private Class<T> type;
 
+    public BaseGenerator() {
+        super();
+    }
+
     public BaseGenerator(Class<T> type) {
         this.type = type;
     }
@@ -17,7 +21,7 @@ public class BaseGenerator<T> implements Generator<T> {
     }
 
     public static <T> Generator<T> create(Class<T> type) {
-        return new BaseGenerator<T>(type);
+        return new BaseGenerator(type);
     }
 
     @Override

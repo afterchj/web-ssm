@@ -10,8 +10,8 @@ import java.util.List;
 public class GenericVarargs {
     public static <T> List<T> makeList(T... args) {
         List<T> result = new ArrayList<>();
-        for (T iten : args) {
-            result.add(iten);
+        for (T item : args) {
+            result.add(item);
         }
         return result;
     }
