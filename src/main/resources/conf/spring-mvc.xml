@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <mvc:annotation-driven/>
+    <!-- 开启注解模式 -->
+    <context:component-scan base-package="com.tpadsz.after"/>
+    <!-- aop -->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+    <!-- 静态资源映射 -->
+    <mvc:resources mapping="/static/**" location="/static/"/>
+    <!-- 开启注解模式 -->
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/home/**"/>
+            <mvc:exclude-mapping path="/msg/**"/>
+            <mvc:exclude-mapping path="/getFirms**"/>
+            <mvc:exclude-mapping path="/project/uploadFromPc**"/>
+            <mvc:exclude-mapping path="/project/meshList**"/>
+            <mvc:exclude-mapping path="/project/download**"/>
+            <!--<mvc:exclude-mapping path="/adjust/communicationTest"/>-->
+            <bean class="com.tpadsz.after.interceptor.ParamsEncryptInterceptor"/>
+        </mvc:interceptor>
+
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/"/>-->
+            <!--<mvc:exclude-mapping path="/static/**"/>-->
+            <!--<mvc:exclude-mapping path="/home/**"/>-->
+            <!--<mvc:exclude-mapping path="/msg/**"/>-->
+            <!--<mvc:exclude-mapping path="/lightConsole/**"/>-->
+            <!--<mvc:exclude-mapping path="/account/pwd/login*"/>-->
+            <!--<mvc:exclude-mapping path="/account/code/login*"/>-->
+            <!--<mvc:exclude-mapping path="/user/verify*"/>-->
+            <!--&lt;!&ndash;<mvc:exclude-mapping path="/adjust/**"/>&ndash;&gt;-->
+            <!--<mvc:exclude-mapping path="/getFirms**"/>-->
+            <!--<mvc:exclude-mapping path="/user/register**"/>-->
+            <!--<mvc:exclude-mapping path="/user/fillAccount**"/>-->
+            <!--<mvc:exclude-mapping path="/timeLine/**"/>-->
+            <!--<mvc:exclude-mapping path="/project/uploadFromPc**"/>-->
+            <!--<mvc:exclude-mapping path="/project/meshList**"/>-->
+            <!--<mvc:exclude-mapping path="/project/download**"/>-->
+           <!--<bean class="com.tpadsz.after.interceptor.UserTokenValidationInterceptor"/> -->
+        <!--</mvc:interceptor> -->
+    </mvc:interceptors>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+
+        <property name="contentNegotiationManager">
+            <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+                <property name="ignoreAcceptHeader" value="true"/>
+                <property name="defaultContentType" value="text/html"/>
+                <property name="mediaTypes">
+                    <props>
+                        <prop key="json">application/json</prop>
+                        <prop key="xml">application/xml</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="prefix" value="/WEB-INF/view/"/>
+                    <property name="suffix" value=".jsp"></property>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="com.tpadsz.after.viewresolver.MyEncryptedMappingJacksonJsonView"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--定义跳转的文件的前后缀 ，视图模式配置 -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="prefix" value="/WEB-INF/view/"/>-->
+    <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+
+</beans>

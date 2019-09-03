@@ -39,4 +39,11 @@ public class MyTest {
         strUtil.show();
     }
 
+    @Test
+    public void test(){
+        String str="Hello World!";
+        String str1="Hello China";
+        System.out.println(str+" "+str1);
+    }
+
 }

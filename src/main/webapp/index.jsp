@@ -7,6 +7,8 @@
 <h2>Hello World!</h2>
 <a href="user/showUser">userList</a>
 <a href="upload.jsp">文件上传测试</a>
+<a href="http://iotsztp.com/file/ota/37853561.txt" download="">文件下载测试</a>
+<%--<a href="file/asyncTask.txt" download="">文件下载测试</a>--%>
 <a href="login.jsp">聊天室</a>
 <a href="record_map.jsp">查看案列</a>
 <a href="pandaHelp/FAQ">FAQ</a>
