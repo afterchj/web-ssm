@@ -5,14 +5,14 @@ import com.tpadsz.ssm.service.UserService;
 import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.utils.FileUtils;
+import com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private Logger log = LoggerFactory.getLogger(UserController.class);
+    private static Logger log = Logger.getLogger(SpringWebSocketHandlerInterceptor.class);
     @Resource
     private UserService userService;
 
@@ -38,7 +38,8 @@ public class UserController {
 
     @RequestMapping("/login")
     public String showUser(HttpServletRequest request, User user, Model model) {
-        String username = request.getParameter("userName");
+        String username = user.getUserName();
+        log.warn("user=" + username);
         username = StringUtils.isEmpty(username) ? ChatUtils.getRandomNickName() : username;
         request.getSession().setAttribute("WEBSOCKET_USERNAME", username);
 //        User user1 = userService.selectByName(user);
@@ -47,6 +48,21 @@ public class UserController {
 //            //return "ok";
 //        }
         return "websocket";
+    }
+
+    @ResponseBody
+    @RequestMapping("/ws")
+    public String test(HttpServletRequest request, User user) {
+        String username = user.getUserName();
+        log.warn("user=" + username);
+        username = StringUtils.isEmpty(username) ? ChatUtils.getRandomNickName() : username;
+        request.getSession().setAttribute("WEBSOCKET_USERNAME", username);
+//        User user1 = userService.selectByName(user);
+//        if (user1 != null) {
+//            model.addAttribute("user", user1);
+//            //return "ok";
+//        }
+        return "ok";
     }
 
     //    @ResponseBody

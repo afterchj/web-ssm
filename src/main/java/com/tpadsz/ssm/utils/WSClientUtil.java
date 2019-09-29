@@ -1,6 +1,5 @@
 package com.tpadsz.ssm.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.java_websocket.WebSocket;
@@ -89,8 +88,8 @@ public class WSClientUtil {
 
     public static void main(String[] args) {
         JSONObject object = new JSONObject();
-        object.put("from", "after");
-        object.put("to", "test");
+        object.put("from", "admin");
+        object.put("to", "after");
         object.put("message", "hello test,ok that is fine.");
         sendMsg(object.toString());
     }

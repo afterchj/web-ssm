@@ -37,6 +37,17 @@
         </foreach>
     </insert>
 
+    <insert id="insertMobile" parameterType="java.util.List">
+        insert ignore into f_mobile(
+        mobile
+        )values
+        <foreach collection="list" item="mobile" index="index" separator=",">
+            (
+            #{mobile}
+            )
+        </foreach>
+    </insert>
+
     <insert id="insertPayRecord" parameterType="java.util.List">
         insert into alipay_record(
         create_time,

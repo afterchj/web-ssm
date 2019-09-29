@@ -61,7 +61,7 @@ public class ExcelTool {
 
     public static List importExcel() throws IOException, BiffException, WriteException {
 //        List<Shop> list = new ArrayList();
-        String filePath = "D:\\保留账号0521.xls";
+        String filePath = "e:\\mobile.xls";
         InputStream is = null;
         Workbook rwb = null;
         try {
@@ -78,9 +78,12 @@ public class ExcelTool {
         int row = sht.getRows(); //获得Excel行
         System.out.println("row=" + row);
         //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
-        List list = new ArrayList();
+        List<String> list = new ArrayList();
         for (int i = 1; i < row; i++) {
-            Integer id = Integer.parseInt(sht.getCell(0, i).getContents());
+//            Map map=new HashMap();
+
+//            Integer id = Integer.parseInt(sht.getCell(0, i).getContents());
+            String mobile = sht.getCell(0, i).getContents();
 //            System.out.println("id=" + id);
 //            FAQ faq = new FAQ();
 //            Shop faq = new Shop();
@@ -89,7 +92,7 @@ public class ExcelTool {
 //                faq.setUrl(sht.getCell(2, i).getContents());
 //                faq.setAnswer(sht.getCell(3, i).getContents());
 //                faq.setKeyword(sht.getCell(4, i).getContents());
-            list.add(id);
+            list.add(mobile);
         }
         return list;
     }
@@ -115,7 +118,7 @@ public class ExcelTool {
 //        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
 //        exportExcel();
         List list = importExcel();
-        sqlSessionTemplate.delete("com.tpadsz.ssm.dao.FAQDao.deleteBatch", list);
+        sqlSessionTemplate.insert("com.tpadsz.ssm.dao.FAQDao.insertMobile", list);
 //        session.getMapper(FAQDao.class).deleteBatch(list);
     }
 }
