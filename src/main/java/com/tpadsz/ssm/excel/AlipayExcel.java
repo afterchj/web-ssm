@@ -1,5 +1,6 @@
 package com.tpadsz.ssm.excel;
 
+import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.*;
 import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.SpringUtils;
@@ -75,7 +76,7 @@ public class AlipayExcel {
                 list.add(record);
             }
         }
-//        session.getMapper(FAQDao.class).insertPayRecord(list);
+        session.getMapper(FAQDao.class).insertPayRecord(list);
         AppUtils.getSession().setAttribute("account=", account);
         return list;
     }

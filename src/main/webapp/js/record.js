@@ -9,7 +9,7 @@ pipChart1.showLoading();
 var account = $("#account").val();
 $.getJSON(
     "/web-ssm/charts/perYear",
-    {date: '2019-01-01', account: account}
+    {date: '2020-01-01', account: account}
 ).done(function (data, status) {
     var yearExpend = [];
     var yearIncome = [];
@@ -36,7 +36,7 @@ $.getJSON(
             //X轴设置
             xAxis: {
                 name: '时间(年)',
-                data: [2014, 2015, 2016, 2017, 2018]
+                data: [2014, 2015, 2016, 2017, 2018, 2019]
             },
             yAxis: {
                 type: 'value',
@@ -120,7 +120,7 @@ $.getJSON(
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['2014年', '2015年', '2016年', '2017年', '2018年']
+                data: ['2014年', '2015年', '2016年', '2017年', '2018年', '2019年']
             },
             series: [
                 {
@@ -133,7 +133,8 @@ $.getJSON(
                         {value: yearIncome[1], name: '2015年'},
                         {value: yearIncome[2], name: '2016年'},
                         {value: yearIncome[3], name: '2017年'},
-                        {value: yearIncome[4], name: '2018年'}
+                        {value: yearIncome[4], name: '2018年'},
+                        {value: yearIncome[5], name: '2019年'}
                     ],
                     itemStyle: {
                         emphasis: {
@@ -161,7 +162,7 @@ $.getJSON(
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['2014年', '2015年', '2016年', '2017年', '2018年']
+                data: ['2014年', '2015年', '2016年', '2017年', '2018年', '2019年']
             },
             series: [
                 {
@@ -174,7 +175,8 @@ $.getJSON(
                         {value: yearExpend[1], name: '2015年'},
                         {value: yearExpend[2], name: '2016年'},
                         {value: yearExpend[3], name: '2017年'},
-                        {value: yearExpend[4], name: '2018年'}
+                        {value: yearExpend[4], name: '2018年'},
+                        {value: yearExpend[5], name: '2019年'}
                     ],
                     itemStyle: {
                         emphasis: {
