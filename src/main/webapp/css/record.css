@@ -6,8 +6,8 @@
 .small {
     float: left;
     width: 400px;
-    height: 400px;
-    margin: 0 10%;
+    height: 450px;
+    margin: 0 5%;
 }
 
 .year {
@@ -23,6 +23,8 @@
 }
 
 .search {
+    margin-top: 20px ;
+    margin-bottom: 20px ;
     clear: both;
     margin-right: 25%;
     text-align: right;
@@ -34,7 +36,7 @@
     .small {
         clear: both;
         width: 320px;
-        height: 280px;
+        height: 300px;
         margin: 0 10px;
     }
 
@@ -51,6 +53,6 @@
     .month {
         float: left;
         width: 344px;
-        height: 280px;
+        height: 300px;
     }
 }

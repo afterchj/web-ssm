@@ -80,7 +80,9 @@ public class UserController {
             targetFile.mkdirs();
         }
         try {
-            FileUtils.saveFile(file, path, fileName, true);
+            if (StringUtils.isNotEmpty(fileName)) {
+                FileUtils.saveFile(file, path, fileName, true);
+            }
         } catch (Exception e) {
             log.error(e.getMessage());
         }

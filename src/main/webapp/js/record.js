@@ -197,6 +197,7 @@ var mChart = echarts.init(document.getElementById('month'));
 var date = $("#date").val();
 var account = $("#account").val();
 mChart.showLoading();
+
 function initMonth() {
     var date = $("#date").val();
     console.log("date=" + date + ",account=" + account);
@@ -304,4 +305,15 @@ function initMonth() {
         mChart.setOption(myOption);
     });
 }
+
 initMonth();
+$("#date").change(function () {
+    initMonth();
+});
+// (function () {
+//     console.log("after jQuery ");
+// })(jQuery);
+jQuery(function () {
+    // console.log("before jQuery ");
+    // });
+});

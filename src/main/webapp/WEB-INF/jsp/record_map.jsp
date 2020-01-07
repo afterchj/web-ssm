@@ -10,22 +10,22 @@
     <script type="text/javascript" src='/web-ssm/js/jquery-1.7.min.js'></script>
 </head>
 <script type="text/javascript">
-    $(function () {
-        $("#date").change(function () {
-            var date = $("#date").val();
-            var account = $("#account").val();
-            console.log("date=" + date + ",account=" + account);
-//            $.ajax({
-//                type: "GET",
-//                url: "../charts/showYearExpend",
-//                data: {username: date, content: account},
-//                dataType: "json",
-//                success: function (data) {
-//                    console.log("data=" + JSON.stringify(data));
-//                }
-//            });
-        });
-    });
+//     $(function () {
+//         $("#date").change(function () {
+//             var date = $("#date").val();
+//             var account = $("#account").val();
+//             console.log("date=" + date + ",account=" + account);
+// //            $.ajax({
+// //                type: "GET",
+// //                url: "../charts/showYearExpend",
+// //                data: {username: date, content: account},
+// //                dataType: "json",
+// //                success: function (data) {
+// //                    console.log("data=" + JSON.stringify(data));
+// //                }
+// //            });
+//         });
+//     });
 </script>
 <body>
 <h6>当前账号：${account}</h6>
@@ -35,7 +35,8 @@
     <input id="account" value="${account}" type="hidden">
     选择日期：
     <select id="date" name="date" style="width: 100px;margin-right: 20px">
-        <option value="2019-01-01" selected>2018</option>
+        <option value="2020-01-01" selected>2019</option>
+        <option value="2019-01-01">2018</option>
         <option value="2018-01-01">2017</option>
         <option value="2017-01-01">2016</option>
         <option value="2016-01-01">2015</option>
