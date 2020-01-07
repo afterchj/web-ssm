@@ -150,7 +150,7 @@ $.getJSON(
         pipChart.setOption(pipOption);
         var pipOption = {
             title: {
-                text: '历年的消费信息图',
+                text: '历年的支出信息图',
                 subtext: '来自支付宝',
                 x: 'center'
             },
