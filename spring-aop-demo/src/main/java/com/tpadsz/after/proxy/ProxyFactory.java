@@ -34,7 +34,7 @@ public class ProxyFactory implements MethodInterceptor {
         System.out.println("向观众问好");
         //执行目标对象的方法
         Object returnValue = method.invoke(target, args);
-        System.out.println("谢谢大家");
+        System.out.println(returnValue+"：谢谢大家");
         return returnValue;
     }
 }

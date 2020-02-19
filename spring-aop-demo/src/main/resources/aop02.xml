@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-    <context:component-scan base-package="com.tpadsz.after"/>
+    <context:component-scan base-package="com.tpadsz.after.aop02"/>
 
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy/>
