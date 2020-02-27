@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<config>
+    <className>com.tpadsz.ssm.pattern.bridge.Blue</className>
+    <className>com.tpadsz.ssm.pattern.bridge.SmallPen</className>
+</config>
