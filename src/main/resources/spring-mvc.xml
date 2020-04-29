@@ -10,7 +10,6 @@
        http://www.springframework.org/schema/websocket
        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
-    <mvc:annotation-driven/>
     <!--<mvc:default-servlet-handler/>-->
     <mvc:resources location="/img/" mapping="/img/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
@@ -18,7 +17,20 @@
     <mvc:resources location="/file/" mapping="/file/**"/>
     <!-- 自动扫描  @Controller-->
     <context:component-scan base-package="com.tpadsz.ssm.controller"/>
-
+    <!-- 处理请求返回json字符串的中文乱码问题 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>*/*;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!--websocket消息接收与处理类-->
     <bean id="socketjs" class="com.tpadsz.ssm.websocket.WebSocketEndHandler"/>
     <!--定义客户端与服务器握手的拦截器，可以做一些预处理-->
@@ -46,6 +58,8 @@
         <property name="supportedMediaTypes">
             <list>
                 <value>text/html;charset=UTF-8</value>
+                <value>text/plain;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
             </list>
         </property>
     </bean>

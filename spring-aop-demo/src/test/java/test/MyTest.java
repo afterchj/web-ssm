@@ -28,14 +28,15 @@ public class MyTest {
     public void test2() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:aop02.xml");
         MathService02 mathService = ctx.getBean("mathService", MathService02.class);
-        System.out.println("mathService="+mathService);
+        System.out.println("mathService=" + mathService);
         int n1 = 100, n2 = 4;
         mathService.add(n1, n2);
         mathService.subtract(n1, n2);
         mathService.multiply(n1, n2);
         mathService.divide(n1, n2);
 
-        StrUtil strUtil= (StrUtil) ctx.getBean("strUtil");
+
+        StrUtil strUtil = (StrUtil) ctx.getBean("strUtil");
         strUtil.show();
     }
 
