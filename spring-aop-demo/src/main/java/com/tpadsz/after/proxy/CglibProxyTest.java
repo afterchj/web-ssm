@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by hongjian.chen on 2019/1/22.
  */
-public class CglibProxTest {
+public class CglibProxyTest {
 
     @Test
     public void test() {

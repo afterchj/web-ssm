@@ -30,7 +30,7 @@ public class Advices03 {
 
 
     //返回结果通知
-    @AfterReturning(pointcut = "execution(* com.tpadsz.after.aop02.MathService02.m*(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* com.tpadsz.after.aop03.MathService03.m*(..))", returning = "result")
     public void afterReturning(JoinPoint jp, Object result) {
         System.out.println(jp.getSignature().getName());
         System.out.println("结果是：" + result);
@@ -38,14 +38,14 @@ public class Advices03 {
     }
 
     //异常后通知
-    @AfterThrowing(pointcut = "execution(* com.tpadsz.after.aop02.MathService02.d*(..))", throwing = "exp")
+    @AfterThrowing(pointcut = "execution(* com.tpadsz.after.aop03.MathService03.d*(..))", throwing = "exp")
     public void afterThrowing(JoinPoint jp, Exception exp) {
         System.out.println(jp.getSignature().getName());
         System.out.println("异常消息：" + exp.getMessage());
         System.out.println("----------异常通知----------");
     }
 
-    @After("execution(* com.tpadsz.after.aop02.*.*(..))")
+    @After("execution(* com.tpadsz.after.aop03.*.*(..))")
     public void after(JoinPoint jp) {
         System.out.println("----------最终通知----------");
         System.out.println(jp.getSignature().getName());
