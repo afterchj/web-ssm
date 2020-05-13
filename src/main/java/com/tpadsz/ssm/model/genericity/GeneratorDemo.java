@@ -8,12 +8,14 @@ public class GeneratorDemo {
 
     public static void main(String[] args) {
 
-        Generator<Coffee> coffeeGenerator = BaseGenerator.create(Coffee.class);
+        Generator<Drink> coffeeGenerator = BaseGenerator.create(Drink.class);
         BaseGenerator<Coffee> baseGenerator = new BaseGenerator<>();
-        Drink drink = baseGenerator.next(Cappuccino.class);
-        Coffee coffee = coffeeGenerator.next(Mocha.class);
+        Coffee Drink = baseGenerator.next(Coffee.class);
+        System.out.println(Drink);
         System.out.println(coffeeGenerator.next());
-        System.out.println(coffee);
-        System.out.println(drink);
+        Coffee[] coffees=new Coffee[]{new Mocha(),new Latte(),new Cappuccino(),new Americano()};
+        for (Coffee coffee:coffees){
+            System.out.println(coffee);
+        }
     }
 }

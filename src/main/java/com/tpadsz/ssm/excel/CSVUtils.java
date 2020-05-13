@@ -1,5 +1,6 @@
 package com.tpadsz.ssm.excel;
 
+import com.tpadsz.ssm.dao.FAQDao;
 import com.tpadsz.ssm.model.AlipayRecord;
 import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.SpringUtils;
@@ -127,8 +128,8 @@ public class CSVUtils {
                 }
             }
         }
-//        session.getMapper(FAQDao.class).insertPayRecord(dataList);
-        AppUtils.getSession().setAttribute("account", account);
+        session.getMapper(FAQDao.class).insertPayRecord(dataList);
+//        AppUtils.getSession().setAttribute("account", account);
         return dataList;
     }
 
@@ -157,7 +158,7 @@ public class CSVUtils {
     public void importCsv() {
         String file06 = "D:/mnt/alipay_record_20190109_1642_1.csv";
         String file08 = "D:/mnt/alipay_record_20190109_1418_1.csv";
-        String file07 = "D:/mnt/alipay_record_20190109_1409_1.csv";
-//       importCsv(file06);
+        String file09 = "D:/mnt/alipay_record_20200106_1946_1.csv";
+       importCsv(file09);
     }
 }

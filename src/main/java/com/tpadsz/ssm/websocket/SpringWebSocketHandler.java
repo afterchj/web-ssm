@@ -43,7 +43,6 @@ public class SpringWebSocketHandler extends AbstractWebSocketHandler {
         }
         users.put(session.getAttributes().get("USERNAME"), session);
         session.sendMessage(new TextMessage(user + "：I'm " + user));
-        logger.info("Connection established...ip=" + session.getRemoteAddress());
         logger.info("connect to the websocket success......当前数量:" + users.size());
     }
 
