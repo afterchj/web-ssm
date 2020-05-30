@@ -18,7 +18,12 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/upload")
-    public String upload(HttpSession session) {
-        return "fileupload";
+    public String upload() {
+        return "upload";
+    }
+
+    @RequestMapping(value = "/home")
+    public String showVue() {
+        return "vue_demo";
     }
 }
