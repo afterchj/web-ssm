@@ -111,11 +111,11 @@ public class HttpClientUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String url = "http://localhost:8080/q2";
+        String url = "https://ip138.com/mobile.asp";
 
         Map<String, String> map = new HashMap();
-        map.put("name", "after");
-        map.put("address", "suzhou");
+        map.put("mobile", "18170756879");
+        map.put("action", "mobile");
         String ret = httpGet(url, map);
         System.out.println("response:\n" + ret);
     }

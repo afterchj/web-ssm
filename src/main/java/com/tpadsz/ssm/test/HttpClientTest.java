@@ -179,7 +179,7 @@ public class HttpClientTest {
         try {
 //            HttpGet e = new HttpGet("http://localhost:8081/bossLocker-store/switch/getInfo");
 //            HttpGet e = new HttpGet("http://localhost:8080/blt_alink/pc/fileInfo?params={\"meshId\":\"TP_8200\"}");
-            HttpGet e = new HttpGet("http://uichange.com/file/ota/37853561.txt");
+            HttpGet e = new HttpGet("http://v.showji.com/Locating/showji.com2016234999234.aspx?m=13900008888&output=json&callback=querycallback&timestamp=1493796438586");
             System.out.println("executing request " + e.getURI());
             CloseableHttpResponse response = httpclient.execute(e);
             try {
