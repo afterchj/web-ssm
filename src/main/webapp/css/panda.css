@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+    background-color: #FFFFFF;
+}
+
+/** {*/
+/*margin: 0;*/
+/*padding: 0;*/
+/*}*/
+
+.wrap {
+    min-height: 480px;
+    /*background: #ffe6e6;*/
+    font-family: "微软雅黑";
+    font-size: 18px;
+}
+
+/*如果想居中，设margin:0 auto;*/
+
+.part {
+    background-color: #ffffff;
+}
+
+.ptit {
+    padding: 10px 20px 10px 10px;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #000000;
+    overflow: hidden;
+    text-indent: 0em;
+}
+
+.ptit1 {
+    /*background: url(image/arrow.png) no-repeat 98% center;*/
+    position: relative;
+    background-size: auto 14px;
+}
+
+.ptit2 {
+    padding: 16px 20px 5px 12px;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #e74202;
+    overflow: hidden;
+    text-indent: 0em;
+}
+
+.ptit3 {
+    padding: 5px 20px 5px 12px;
+    font-size: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #bdbdbd;
+    overflow: hidden;
+    text-indent: 0em;
+}
+
+li {
+    position: relative;
+    float: left;
+    line-height: 50px;
+    height: 50px;
+    list-style: none;
+    font-size: 3.4vw;
+}
+
+.part1 {
+    position: relative;
+    width: 15%;
+    font-size: 12px;
+    padding-left: 12px
+}
+
+.part3 {
+    position: relative;
+    width: 22%;
+}
+
+.part2 {
+    position: relative;
+    width: 30.5%;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+li p {
+    position: relative;
+    padding-left: 12px;;
+}
+
+.part3 p {
+    position: relative;
+    padding-left: 12px;;
+}
+
+li a {
+    display: block;
+    text-decoration: none;
+}
+
+.bg {
+    position: relative;
+    height: 26px;
+    margin-top: 3px;
+    margin-left: 3px;
+    background-color: #e74202;
+    border-radius: 4px;
+    line-height: 34px;
+}
+
+.bg img {
+    display: inline;
+    height: 18px;
+    margin-left: 3px;
+    margin-top: 2px;
+}
+
+.bg p {
+    display: inline;
+    margin-left: 0px;
+    bottom: 3.5px;
+    color: #FFFFFF;
+}
+
+.search {
+    width: 100%;
+    /*position: fixed;*/
+    /*left: 20px;*/
+    /*top: 0px;*/
+    text-align: left;
+    /*background-color:#FFFFFF ;*/
+}
+
+.faq {
+    margin: 10px auto;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #000000;
+    overflow: hidden;
+    text-indent: 0em;
+    position: relative;
+    background-size: auto 14px;
+}
+
+.faq dt {
+    font-size: 18px;
+}
+
+.faq dd {
+    font-size: 15px;
+}
+
+.search input {
+    margin-top: 10px;
+    margin-left: 20px;
+}

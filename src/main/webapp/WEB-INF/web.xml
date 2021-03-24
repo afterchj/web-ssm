@@ -9,7 +9,20 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-mybatis.xml</param-value>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+
+    <!-- 在上下文context-param中设置profile.default的默认值 -->
+    <context-param>
+        <param-name>spring.profiles.default</param-name>
+        <param-value>development</param-value>
+    </context-param>
+
+    <!-- 在上下文context-param中设置profile.active的默认值 -->
+    <!-- 设置active后default失效，web启动时会加载对应的环境信息 -->
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>production</param-value>
     </context-param>
 
     <context-param>
@@ -23,7 +36,12 @@
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
+            <param-value>GBK</param-value>
+        </init-param>
+        <!-- 配置是否强制使用过滤器 -->
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -40,7 +58,6 @@
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
-
 
     <!-- spring mvc servlet-->
     <servlet>

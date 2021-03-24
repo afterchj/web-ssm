@@ -1,0 +1,58 @@
+
+#resText {
+    margin-top: 20px;
+}
+
+.small {
+    float: left;
+    width: 400px;
+    height: 450px;
+    margin: 0 5%;
+}
+
+.year {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+.month {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+.search {
+    margin-top: 20px ;
+    margin-bottom: 20px ;
+    clear: both;
+    margin-right: 25%;
+    text-align: right;
+    width: 100%;
+    float: right;
+}
+
+@media screen and (max-width: 500px) {
+    .small {
+        clear: both;
+        width: 320px;
+        height: 300px;
+        margin: 0 10px;
+    }
+
+    .search {
+        width: 340px;
+        margin: 5px 0;
+    }
+
+    .year {
+        clear: both;
+        width: 344px;
+        height: 280px;
+    }
+    .month {
+        float: left;
+        width: 344px;
+        height: 300px;
+    }
+}

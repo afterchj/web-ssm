@@ -3,6 +3,7 @@ package com.tpadsz.ssm.utils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -19,6 +20,16 @@ public class MyUtil {
 
     private static RedisTemplate redisTemplate = (RedisTemplate) ctx.getBean("redisTemplate");
 
+
+    @Test
+    public void testPut() {
+        HashOperations opsForHash = redisTemplate.opsForHash();
+        opsForHash.put("he1", "key1", "a");
+        opsForHash.put("he1", "key2", "b");
+        opsForHash.put("he1", "key3", "c");
+        Map<String, Object> entries = opsForHash.entries("he1");
+        System.out.println(entries);//{key3=c, key1=a, key2=b}(无序)
+    }
 
     @Test
     public void testMap() {
@@ -80,7 +91,11 @@ public class MyUtil {
     @Test
     public void test() {
 
-        ValueOperations<Serializable, Serializable> opsForValue = redisTemplate.opsForValue();
+        ValueOperations opsForValue = redisTemplate.opsForValue();
+        String key="uic_cache_alipay_times_8bd036f28c934b7ca9a428adf06e6f66";
+//        redisTemplate.opsForValue().set(key, "1");
+        String times = (String) redisTemplate.opsForValue().get(key);
+        System.out.println("times="+times);
         opsForValue.set("mapRecord", "121");
         System.out.println(opsForValue.get("mapRecord"));
 //        redisTemplate.opsForList().remove("framework", 3, "spring");

@@ -1,5 +1,6 @@
 package com.tpadsz.ssm.utils;
 
+import com.tpadsz.ssm.test.MyTest;
 import net.rubyeye.xmemcached.CASOperation;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
@@ -16,13 +17,14 @@ import java.util.concurrent.TimeoutException;
 /**
  * Created by hongjian.chen on 2018/1/25.
  */
-public class XMemcachedClient implements DisposableBean {
+public class  XMemcachedClient implements DisposableBean {
 
     private static Logger logger = LoggerFactory.getLogger(XMemcachedClient.class);
 
-    //    private MemcachedClient memcachedClient=MyTest.getMemcachedClient();
+//        private MemcachedClient memcachedClient= MyTest.getMemcachedClient();
     private MemcachedClient memcachedClient;
     private long optTimeout = 1000;
+
 
     public <T> T get(String key) {
         try {

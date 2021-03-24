@@ -7,19 +7,21 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
-<script type="text/javascript">
-    function checkFile() {
-        var name = $('#file').val();
-        var str = name.substring(name.lastIndexOf('.'));
-        if (str == '.xls') {
-            return true;
-        } else {
-            alert("请选择.xls格式的excel文件！");
-            return false;
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+    <script type="text/javascript">
+        function checkFile() {
+            var name = $('#file').val();
+            var str = name.substring(name.lastIndexOf('.'));
+            if (str == '.xls') {
+                return true;
+            } else {
+                alert("请选择.xls格式的excel文件！");
+                return false;
+            }
         }
-    }
-</script>
+    </script>
 </head>
 <body>
 <div>

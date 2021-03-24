@@ -6,7 +6,7 @@ import com.tpadsz.ssm.dao.ListCauseDao;
 import com.tpadsz.ssm.model.CpaAndGameLog;
 import com.tpadsz.ssm.model.DListBlack;
 import com.tpadsz.ssm.model.DListCause;
-import com.tpadsz.ssm.utils.MybatisUtil;
+import com.tpadsz.ssm.utils.SpringUtils;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -25,7 +25,7 @@ import java.util.*;
  * Created by hongjian.chen on 2017/10/24.
  */
 public class ExcelTool {
-    private static SqlSession session = MybatisUtil.getSession();
+    private static SqlSession session = SpringUtils.getSession();
 
     public static void importExcel(InputStream is) throws Exception {
         Workbook book = null;
@@ -105,11 +105,11 @@ public class ExcelTool {
         }
     }
 
-//    public static void main(String[] args) throws Exception {
-//        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
-//        importExcel(is);
-//        Map map = new HashMap();
-//        map.put("type", "新快速");
-//        exportExcel(map, "D:\\mnt\\info.xls");
-//    }
+    public static void main(String[] args) throws Exception {
+        InputStream is = new FileInputStream(new File("D:/test/example.xls"));
+        importExcel(is);
+        Map map = new HashMap();
+        map.put("type", "新快速");
+        exportExcel(map, "D:\\mnt\\info.xls");
+    }
 }

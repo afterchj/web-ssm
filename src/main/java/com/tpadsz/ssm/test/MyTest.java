@@ -52,6 +52,7 @@ public class MyTest {
 //    }
     @Test
     public void test2() {
+        System.out.println("memcachedClient="+memcachedClient);
         User user = new User();
         user.setId(101l);
         user.setCreateTime(new Date());

@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>多文件上传</title>
     <script type="text/javascript">
@@ -11,6 +13,7 @@
         j = 1;
 
         $(document).ready(function () {
+            <%--alert("reulst"+${reult})--%>
             var text1 = $("#newUpload1").html();
             var text2 = $("#newUpload2").html();
 //            alert(text1 + "   " + text2);
@@ -56,7 +59,6 @@
     </div>
     <input type="button" id="btn_add2" value="增加一行">
     <input type="submit" value="上传">
-
 </form>
 </body>
 </html>

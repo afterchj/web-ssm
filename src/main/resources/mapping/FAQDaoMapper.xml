@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tpadsz.ssm.dao.FAQDao">
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+--         DELETE FROM alink.f_user_account WHERE id NOT IN
+        DELETE FROM alink.f_user_role WHERE user_id NOT IN
+        <foreach collection="list"  item="item" open="(" separator="," close=")"  >
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert ignore into faq(
+        id, question,
+        answer,url,
+        keyword
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.id}, #{u.question},
+            #{u.answer},#{u.url},
+            #{u.keyword}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertShop" parameterType="java.util.List">
+        insert ignore into shop(
+        pid, mid
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.pid}, #{u.mid}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertMobile" parameterType="java.util.List">
+        insert ignore into f_mobile(
+        mobile
+        )values
+        <foreach collection="list" item="mobile" index="index" separator=",">
+            (
+            #{mobile}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertPayRecord" parameterType="java.util.List">
+        insert into alipay_record(
+        create_time,
+        modify_time,
+        trade_sources,
+        trade_description,
+        counterparty,
+        shop_name,
+        money,
+        trade_type,
+        trade_status,
+        notes,
+        money_change,
+        account
+        )values
+        <foreach collection="list" item="u" index="index" separator=",">
+            (
+            #{u.create_time}, #{u.modify_time},
+            #{u.trade_sources}, #{u.trade_description},
+            #{u.counterparty}, #{u.shop_name},
+            #{u.money}, #{u.trade_type},
+            #{u.trade_status}, #{u.notes},
+            #{u.money_change},#{u.account}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectByKey" parameterType="string" resultType="FAQ">
+        SELECT * FROM  faq f WHERE f.keyword like CONCAT('%',#{keyword},'%')
+    </select>
+
+    <select id="getAll" parameterType="string" resultType="FAQ">
+        SELECT * FROM  faq f
+    </select>
+
+    <select id="getAllKey" resultType="string">
+        SELECT f.keyword FROM  faq f
+    </select>
+</mapper>
