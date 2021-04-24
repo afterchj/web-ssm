@@ -10,7 +10,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
        default-lazy-init="true">
 
-    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>
+<!--    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>-->
     <!--<import resource="classpath*:conf/rabbitMQ.xml" />-->
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy/>
@@ -151,18 +151,18 @@
           p:usePool="true">
     </bean>
 
-    <!-- 开发环境配置文件 -->
-    <!--<beans profile="development">-->
-        <!--<context:property-placeholder location="classpath*:setup.development.properties,classpath:common.properties"/>-->
-    <!--</beans>-->
-    <!--&lt;!&ndash; 测试环境配置文件 &ndash;&gt;-->
-    <!--<beans profile="demo">-->
-        <!--<context:property-placeholder location="classpath*:setup.demo.properties,classpath:common.properties"/>-->
-    <!--</beans>-->
-    <!--&lt;!&ndash; 生产环境配置文件 &ndash;&gt;-->
-    <!--<beans profile="production">-->
-        <!--<context:property-placeholder location="classpath*:setup.production.properties,classpath:common.properties"/>-->
-    <!--</beans>-->
+    <!--开发环境配置文件 -->
+    <beans profile="development">
+        <context:property-placeholder location="classpath*:setup.development.properties,classpath:common.properties"/>
+    </beans>
+    <!-- 测试环境配置文件 -->
+    <beans profile="demo">
+        <context:property-placeholder location="classpath*:setup.demo.properties,classpath:common.properties"/>
+    </beans>
+    <!-- 生产环境配置文件 -->
+    <beans profile="production">
+        <context:property-placeholder location="classpath*:setup.production.properties,classpath:common.properties"/>
+    </beans>
 
 </beans>
 
