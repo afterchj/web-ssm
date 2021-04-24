@@ -2,7 +2,6 @@ package com.tpadsz.ssm.utils;
 
 import com.alibaba.fastjson.JSONObject;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,6 +13,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,10 +32,9 @@ import java.util.List;
  * @since 2020-12-17 11:31
  */
 
-@Slf4j
 public class IpQuery {
 
-
+private static Logger log= LoggerFactory.getLogger(IpQuery.class);
     public static void getMobileMarkFromIP138(String mobile) {
 
         String REQUEST_URL = "https://ip138.com/mobile.asp?mobile=" + mobile + "&action=mobile";

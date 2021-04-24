@@ -16,7 +16,7 @@ import java.util.List;
 public class FAQServiceImpl implements FAQService {
 
     @Autowired
-    FAQDao faqDao;
+    private FAQDao faqDao;
 
     @Override
     public List<FAQ> selectByKey(String keyword)throws Exception {

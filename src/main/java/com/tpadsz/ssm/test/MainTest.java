@@ -4,14 +4,14 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
 import com.tpadsz.ssm.linstener.ExcelListener;
 import com.tpadsz.ssm.model.bo.Student;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Slf4j
 public class MainTest {
 
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class MainTest {
 
         File file = new File(fileName);
 
-
+        Logger log = LoggerFactory.getLogger(MainTest.class);
         EasyExcel.read(file, Student.class, new ExcelListener(p -> p.stream().forEach(s -> log.info("s {}", JSON.toJSONString(s))))).sheet().doRead();
         List<Student> students = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

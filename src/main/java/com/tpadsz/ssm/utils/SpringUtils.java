@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -30,5 +31,11 @@ public class SpringUtils {
         return (AmqpTemplate) ctx.getBean("amqpTemplate");
     }
 
-
+    public static void main(String[] args) {
+        RabbitTemplate rabbitTemplate= (RabbitTemplate) getAmqpTemplate();
+        System.out.println("rabbitTemplate="+rabbitTemplate);
+        for (int i=100;i<200;i++){
+            rabbitTemplate.convertAndSend(i);
+        }
+    }
 }

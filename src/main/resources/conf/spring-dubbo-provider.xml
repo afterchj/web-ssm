@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 第一种方式：加载一个properties文件 -->
+<!--    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--        <property name="location" value="classpath:jdbc.properties"/>-->
+<!--    </bean>-->
+
+
+    <!-- 第二种方式：加载多个properties文件
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <value>classpath:common.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties"/>
+    </bean>
+    -->
+
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${dubbo.application.name}"  />
+    <!-- 使用 Nacos 注册中心 -->
+    <dubbo:registry address="${dubbo.registry.address}" group="${dubbo.group.name}"/>
+    <!-- 用dubbo协议在随机端口暴露服务 -->
+    <dubbo:protocol name="${dubbo.protocol.name}" port="-1"/>
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.isoft.after.api.DemoService" ref="demoService" version="${demo.service.version}"/>
+    <!-- 和本地bean一样实现服务 -->
+    <bean id="demoService" class="com.tpadsz.ssm.service.impl.DefaultService"/>
+
+</beans>
