@@ -13,8 +13,8 @@
      http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 <!--    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>-->
-    <import resource="classpath*:conf/spring-dubbo-provider.xml" />
-    <import resource="classpath*:conf/spring-rabbitMQ.xml" />
+    <import resource="classpath*:conf/spring-dubbo.xml" />
+<!--    <import resource="classpath*:conf/spring-rabbitMQ.xml" />-->
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 

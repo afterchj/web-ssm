@@ -3,13 +3,14 @@ package com.tpadsz.ssm.service;
 import com.tpadsz.ssm.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by Zhangxq on 2016/7/15.
+ * Created by hjchen on 2016/7/15.
  */
 public interface UserService {
 
-    List<User> getAllUser();
+    List<Map> getAllUser();
 
     User getUserByPhoneOrEmail(String emailOrPhone, Short state);
 

@@ -19,7 +19,7 @@ public class DemoServiceConsumerBootstrap {
     @PostConstruct
     public void init() {
         for (int i = 0; i < 10; i++) {
-            System.out.println(demoService.sayName("小马哥（after）"));
+            System.out.println(demoService.sayName("jack.chen（after）"));
         }
     }
 

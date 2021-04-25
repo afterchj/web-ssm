@@ -33,8 +33,23 @@
         SELECT * FROM t_user
         WHERE user_name = #{userName} and user_pwd = #{userPwd}
     </select>
+
     <select id="selectAllUser" resultMap="UserBaseMap">
-        SELECT * FROM t_user
+        SELECT * FROM t_core_user limit 10
+    </select>
+
+    <select id="selectUserByPhoneOrEmail" resultType="com.tpadsz.ssm.model.User">
+        SELECT * FROM t_core_user
+        <where>
+            <choose>
+                <when test="state ==1">
+                    mobile=#{emailOrPhone}
+                </when>
+                <otherwise>
+                    email=#{emailOrPhone}
+                </otherwise>
+            </choose>
+        </where>
     </select>
 
     <update id="updateUser" parameterType="map">

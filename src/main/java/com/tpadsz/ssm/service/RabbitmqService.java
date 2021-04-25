@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 @Service
 public class RabbitmqService {
 
-    @Resource(name = "amqpTemplate")
+//    @Resource(name = "amqpTemplate")
     private RabbitTemplate rabbitTemplate;
 
     public void sendMsg(String s) {

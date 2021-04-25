@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+    <script type="text/javascript" src='/web-ssm/js/JsBarcode.all.min.js'></script>
 </head>
 <body>
 <h2>Hello World!</h2>
@@ -9,6 +10,7 @@
 <a href="upload.jsp">文件上传测试</a>
 <a href="login.jsp">聊天室</a>
 <a href="record_map.jsp">查看案列</a>
+<a href="world.jsp">世界地图</a>
 <a href="pandaHelp/FAQ">FAQ</a>
 
 <form action="user/upload.do" method="post" name="file" enctype="multipart/form-data">
@@ -21,8 +23,30 @@
         <%--<source src="movie.ogg" type="video/ogg">--%>
         您的浏览器不支持Video标签。
     </video>
+    <img id="imgcode">
     <p><input name="file" type="file" value="浏览"></p>
     <p><input type="submit" value="login"></p>
 </form>
 </body>
+
+<script>
+    console.log("生成二维码...");
+    JsBarcode("#imgcode", "scz20210419/001", {
+        format: "CODE39",//选择要使用的条形码类型
+        width:1,//设置条之间的宽度
+        height:50,//高度
+        displayValue:true,//是否在条形码下方显示文字
+        text:"scz20210419/001(订单号/序号)",//覆盖显示的文本
+        // fontOptions:"bold italic",//使文字加粗体或变斜体
+        // font:"fantasy",//设置文本的字体
+        textAlign:"center",//设置文本的水平对齐方式
+        textPosition:"bottom",//设置文本的垂直位置
+        textMargin:5,//设置条形码和文本之间的间距
+        fontSize:12,//设置文本的大小
+        background:"#fff",//设置条形码的背景
+        lineColor:"#000",//设置条和文本的颜色。
+        margin:5//设置条形码周围的空白边距
+    });
+
+</script>
 </html>

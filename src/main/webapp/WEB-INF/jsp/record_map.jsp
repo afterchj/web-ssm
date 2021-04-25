@@ -28,7 +28,7 @@
 //     });
 </script>
 <body>
-<h6>当前账号：${account}</h6>
+<h6>当前账号：${account}</h6><a href="http://localhost:8080/login?loginType=token&gh=${account}">跳转</a>
 <div id="main" class="small"></div>
 <div id="year" class="year"></div>
 <div class="search">

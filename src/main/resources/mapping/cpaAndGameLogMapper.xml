@@ -13,6 +13,9 @@
         <result property="expendSum" column="expend_sum" javaType="double" jdbcType="DOUBLE"/>
         <result property="downloadUrl" column="download_url" javaType="string" jdbcType="VARCHAR"/>
     </resultMap>
+    <update id="updateLog">
+
+    </update>
 
     <select id="getLogInfo" resultType="CpaAndGameLog" parameterType="map">
         SELECT

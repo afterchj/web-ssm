@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -31,7 +32,7 @@ public class UserController {
 
     @RequestMapping("/showUser")
     public String showUser(Model model) {
-        List<User> userList = userService.getAllUser();
+        List<Map> userList = userService.getAllUser();
         model.addAttribute("userList", userList);
         return "showUser";
     }

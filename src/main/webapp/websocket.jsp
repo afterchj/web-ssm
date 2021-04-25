@@ -30,7 +30,7 @@
     </h2>
 </noscript>
 <div>
-    <h6>当前用户：${WEBSOCKET_USERNAME}</h6>
+    <h6>当前用户：${WEBSOCKET_USERNAME}</h6><a href="http://localhost:8080/login?loginType=token&gh=${WEBSOCKET_USERNAME}"></a>
     <div>
         <button id="disconnect" onclick="disconnect()">disconnect</button>
         <button id="reconnect" onclick="reconnect()">reconnect</button>
