@@ -75,6 +75,8 @@ public class AlipayExcel {
                     list.add(record);
                 }
             }
+            session.getMapper(FAQDao.class).insertPayRecord(list);
+            AppUtils.getSession().setAttribute("account=", account);
         } catch (Exception e) {
             log.error("cause {} msg {}", e.getCause(), e.getMessage());
         } finally {
@@ -89,8 +91,6 @@ public class AlipayExcel {
                 rwb.close();
             }
         }
-        session.getMapper(FAQDao.class).insertPayRecord(list);
-        AppUtils.getSession().setAttribute("account=", account);
         return list;
     }
 
