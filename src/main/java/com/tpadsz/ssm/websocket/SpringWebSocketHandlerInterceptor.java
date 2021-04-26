@@ -43,7 +43,6 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
                 attributes.put("USERNAME", userName);
             }
         }
-        logger.info("ip=" + AppUtils.getRemoteIP(null) + ",userName=" + userName);
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
 

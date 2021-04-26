@@ -1,8 +1,7 @@
 package com.tpadsz.ssm.controller;
 
-import com.isoft.after.api.ExternService;
+import com.isoft.after.api.DemoService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class DubboController {
 
     @Autowired
-    private ExternService externService;
+    private DemoService externService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String show() {
         log.warn("externService {}", externService);
-        String s = String.format("本地测试");
-        return externService == null ? s : externService.echo(s);
+        String s = String.format("%s","本地测试");
+        return externService == null ? s : externService.sayName(s);
     }
 
 }
