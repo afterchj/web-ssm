@@ -97,12 +97,14 @@ public class CSVUtils {
                 if (contents.length == 16 && !line.contains("交易号 ")) {
                     String createTime = contents[2];
                     String modifyTime = contents[4];
-                    if (!createTime.isEmpty()) {
-                        record.setCreate_time(format.parse(createTime));
-                    }
-                    if (!modifyTime.isEmpty()) {
-                        record.setModify_time(format.parse(modifyTime));
-                    }
+                    record.setCreate_time(createTime);
+                    record.setModify_time(modifyTime);
+//                    if (!createTime.isEmpty()) {
+//                        record.setCreate_time(format.parse(createTime));
+//                    }
+//                    if (!modifyTime.isEmpty()) {
+//                        record.setModify_time(format.parse(modifyTime));
+//                    }
                     record.setTrade_sources(contents[5]);
                     record.setTrade_description(contents[6]);
                     record.setCounterparty(contents[7]);
@@ -158,7 +160,7 @@ public class CSVUtils {
     public void importCsv() {
         String file06 = "D:/mnt/alipay_record_20190109_1642_1.csv";
         String file08 = "D:/mnt/alipay_record_20190109_1418_1.csv";
-        String file09 = "D:/mnt/alipay_record_20200106_1946_1.csv";
+        String file09 = "D:/dev/alipay_record_20210425_2140_1.csv";
        importCsv(file09);
     }
 }

@@ -11,7 +11,7 @@
         FROM
             alipay_record
         WHERE
-            create_time >= DATE_SUB('2019-01-01', INTERVAL 5 YEAR)
+            create_time >= DATE_SUB(now(), INTERVAL 7 YEAR)
         AND trade_type in ('支出','收入')
         <if test="account!=null and account!=''">
             AND  account=#{account}
@@ -45,7 +45,7 @@
         FROM
             alipay_record
         WHERE
-            create_time >= DATE_SUB('2019-01-01', INTERVAL 5 YEAR)
+            create_time >= DATE_SUB(now(), INTERVAL 7 YEAR)
         AND trade_type ='收入'
         GROUP BY perYear,trade_type
         ORDER BY perYear
@@ -59,7 +59,7 @@
         FROM
             alipay_record
         WHERE
-            create_time >= DATE_SUB('2019-01-01', INTERVAL 5 YEAR)
+            create_time >= DATE_SUB(now(), INTERVAL 7 YEAR)
         AND trade_type ='支出'
         GROUP BY perYear,trade_type
         ORDER BY perYear

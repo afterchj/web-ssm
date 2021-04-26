@@ -51,18 +51,20 @@ public class AlipayExcel {
                 AlipayRecord record = new AlipayRecord();
                 String createTime = sht.getCell(2, i).getContents();
                 String modifyTime = sht.getCell(4, i).getContents();
-                if (!createTime.isEmpty()) {
-                    try {
-                        if (!createTime.isEmpty()) {
-                            record.setCreate_time(format.parse(createTime));
-                        }
-                        if (!modifyTime.isEmpty()) {
-                            record.setModify_time(format.parse(modifyTime));
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
+                record.setCreate_time(createTime);
+                record.setModify_time(modifyTime);
+//                if (!createTime.isEmpty()) {
+//                    try {
+//                        if (!createTime.isEmpty()) {
+//                            record.setCreate_time(format.parse(createTime));
+//                        }
+//                        if (!modifyTime.isEmpty()) {
+//                            record.setModify_time(format.parse(modifyTime));
+//                        }
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 record.setAccount(account);
                 record.setTrade_sources(sht.getCell(5, i).getContents());
                 record.setTrade_description(sht.getCell(6, i).getContents());

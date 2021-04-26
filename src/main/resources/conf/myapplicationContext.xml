@@ -19,7 +19,7 @@
 
     <import resource="classpath*:conf/spring-rabbitMQ.xml" />
     <!-- 自动扫描 -->
-    <!--<context:component-scan base-package="com.tpadsz.ssm.rabbit"/>-->
+    <!--<context:component-scan base-package="com.tpadsz.ssm.service.rabbit"/>-->
 
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>

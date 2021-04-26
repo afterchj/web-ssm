@@ -1,5 +1,6 @@
 package com;
 
+import com.tpadsz.ssm.service.rabbit.MessageProducer;
 import com.tpadsz.ssm.utils.SpringUtils;
 import org.junit.Test;
 
@@ -31,21 +32,21 @@ public class TempTest {
         System.out.println(map.size() + "\t" + str.equals(obj) + "\t" + obj.equals(str));
     }
 
-//    @Test
-//    public void testRabbit() throws InterruptedException {
-//        Thread.sleep(5000);
-//        MessageProducer messageProducer = SpringUtils.getProducer();
-//        for (int i = 301; i < 401; i++) {
-////           amqpTemplate.convertAndSend("spring-tpad-blt-console-queue","blt_queue send message " + i);
-//            if (i % 2 == 0) {
-//                messageProducer.send();
-//            } else if (i % 3 == 0) {
-//                messageProducer.send1(i);
-//            } else {
-//                messageProducer.send2(i);
-//                messageProducer.sendMsg("blt_queue send message " + i);
-//            }
-//        }
-//        Thread.sleep(3000);
-//    }
+    @Test
+    public void testRabbit() throws InterruptedException {
+        Thread.sleep(5000);
+        MessageProducer messageProducer = SpringUtils.getProducer();
+        for (int i = 301; i < 401; i++) {
+           SpringUtils.getAmqpTemplate().convertAndSend("spring-tpad-blt-console-queue","blt_queue send message " + i);
+            if (i % 2 == 0) {
+                messageProducer.send();
+            } else if (i % 3 == 0) {
+                messageProducer.send1(i);
+            } else {
+                messageProducer.send2(i);
+                messageProducer.sendMsg("blt_queue send message " + i);
+            }
+        }
+        Thread.sleep(3000);
+    }
 }

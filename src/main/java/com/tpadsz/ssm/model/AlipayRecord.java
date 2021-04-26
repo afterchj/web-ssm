@@ -8,8 +8,8 @@ import java.util.Date;
 public class AlipayRecord {
     private int id;
     private String account;
-    private Date create_time;
-    private Date modify_time;
+    private String create_time;
+    private String modify_time;
     private String trade_sources;
     private String trade_description;
     private String counterparty;//交易对方
@@ -36,19 +36,19 @@ public class AlipayRecord {
         this.account = account;
     }
 
-    public Date getCreate_time() {
+    public String getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(String create_time) {
         this.create_time = create_time;
     }
 
-    public Date getModify_time() {
+    public String getModify_time() {
         return modify_time;
     }
 
-    public void setModify_time(Date modify_time) {
+    public void setModify_time(String modify_time) {
         this.modify_time = modify_time;
     }
 

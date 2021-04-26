@@ -28,9 +28,9 @@
     <!-- durable 是否持久化 exclusive 仅创建者可以使用的私有队列，断开后自动删除，auto-delete当所有消费端连接断开后，是否自动删除队列 -->
     <rabbit:queue id="blt_queue" name="${rabbitmq.queue}" durable="true" auto-delete="false" exclusive="false"/>
     <rabbit:queue id="message_queue" name="topic.test.message" durable="true" auto-delete="false" exclusive="false"/>
-    <bean name="rabbitmqService" class="com.tpadsz.ssm.service.RabbitmqService"></bean>
+    <bean name="rabbitmqConsumer" class="com.tpadsz.ssm.service.rabbit.RabbitmqConsumer"></bean>
     <!-- 配置监听 -->
     <rabbit:listener-container connection-factory="myConnectionFactory" acknowledge="auto">
-        <rabbit:listener queues="blt_queue,message_queue" ref="rabbitmqService" method="getMessage"/>
+        <rabbit:listener queues="blt_queue,message_queue" ref="rabbitmqConsumer" method="getMessage"/>
     </rabbit:listener-container>
 </beans>
