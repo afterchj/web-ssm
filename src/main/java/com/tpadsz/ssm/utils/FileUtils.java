@@ -133,7 +133,7 @@ public class FileUtils {
 
     public static void importFile(String fileName) {
         String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
-        if (StringUtils.equals(suffix, ".xls")) {
+        if (StringUtils.equals(suffix, ".xls") || StringUtils.equals(suffix, ".xlsx")) {
             AlipayExcel.importExcel(fileName);
         } else if (StringUtils.equals(suffix, ".csv")) {
             CSVUtils.importCsv(fileName);

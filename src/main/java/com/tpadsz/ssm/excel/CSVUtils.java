@@ -80,7 +80,7 @@ public class CSVUtils {
         List<AlipayRecord> dataList = new ArrayList();
         BufferedReader br = null;
         DataInputStream in;
-        String account = "";
+        String account = "766256898@qq.com";
         try {
             in = new DataInputStream(new FileInputStream(file));
             br = new BufferedReader(new InputStreamReader(in, "GBK"));
@@ -131,7 +131,7 @@ public class CSVUtils {
             }
         }
         session.getMapper(FAQDao.class).insertPayRecord(dataList);
-//        AppUtils.getSession().setAttribute("account", account);
+        AppUtils.getSession().setAttribute("account", account);
         return dataList;
     }
 
