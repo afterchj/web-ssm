@@ -8,6 +8,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 import jxl.write.Number;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -24,6 +25,8 @@ import java.util.Map;
 /**
  * Created by hongjian.chen on 2017/10/24.
  */
+
+@Slf4j
 public class ExcelTool {
 
     private static SqlSession session = SpringUtils.getSession();
@@ -61,29 +64,22 @@ public class ExcelTool {
 
     public static List importExcel() throws IOException, BiffException, WriteException {
 //        List<Shop> list = new ArrayList();
-        String filePath = "e:\\mobile.xls";
-        InputStream is = null;
-        Workbook rwb = null;
-        try {
-            is = new FileInputStream(filePath);//定义文本输入流
-            rwb = Workbook.getWorkbook(is);//打开Workbook
-        } catch (BiffException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //获取Excel表的Sheet1区域的数据
-        Sheet sht = rwb.getSheet(0);
-        int col = sht.getColumns(); //获得Excel列
-        int row = sht.getRows(); //获得Excel行
-        System.out.println("row=" + row);
-        //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
         List<String> list = new ArrayList();
-        for (int i = 1; i < row; i++) {
+        String filePath = "e:\\mobile.xls";
+        try {
+            InputStream is = new FileInputStream(filePath);//定义文本输入流
+            Workbook rwb = Workbook.getWorkbook(is);//打开Workbook
+            //获取Excel表的Sheet1区域的数据
+            Sheet sht = rwb.getSheet(0);
+            int col = sht.getColumns(); //获得Excel列
+            int row = sht.getRows(); //获得Excel行
+            System.out.println("row=" + row);
+            //先将数据按行装入一个一维数组中， 然后将数组逐个加入到ArrayList
+            for (int i = 1; i < row; i++) {
 //            Map map=new HashMap();
 
 //            Integer id = Integer.parseInt(sht.getCell(0, i).getContents());
-            String mobile = sht.getCell(0, i).getContents();
+                String mobile = sht.getCell(0, i).getContents();
 //            System.out.println("id=" + id);
 //            FAQ faq = new FAQ();
 //            Shop faq = new Shop();
@@ -92,9 +88,34 @@ public class ExcelTool {
 //                faq.setUrl(sht.getCell(2, i).getContents());
 //                faq.setAnswer(sht.getCell(3, i).getContents());
 //                faq.setKeyword(sht.getCell(4, i).getContents());
-            list.add(mobile);
+                list.add(mobile);
+            }
+        } catch (Exception e) {
+            log.error("cause {} msg {}", e.getCause(), e.getMessage());
         }
         return list;
+
+    }
+
+    public static void readExcel(String filePath) {
+        System.out.println("filePath=" + filePath);
+        try {
+            InputStream is = new FileInputStream(filePath);//定义文本输入流
+            Workbook rwb = Workbook.getWorkbook(is);//打开Workbook
+            //获取Excel表的Sheet1区域的数据
+            Sheet sht = rwb.getSheet(0);
+            int col = sht.getColumns(); //获得Excel列
+            int row = sht.getRows(); //获得Excel行
+            System.out.println("rows=" + row + ",cols=" + col);
+            for (int i = 1; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    log.warn("i {} 行 j {} 列 {}", i, j, sht.getCell(j, i).getContents());
+                }
+            }
+        } catch (Exception e) {
+            log.error("cause {} msg {}", e.getCause(), e.getMessage());
+        }
+
     }
 
     public static List<String> getAllKey() {

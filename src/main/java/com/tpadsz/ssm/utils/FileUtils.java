@@ -2,6 +2,7 @@ package com.tpadsz.ssm.utils;
 
 import com.tpadsz.ssm.excel.AlipayExcel;
 import com.tpadsz.ssm.excel.CSVUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -28,13 +30,11 @@ public class FileUtils {
             if (!file.isEmpty()) {
                 System.out.println("文件解压位置=" + targetFile.getPath());
                 file.transferTo(targetFile);
-                if (suffix.equals(".xls")) {
+                if (StringUtils.equals(suffix, ".xls") || StringUtils.equals(suffix, ".xlsx")) {
                     AlipayExcel.importExcel(targetFile.getPath());
-                }
-                if (suffix.equals(".csv")) {
+                } else if (StringUtils.equals(suffix, ".csv")) {
                     CSVUtils.importCsv(targetFile.getPath());
-                }
-                if (flag && suffix.equals(".zip")) {
+                } else if (StringUtils.equals(suffix, ".zip")) {
                     uZipFiles(targetFile, savePath, flag);
                 }
             }
@@ -43,9 +43,9 @@ public class FileUtils {
         }
     }
 
-    public static void uZipFiles(File file, String fileSavePath, boolean isDelete) {
+    public static void uZipFiles(File file, String fileSavePath, boolean flag) {
         if ((!file.exists()) && (file.length() <= 0)) {
-            logger.error("要解压的文件不存在!");
+            logger.warn("要解压的文件不存在!");
             return;
         }
         List<File> files = new ArrayList<>();
@@ -92,12 +92,10 @@ public class FileUtils {
                     while ((len = bis.read(buff)) != -1) {
                         bos.write(buff, 0, len);
                     }
-                    if (isDelete) {
-                        importFile(fileName);
-//                        new JobThread(fileName).start();
-                    }
+                    importFile(fileName);
                     files.add(newFile);
                 }
+//                new JobThread(files).start();
                 System.out.println("--------------------------------------------分割线--------------------------------------------");
             }
         } catch (IOException e) {
@@ -111,7 +109,7 @@ public class FileUtils {
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
-            if (isDelete) {
+            if (flag) {
                 logger.info("删除源文件结果: " + file.delete());
 //                logger.info("删除源文件结果: " + isDelete);
             }
@@ -135,18 +133,19 @@ public class FileUtils {
 
     public static void importFile(String fileName) {
         String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
-        if (suffix.equals(".xls")) {
+        if (StringUtils.equals(suffix, ".xls") || StringUtils.equals(suffix, ".xlsx")) {
             AlipayExcel.importExcel(fileName);
-        }
-        if (suffix.equals(".csv")) {
+        } else if (StringUtils.equals(suffix, ".csv")) {
             CSVUtils.importCsv(fileName);
+        } else {
+            ExcelTool.readExcel(fileName);
         }
     }
 
     private static class JobThread extends Thread {
 
         private List<File> files;
-        String fileName;
+        private String fileName;
 
         //单文件导入
         public JobThread(String fileName) {
@@ -158,10 +157,15 @@ public class FileUtils {
             this.files = files;
         }
 
-
         @Override
         public void run() {
-            importFile(fileName);
+            files.forEach(file -> ExcelTool.readExcel(file.getAbsolutePath()));
+        }
+
+        public static void main(String[] args) {
+            File file1 = new File("E:" + File.separator + "t_student.xls");
+            File file2 = new File("E:" + File.separator + "t_student_out.xls");
+            new JobThread(Arrays.asList(file1, file2)).start();
         }
     }
 }

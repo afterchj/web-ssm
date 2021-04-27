@@ -6,6 +6,7 @@ import com.tpadsz.ssm.utils.AppUtils;
 import com.tpadsz.ssm.utils.ChatUtils;
 import com.tpadsz.ssm.utils.FileUtils;
 import com.tpadsz.ssm.websocket.SpringWebSocketHandlerInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,11 @@ import java.util.List;
 import java.util.Map;
 
 
+@Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-    private static Logger log = Logger.getLogger(SpringWebSocketHandlerInterceptor.class);
     @Resource
     private UserService userService;
 
@@ -38,9 +39,9 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public String showUser(HttpServletRequest request, User user, Model model) {
+    public String showUser(HttpServletRequest request, User user) {
         String username = user.getUserName();
-        log.warn("user=" + username);
+        log.warn("remoteIp {} ip {}", AppUtils.getRemoteIP(request), request.getRemoteAddr());
         username = StringUtils.isEmpty(username) ? ChatUtils.getRandomNickName() : username;
         request.getSession().setAttribute("WEBSOCKET_USERNAME", username);
 //        User user1 = userService.selectByName(user);
@@ -68,11 +69,11 @@ public class UserController {
 
     //    @ResponseBody
     @RequestMapping(value = "/upload.do")
-    public String upload(String account, MultipartFile file) {
-        System.out.println("count=" + account);
+    public String upload(String account, MultipartFile file,HttpServletRequest request ) {
+        System.out.println("count=" + account + ",ip=" + AppUtils.getRemoteIP(null));
         account = account.isEmpty() ? "766256898@qq.com" : account;
 //        System.out.println(info.getFileName() + "     " + info.getDesc());
-        HttpServletRequest request = AppUtils.getRequest();
+//        HttpServletRequest request = AppUtils.getRequest();
         String path = request.getServletContext().getRealPath("/upload/");
         String fileName = file.getOriginalFilename();
 //        System.out.println("savePath=" + path + ",fileName=" + fileName);

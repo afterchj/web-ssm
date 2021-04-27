@@ -80,7 +80,7 @@ public class CSVUtils {
         List<AlipayRecord> dataList = new ArrayList();
         BufferedReader br = null;
         DataInputStream in;
-        String account = "";
+        String account = "766256898@qq.com";
         try {
             in = new DataInputStream(new FileInputStream(file));
             br = new BufferedReader(new InputStreamReader(in, "GBK"));
@@ -119,6 +119,8 @@ public class CSVUtils {
                     System.out.println("length=" + contents.length + "，" + line);
                 }
             }
+            session.getMapper(FAQDao.class).insertPayRecord(dataList);
+            AppUtils.getSession().setAttribute("account", account);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -130,8 +132,6 @@ public class CSVUtils {
                 }
             }
         }
-        session.getMapper(FAQDao.class).insertPayRecord(dataList);
-//        AppUtils.getSession().setAttribute("account", account);
         return dataList;
     }
 
@@ -161,6 +161,6 @@ public class CSVUtils {
         String file06 = "D:/mnt/alipay_record_20190109_1642_1.csv";
         String file08 = "D:/mnt/alipay_record_20190109_1418_1.csv";
         String file09 = "D:/dev/alipay_record_20210425_2140_1.csv";
-       importCsv(file09);
+        importCsv(file09);
     }
 }
