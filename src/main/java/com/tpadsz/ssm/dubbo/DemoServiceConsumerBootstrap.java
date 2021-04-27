@@ -13,7 +13,7 @@ import java.io.IOException;
 @PropertySource(value = "classpath:/consumer-config.properties")
 public class DemoServiceConsumerBootstrap {
 
-    @Reference(version = "${demo.service.version}")
+    @Reference(version = "${dubbo.service.version}")
     private DemoService demoService;
 
     @PostConstruct

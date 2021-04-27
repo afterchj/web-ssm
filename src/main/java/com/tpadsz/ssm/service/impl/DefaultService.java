@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 
 @Slf4j
-@Service(version = "${demo.service.version}")
+@Service(version = "${dubbo.service.version}")
 public class DefaultService implements DemoService {
 
     @Value("${demo.service.name}")

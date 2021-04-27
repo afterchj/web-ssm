@@ -1,5 +1,8 @@
 package com.tpadsz.ssm.controller;
 
+import com.isoft.after.constants.Result;
+import com.isoft.after.model.dto.UserDTO;
+import com.isoft.after.utils.ResponseUtil;
 import com.tpadsz.ssm.model.User;
 import com.tpadsz.ssm.service.UserService;
 import com.tpadsz.ssm.utils.AppUtils;
@@ -11,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,8 +58,8 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/ws")
-    public String test(HttpServletRequest request, User user) {
-        String username = user.getUserName();
+    public Result<String> test(HttpServletRequest request, @RequestBody UserDTO user) {
+        String username = user.getUsername();
         log.warn("user=" + username);
         username = StringUtils.isEmpty(username) ? ChatUtils.getRandomNickName() : username;
         request.getSession().setAttribute("WEBSOCKET_USERNAME", username);
@@ -64,12 +68,12 @@ public class UserController {
 //            model.addAttribute("user", user1);
 //            //return "ok";
 //        }
-        return "ok";
+        return ResponseUtil.SUCCESS("ok");
     }
 
     //    @ResponseBody
     @RequestMapping(value = "/upload.do")
-    public String upload(String account, MultipartFile file,HttpServletRequest request ) {
+    public String upload(String account, MultipartFile file, HttpServletRequest request) {
         System.out.println("count=" + account + ",ip=" + AppUtils.getRemoteIP(null));
         account = account.isEmpty() ? "766256898@qq.com" : account;
 //        System.out.println(info.getFileName() + "     " + info.getDesc());
