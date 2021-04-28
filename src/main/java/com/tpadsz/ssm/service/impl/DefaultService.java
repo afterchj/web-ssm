@@ -2,13 +2,14 @@ package com.tpadsz.ssm.service.impl;
 
 import com.isoft.after.api.DemoService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 
 @Slf4j
-@Service(version = "${dubbo.service.version}")
+@Service
 public class DefaultService implements DemoService {
 
     @Value("${demo.service.name}")

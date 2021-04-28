@@ -1,6 +1,5 @@
 package com.tpadsz.ssm.controller;
 
-import com.isoft.after.api.DemoService;
 import com.isoft.after.api.ExternService;
 import com.isoft.after.constants.Result;
 import com.isoft.after.model.dto.UserDTO;
@@ -27,7 +26,7 @@ public class DubboController {
     @RequestMapping(method = RequestMethod.GET)
     public Result<UserDTO> show(String username, String password) {
         log.warn("externService {}", externService);
-        return externService == null ? ResponseUtil.Failure() : externService.login(username, password);
+        return ResponseUtil.SUCCESS(externService.login(username, password));
     }
 
 }
