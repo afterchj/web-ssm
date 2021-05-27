@@ -1,9 +1,11 @@
 package com.tpadsz.ssm.filter;
 
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @Classname MyCorsFilter
@@ -11,37 +13,33 @@ import org.springframework.web.filter.CorsFilter;
  * @Date 2021/4/25 9:51
  * @Created by hjchen
  */
-public class GlobalCorsFilter extends CorsFilter {
 
+@Slf4j
+public class GlobalCorsFilter implements Filter {
 
-    public GlobalCorsFilter() {
-        super(buildSource());
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
     }
 
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String origin = request.getHeader("Origin");
+        log.warn("cors origin {}", origin);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
-    public static CorsConfigurationSource buildSource() {
-        //1.添加CORS配置信息
-        CorsConfiguration config = new CorsConfiguration();
-        //放行哪些原始域
-        config.addAllowedOrigin("*");
-        //是否发送Cookie信息
-        config.setAllowCredentials(true);
-        //放行哪些原始域(请求方式)
-        config.addAllowedMethod("*");
-        //放行哪些原始域(头部信息)
-        config.addAllowedHeader("*");
-        //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
-//        config.addExposedHeader("*");
-        config.addExposedHeader("Content-Type");
-        config.addExposedHeader("X-Requested-With");
-        config.addExposedHeader("accept");
-        config.addExposedHeader("Origin");
-        config.addExposedHeader("Access-Control-Request-Method");
-        config.addExposedHeader("Access-Control-Request-Headers");
+        filterChain.doFilter(servletRequest, servletResponse);
 
-        //2.添加映射路径
-        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
-        configSource.registerCorsConfiguration("/**", config);
-        return configSource;
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

@@ -1,6 +1,7 @@
 package com.tpadsz.ssm.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.isoft.after.model.dto.UserDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,11 @@ public class IdaasController {
     private static Logger logger = org.apache.log4j.Logger.getLogger(IdaasController.class);
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
-    public Object add(@RequestBody String param) {
+    public Object add(@RequestBody(required = false) UserDTO param) {
         logger.warn("add event execute:" + param);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("success", true);
-        jsonObject.put("status", 200);
+        jsonObject.put("code", 200);
         jsonObject.put("message", "操作成功");
         jsonObject.put("method", "POST");
         return new ResponseEntity<>(jsonObject, HttpStatus.OK);

@@ -1,6 +1,5 @@
 package com.tpadsz.ssm.utils;
 
-import com.tpadsz.ssm.service.rabbit.MessageProducer;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,7 +39,7 @@ public class SpringUtils {
         }
     }
 
-    public static MessageProducer getProducer() {
-        return ctx.getBean(MessageProducer.class);
-    }
+//    public static MessageProducer getProducer() {
+//        return ctx.getBean(MessageProducer.class);
+//    }
 }
