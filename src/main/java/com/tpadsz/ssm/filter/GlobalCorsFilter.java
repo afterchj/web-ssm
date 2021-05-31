@@ -3,7 +3,6 @@ package com.tpadsz.ssm.filter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -25,9 +24,6 @@ public class GlobalCorsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String origin = request.getHeader("Origin");
-        log.warn("cors origin {}", origin);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Max-Age", "3600");

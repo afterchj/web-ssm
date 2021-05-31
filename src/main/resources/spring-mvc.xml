@@ -10,20 +10,21 @@
        http://www.springframework.org/schema/websocket
        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
+    <import resource="conf/spring-dubbo.xml"/>
     <!--<mvc:default-servlet-handler/>-->
     <mvc:resources location="/img/" mapping="/img/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/file/" mapping="/file/**"/>
 
-<!--    <mvc:cors>-->
-<!--        <mvc:mapping path="/**"-->
-<!--                     allowed-origins="*"-->
-<!--                     allowed-methods="*"-->
-<!--                     allowed-headers="*"-->
-<!--                     allow-credentials="true"-->
-<!--                     max-age="3600"/>-->
-<!--    </mvc:cors>-->
+    <!--    <mvc:cors>-->
+    <!--        <mvc:mapping path="/**"-->
+    <!--                     allowed-origins="*"-->
+    <!--                     allowed-methods="*"-->
+    <!--                     allowed-headers="*"-->
+    <!--                     allow-credentials="true"-->
+    <!--                     max-age="3600"/>-->
+    <!--    </mvc:cors>-->
     <!-- 自动扫描  @Controller-->
     <context:component-scan base-package="com.tpadsz.ssm.controller"/>
     <!-- 处理请求返回json字符串的中文乱码问题 -->
@@ -110,5 +111,17 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="4096"/>
     </bean>
+    <!--开发环境配置文件 -->
+    <beans profile="development">
+        <context:property-placeholder location="classpath*:setup.development.properties,classpath:common.properties"/>
+    </beans>
+    <!-- 测试环境配置文件 -->
+    <beans profile="demo">
+        <context:property-placeholder location="classpath*:setup.demo.properties,classpath:common.properties"/>
+    </beans>
+    <!-- 生产环境配置文件 -->
+    <beans profile="production">
+        <context:property-placeholder location="classpath*:setup.production.properties,classpath:common.properties"/>
+    </beans>
 
 </beans>
