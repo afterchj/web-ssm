@@ -23,29 +23,37 @@
         <%--<source src="movie.ogg" type="video/ogg">--%>
         您的浏览器不支持Video标签。
     </video>
-    <img id="imgcode">
     <p><input name="file" type="file" value="浏览"></p>
     <p><input type="submit" value="login"></p>
+    <img id="imgcode39">
+    <br>
+    <img id="imgcode128">
 </form>
 </body>
 
 <script>
     console.log("生成二维码...");
-    JsBarcode("#imgcode", "scz20210419/001", {
+    JsBarcode("#imgcode39", "Q1M24W2AXPXM63T0B0020", {
         format: "CODE39",//选择要使用的条形码类型
-        width:1,//设置条之间的宽度
-        height:50,//高度
-        displayValue:true,//是否在条形码下方显示文字
-        text:"scz20210419/001(订单号/序号)",//覆盖显示的文本
+        width: 1,//设置条之间的宽度
+        height: 15,//高度
+        displayValue: true,//是否在条形码下方显示文字
+        text:"N/S:Q1M24W2AXPXM63T0B0020",//覆盖显示的文本
         // fontOptions:"bold italic",//使文字加粗体或变斜体
         // font:"fantasy",//设置文本的字体
         textAlign:"center",//设置文本的水平对齐方式
         textPosition:"bottom",//设置文本的垂直位置
-        textMargin:5,//设置条形码和文本之间的间距
-        fontSize:12,//设置文本的大小
+        textMargin:3,//设置条形码和文本之间的间距
+        fontSize:8,//设置文本的大小
         background:"#fff",//设置条形码的背景
         lineColor:"#000",//设置条和文本的颜色。
-        margin:5//设置条形码周围的空白边距
+        margin:2//设置条形码周围的空白边距
+    });
+    JsBarcode("#imgcode128", "Q1M24W2AXPXM63T0B0020", {
+        format: "CODE128",//选择要使用的条形码类型
+        width: 1,//设置条之间的宽度
+        height: 15,//高度
+        displayValue: false,//是否在条形码下方显示文字
     });
 
 </script>

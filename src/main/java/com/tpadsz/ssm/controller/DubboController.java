@@ -28,7 +28,7 @@ public class DubboController {
     @Autowired
     private ExternService externService;
 
-    @DubboReference(group = "dev", version = "0.2.0")
+    @DubboReference(group = "dev", version = "0.2.0",check = false)
     private DemoService demoService;
 
     @Value("${dubbo.provider.version}")
