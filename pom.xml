@@ -73,8 +73,8 @@
         <!-- pagehelper 分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>${pagehelper.boot.version}</version>
+            <artifactId>pagehelper</artifactId>
+            <version>5.2.0</version>
         </dependency>
         <!-- 添加spring核心依赖 -->
         <dependency>
