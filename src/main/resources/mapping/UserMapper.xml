@@ -35,7 +35,7 @@
     </select>
 
     <select id="selectAllUser" resultMap="UserBaseMap">
-        SELECT * FROM t_core_user limit 10
+        SELECT * FROM t_core_user
     </select>
 
     <select id="selectUserByPhoneOrEmail" resultType="com.tpadsz.ssm.model.User">

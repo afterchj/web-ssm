@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DubboController {
 
 
-    @Autowired
+//    @Autowired
     private ExternService externService;
 
     @DubboReference(group = "dev", version = "0.2.0",check = false)

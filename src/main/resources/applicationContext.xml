@@ -12,9 +12,9 @@
      http://www.springframework.org/schema/tx
      http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-<!--    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>-->
-    <import resource="classpath*:conf/spring-dubbo.xml" />
-<!--    <import resource="classpath*:conf/spring-rabbitMQ.xml" />-->
+    <!--    <context:property-placeholder ignore-resource-not-found="true" location="classpath:setup.development.properties"/>-->
+    <import resource="classpath*:conf/spring-dubbo.xml"/>
+    <!--    <import resource="classpath*:conf/spring-rabbitMQ.xml" />-->
     <!-- 根据@Pointcut注解定义的切点来自动代理相匹配的Bean -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
@@ -48,23 +48,23 @@
     <!--</property>-->
     <!--</bean>-->
 
-<!--    <bean name="memcachedClient" destroy-method="shutdown" class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">-->
-<!--        <property name="servers">-->
-<!--            <value>${memcached.url}</value>-->
-<!--        </property>-->
-<!--        <property name="sessionLocator">-->
-<!--            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>-->
-<!--        </property>-->
-<!--        <property name="transcoder">-->
-<!--            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>-->
-<!--        </property>-->
-<!--    </bean>-->
+    <!--    <bean name="memcachedClient" destroy-method="shutdown" class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">-->
+    <!--        <property name="servers">-->
+    <!--            <value>${memcached.url}</value>-->
+    <!--        </property>-->
+    <!--        <property name="sessionLocator">-->
+    <!--            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>-->
+    <!--        </property>-->
+    <!--        <property name="transcoder">-->
+    <!--            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
-<!--    &lt;!&ndash; XMemcached客户端 &ndash;&gt;-->
-<!--    <bean id="xMemcachedClient" class="com.tpadsz.ssm.utils.XMemcachedClient">-->
-<!--        <property name="memcachedClient" ref="memcachedClient"/>-->
-<!--        <property name="optTimeout" value="1000"/>-->
-<!--    </bean>-->
+    <!--    &lt;!&ndash; XMemcached客户端 &ndash;&gt;-->
+    <!--    <bean id="xMemcachedClient" class="com.tpadsz.ssm.utils.XMemcachedClient">-->
+    <!--        <property name="memcachedClient" ref="memcachedClient"/>-->
+    <!--        <property name="optTimeout" value="1000"/>-->
+    <!--    </bean>-->
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${jdbc.url}"/>
@@ -88,6 +88,17 @@
         <property name="mapperLocations" value="classpath:/mapping/*Mapper.xml"/>
         <property name="typeAliasesPackage" value="com.tpadsz.ssm.model"/>
         <property name="configLocation" value="classpath:/mybatisConfig.xml"/>
+        <!-- 配置分页插件 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>helperDialect=mysql</value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
 
@@ -132,12 +143,12 @@
         <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
     </aop:config>
 
-<!--    &lt;!&ndash; 配置Jedis的 缓冲池 &ndash;&gt;-->
-<!--    <bean id="JedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-<!--        -->
-<!--        p:maxIdle="6" p:minEvictableIdleTimeMillis="300000"-->
-<!--        p:numTestsPerEvictionRun="3" p:timeBetweenEvictionRunsMillis="60000">-->
-<!--    </bean>-->
+    <!--    &lt;!&ndash; 配置Jedis的 缓冲池 &ndash;&gt;-->
+    <!--    <bean id="JedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+    <!--        -->
+    <!--        p:maxIdle="6" p:minEvictableIdleTimeMillis="300000"-->
+    <!--        p:numTestsPerEvictionRun="3" p:timeBetweenEvictionRunsMillis="60000">-->
+    <!--    </bean>-->
 
 
     <!-- redis template definition -->
